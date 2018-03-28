@@ -1,6 +1,6 @@
 <?php
 
-include_once "sqlConnection.php";
+require_once "sqlConnection.php";
 
 if (isset($_GET['controller']) && isset($_GET['action'])) {
     $controller = $_GET['controller'];
@@ -10,6 +10,6 @@ if (isset($_GET['controller']) && isset($_GET['action'])) {
     $action     = 'login';
 }
 
-include_once "Views/header.php";
-include_once "routes.php";
-include_once "Views/footer.php";
+require_once "Views/header.php";
+require_once "routes.php";
+require_once "Views/footer.php";

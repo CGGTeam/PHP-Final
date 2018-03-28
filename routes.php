@@ -1,26 +1,26 @@
 <?php
 
-function call($controller, $action, $class) {
+function call($action, $controller) {
 
-    require_once('Controllers/' . $controller . 'Controller.php');
-
-    $objController = new $class;
+    $objController = new $controller;
 
     $objController->{ $action }();
 }
 
 $controllers = glob("Controllers/*.php");
-foreach ($controllers as $controllerTempo){
-    $controllerTempo = substr($controllerTempo, 0, -4);
+foreach ($controllers as &$controllerTempo){
+    $controllerTempo = substr(substr($controllerTempo, 0, -4),12);
 }
+unset($controllerTempo);
 
-if (array_key_exists($controller, $controllers)) {
-    $class = $controller . 'Controller';
-    if (in_array($action, get_class_methods($class))) {
-        call($controller, $action, $class);
+$controller .= 'Controller';
+if (in_array($controller, $controllers)) {
+    require_once('Controllers/' . $controller .'.php');
+    if (in_array($action, get_class_methods($controller))) {
+        call($action, $controller);
     } else {
-        call('autresPages', 'erreur', 'AutresController');
+        call('erreur', 'autresController');
     }
 } else {
-    call('autresPages', 'erreur', 'AutresController');
+    call( 'erreur', 'autresController');
 }
