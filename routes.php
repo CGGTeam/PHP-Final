@@ -19,8 +19,10 @@ if (in_array($controller, $controllers)) {
     if (in_array($action, get_class_methods($controller))) {
         call($action, $controller);
     } else {
+        require_once('Controllers/autresController.php');
         call('erreur', 'autresController');
     }
 } else {
+    require_once('Controllers/autresController.php');
     call( 'erreur', 'autresController');
 }
