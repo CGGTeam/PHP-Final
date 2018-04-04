@@ -6,7 +6,7 @@
      * Time: 12:45 AM
      */
     
-    class EditReferences
+    class EditReferencesController
     {
         function ajouterSession()
         {

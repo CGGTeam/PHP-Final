@@ -6,7 +6,7 @@
      * Time: 12:45 AM
      */
     
-    class EditGroupes
+    class EditGroupesController
     {
         function lireCSV()
         {
