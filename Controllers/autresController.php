@@ -11,7 +11,10 @@ class autresController
     public function erreur(){
         require_once "Views/Autres/Erreur.php";
     }
-
+    
+    /**
+     *
+     */
     public function test(){
         /* @var $result mysqli_result */
         $result = $GLOBALS['BD']->selectionneRow("tabletest");
