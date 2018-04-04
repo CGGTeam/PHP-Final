@@ -15,15 +15,24 @@
         
         function login()
         {
-            $strNomUtil = post("tbNomUtil");
-            $strMotPasse = post("tbMotPasse");
+            $strNomUtil = post("tbNomUtilisateur");
+            $strMotPasse = post("tbMotDePasse");
             if ($strNomUtil && $strMotPasse) {
                 /** @var mysql $BD */
                 global $BD;
-                $BD->requete();
-            } else {
-                require_once $_SERVER['DOCUMENT_ROOT'] . "/Views/Login/LoginView.php";
-                return;
+                $strConditions = "NomUtilisateur = " . $strNomUtil;
+                $strConditions .= "MotDePasse = " . $strMotPasse;
+                $objRetour = $BD->selectionneRow("Utilisateurs",
+                    "NomUtilisateur, MotDePasse, StatutAdmin, NomComplet", $strConditions);
+                if ($objRetour) {
+                    $binAdmin = true;
+                    //TODO: request
+                    if ($binAdmin) {
+                        require_once $_SERVER["DOCUMENT_ROOT"] . "/Views/AdminMenu/AdminMenuView.php";
+                    } else {
+                        require_once $_SERVER["DOCUMENT_ROOT"] . "/Views/UserMenu/UserMenuView.php";
+                    }
+                }
             }
         }
     }
