@@ -9,8 +9,8 @@ if (isset($_GET['controller']) && isset($_GET['action'])) {
     $controller = $_GET['controller'];
     $action     = $_GET['action'];
 } else {
-    $controller = 'CompteController';
-    $action     = 'login';
+    $controller = 'Login';
+    $action = 'showLogin';
 }
 
 require_once "Views/header.php";

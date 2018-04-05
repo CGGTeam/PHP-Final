@@ -26,11 +26,10 @@
           $this->nomFichierInfosSensibles = $strNomFichierInfosSensibles;
           $this->connexion();
       }
-      /*
-      |----------------------------------------------------------------------------------|
-      | connexion()
-      |----------------------------------------------------------------------------------|
-      */
+    
+       /**
+        * @return mysqli|null retourne le link si succès ou null autrement
+        */
       function connexion() {
           require($this->nomFichierInfosSensibles);
           $this->cBD = mysqli_connect("localhost", $strNomAdmin, $strMotPasseAdmin, $this->nomBD);
@@ -41,11 +40,16 @@
           };
           return $this->cBD;
       }
-      /*
-      |----------------------------------------------------------------------------------|
-      | copieEnregistrements
-      |----------------------------------------------------------------------------------|
-      */
+    
+       /**
+        * Copie les enregistrements qui correspondent à des critères d'une table à une autre.
+        * @param string $strNomTableSource Nom de la table à partir de laquelle les enregistrements seront copiés
+        * @param string $strListeChampsSource Liste de champs à copier
+        * @param string $strNomTableCible Nom de la table où seront copié les enregistrements
+        * @param string | null $strListeChampsCible spécifie optionnellement des champs cibles. Par défaut = champs sources
+        * @param string $strListeConditions Conditions pour la clause WHERE
+        * @return bool retourne un booléen selon la réussite ou l'échec de la requête
+        */
       function copieEnregistrements($strNomTableSource, $strListeChampsSource, $strNomTableCible, $strListeChampsCible, $strListeConditions="") {
          /* Réf.: www.lecoindunet.com/dupliquer-ou-copier-des-lignes-d-une-table-vers-une-autre-avec-mysql-175 */
          if($strListeChampsCible == ""){
@@ -59,11 +63,12 @@
           $this->OK = mysqli_query($this->cBD, $this->requete);
           return $this->OK;
       }
-      /*
-      |----------------------------------------------------------------------------------|
-      | creeTable
-      |----------------------------------------------------------------------------------|
-      */
+    
+       /**
+        * Créé une table vide
+        * @param $strNomTable Nom de la table à créer
+        * @return bool Succès ou non de la requête
+        */
       function creeTable($strNomTable) {
           $this->requete = "CREATE TABLE $strNomTable (";
           for($i = 1; $i < func_num_args()-1; $i+=2){
@@ -73,11 +78,14 @@
           $this->OK = mysqli_query($this->cBD, $this->requete);
           return $this->OK;
       }
-      /*
-      |----------------------------------------------------------------------------------|
-      | creeTableGenerique()
-      |----------------------------------------------------------------------------------|
-      */
+    
+       /**
+        * Créé une table avec des colonnes.
+        * @param $strNomTable Nom de la table
+        * @param $strDefinitions Liste de colonnes avec des types
+        * @param $strCles Colonne(s) qui servira de clé primaire
+        * @return bool succès ou non de la requête
+        */
       function creeTableGenerique($strNomTable, $strDefinitions, $strCles) {
 
           $tType = [
@@ -108,19 +116,19 @@
           $this->OK = mysqli_query($this->cBD, $this->requete);
           return $this->OK;
       }
-      /*
-      |----------------------------------------------------------------------------------|
-      | deconnexion
-      |----------------------------------------------------------------------------------|
-      */
+    
+       /**
+        * Ferme la connexion avec la base de données
+        */
       function deconnexion() {
           $this->cBD = mysqli_close($this->cBD);
       }
-      /*
-      |----------------------------------------------------------------------------------|
-      | insereEnregistrement
-      |----------------------------------------------------------------------------------|
-      */
+    
+       /**
+        * Insère une série d'arguments à une table
+        * @param string $strNomTable Nom de la table
+        * @return bool succès ou échec de la requête
+        */
       function insereEnregistrement($strNomTable) {
           $this->requete = "INSERT INTO $strNomTable VALUES (" . func_get_arg(1);
           for($i = 2; $i < func_num_args(); $i++) {
@@ -142,18 +150,27 @@
           return $this->OK;
 
       }
-      /*
-      |----------------------------------------------------------------------------------|
-      | modifieChamp
-      |----------------------------------------------------------------------------------|
-      */
+    
+       /**
+        * Modifie un champ d'une table
+        * @param string $strNomTable Nom de la table cible
+        * @param string $strNomChamp Nom du champ cible
+        * @param string $strNouvelleDefinition Nouvelle définition de colonne
+        * @return bool Succès ou Échec de la requête
+        */
       function modifieChamp($strNomTable, $strNomChamp, $strNouvelleDefinition) {
           $this->requete = "ALTER TABLE $strNomTable CHANGE $strNomChamp $strNouvelleDefinition";
           $this->OK = mysqli_query($this->cBD, $this->requete);
           return $this->OK;
       }
-
-
+    
+    
+       /**
+        * @param string $strNomTable nom de la table
+        * @param string $strListeRows liste de colonnes à afficher
+        * @param string $strConditions liste de conditions pour la clause WHERE
+        * @return bool|mysqli_result faux si échec, mysqli_result si succès
+        */
       function selectionneRow($strNomTable, $strListeRows="*", $strConditions=""){
           $this->requete = "SELECT $strListeRows FROM $strNomTable";
           if($strConditions != ""){
@@ -162,21 +179,22 @@
           $this->OK = mysqli_query($this->cBD, $this->requete);
           return $this->OK;
       }
-
-      /*
-      |----------------------------------------------------------------------------------|
-      | selectionneBD()
-      |----------------------------------------------------------------------------------|
-      */
+    
+       /**
+        * Sélectionne la base de données this->nomBD
+        * @return bool échec ou succès de la sélection
+        */
       function selectionneBD() {
           $this->OK = mysqli_select_db($this->cBD, $this->nomBD);
           return $this->OK;
       }
-      /*
-      |----------------------------------------------------------------------------------|
-      | supprimeEnregistrements
-      |----------------------------------------------------------------------------------|
-      */
+    
+       /**
+        * Supprime les enregistrements de la table qui correspondent à la liste de conditions
+        * @param string $strNomTable Nom de la table cible
+        * @param string $strListeConditions Liste de condition pour la cause WHEREs
+        * @return bool échec ou succès de la requêtes
+        */
       function supprimeEnregistrements($strNomTable, $strListeConditions="") {
           $this->requete = "DELETE FROM $strNomTable";
           if($strListeConditions != ""){
@@ -185,22 +203,18 @@
           $this->OK = mysqli_query($this->cBD, $this->requete);
           return $this->OK;
       }
-      /*
-      |----------------------------------------------------------------------------------|
-      | supprimeTable()
-      |----------------------------------------------------------------------------------|
-      */
+    
+       /**
+        * supprime une table
+        * @param $strNomTable Nom de la table à supprimer
+        */
       function supprimeTable($strNomTable) {
           $strRequete = "DROP TABLE $strNomTable";
           $binOK = mysqli_query($this->cBD, $strRequete);
       }
-      /*
-      |----------------------------------------------------------------------------------|
-      | afficheInformationsSurBD()
-      | Affiche la structure et le contenu de chaque table de la base de données recherchée
-      |----------------------------------------------------------------------------------|
-      */
-      function afficheInformationsSurBD()
+    
+    
+       function afficheInformationsSurBD()
       {
           /* Si applicable, récupération du nom de la table recherchée */
           $strNomTableRecherchee = "";

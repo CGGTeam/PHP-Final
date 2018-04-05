@@ -11,7 +11,10 @@ class autresController
     public function erreur(){
         return new View();
     }
-
+    
+    /**
+     *
+     */
     public function test(){
         /* @var $result mysqli_result */
         $result = $GLOBALS['BD']->selectionneRow("tabletest");

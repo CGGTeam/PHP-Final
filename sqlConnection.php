@@ -8,6 +8,11 @@ $strLocalHost = "localhost";
 
 if(!isset($GLOBALS['BD'])) {
     detecteServeur($strMonIP, $strIPServeur, $strNomServeur, $strInfosSensibles);
+    /** - Connection à la base de données MySQL
+     * @global mysqli $GLOBALS ['BD']
+     * @name $BD
+     */
     $GLOBALS['BD'] = new mysql($strNomBD, $strInfosSensibles);
     $GLOBALS['BD']->connexion();
 }
+
