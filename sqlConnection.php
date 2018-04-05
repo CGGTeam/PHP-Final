@@ -6,6 +6,8 @@ $strInfosSensibles = "";
 $strNomBD="bdh18_boyer";
 $strLocalHost = "localhost";
 
-detecteServeur($strMonIP, $strIPServeur, $strNomServeur, $strInfosSensibles);
-$GLOBALS['BD'] = new mysql($strNomBD, $strInfosSensibles);
-$GLOBALS['BD']->connexion();
+if(!isset($GLOBALS['BD'])) {
+    detecteServeur($strMonIP, $strIPServeur, $strNomServeur, $strInfosSensibles);
+    $GLOBALS['BD'] = new mysql($strNomBD, $strInfosSensibles);
+    $GLOBALS['BD']->connexion();
+}

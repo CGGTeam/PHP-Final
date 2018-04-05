@@ -9,7 +9,7 @@
 class autresController
 {
     public function erreur(){
-        require_once "Views/Autres/Erreur.php";
+        return new View();
     }
 
     public function test(){
@@ -21,6 +21,7 @@ class autresController
                 $strAAfficher .= "id: " . $row["id"]. " - value: " . $row["value"] . "<br>";
             }
         }
-        require_once "Views/Autres/Test.php";
+        $view = new View();
+        return $view;
     }
 }

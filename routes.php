@@ -4,7 +4,7 @@ function call($action, $controller) {
 
     $objController = new $controller;
 
-    $objController->{ $action }();
+    $objController->{ $action }()->afficher();
 }
 
 $controllers = glob("Controllers/*.php");
