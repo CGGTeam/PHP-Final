@@ -13,7 +13,9 @@ class ModelBinding
     private $modelState;
     public function __construct(Array $properties=array(), $binAjout=false)
     {
-        $bd = $GLOBALS['BD'];
+        global $bd;
+        $this->bd = $bd;
+
         $this->modelState = $binAjout ? ModelState::Added : ModelState::Same;
         foreach ($properties as $key => $value) {
             $this->{$key} = $value;
@@ -33,12 +35,12 @@ class ModelBinding
     }
 
     public static function bindToClass($result, $class){
-        $objBinded = [];
+        $objBound = [];
         if($result->num_rows>0){
             while($row = $result->fetch_assoc()){
-                $objBinded[] = new $class($row);
+                $objBound[] = new $class($row);
             }
         }
-        return $objBinded;
+        return $objBound;
     }
 }

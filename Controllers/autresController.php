@@ -8,6 +8,15 @@
 
 class autresController
 {
+
+    private $bd;
+    public function __construct()
+    {
+        /* @var $this->bd mysql */
+        global $bd;
+        $this->bd = $bd;
+    }
+
     public function erreur(){
         return new View('Not found', 404);
     }
@@ -16,8 +25,7 @@ class autresController
      *
      */
     public function test(){
-        /* @var $result mysqli_result */
-        $result = $GLOBALS['BD']->selectionneRow("tabletest");
+        $result = $this->bd->selectionneRow("tabletest");
         $categories = ModelBinding::bindToClass($result,'Categorie');
         return new View($categories[0]);
     }

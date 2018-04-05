@@ -6,13 +6,10 @@ $strInfosSensibles = "";
 $strNomBD="bdh18_boyer";
 $strLocalHost = "localhost";
 
-if(!isset($GLOBALS['BD'])) {
     detecteServeur($strMonIP, $strIPServeur, $strNomServeur, $strInfosSensibles);
     /** - Connection à la base de données MySQL
-     * @global mysqli $GLOBALS ['BD']
-     * @name $BD
+     * @global mysqli $bd
      */
-    $GLOBALS['BD'] = new mysql($strNomBD, $strInfosSensibles);
-    $GLOBALS['BD']->connexion();
-}
-
+    global $bd;
+    $bd = new mysql($strNomBD, $strInfosSensibles);
+    $bd->connexion();

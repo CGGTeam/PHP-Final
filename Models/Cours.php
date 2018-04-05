@@ -9,7 +9,7 @@
     /**
      * Class Cours Modèle qui représente un Cours
      */
-    class Cours
+    class Cours extends ModelBinding
     {
         public $sigle;
         public $titre;
