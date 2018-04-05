@@ -21,6 +21,7 @@ class ModelBinding
     }
 
     public function saveChangesOnObj(){
+        //TODO saveChanges pour chaque modelState
         if($this->modelState != ModelState::Same && $this->modelState != ModelState::Invalid) {
             switch ($this->modelState) {
                 case ModelState::Added:
