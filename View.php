@@ -13,16 +13,25 @@ class View
 
     public function __construct($model=null, $strChemin=null)
     {
+        $this->model = $model;
         if(!$strChemin){
             $backtrace = debug_backtrace();
             $this->strChemin = preg_replace('/(Controllers)\\\(.*)(Controller.php)/', 'Views\\\$2\\' . $backtrace[1]['function'] . '.php',$backtrace[0]['file']);
+        }
+
+        if(is_int($strChemin)){
+            http_response_code($strChemin);
         }
     }
 
 
     public function afficher(){
         $model = $this->model;
-        require_once $this->strChemin;
+        if(http_response_code() == 200) {
+            require_once $this->strChemin;
+        }else {
+            echo "<h1>$model</h1>";
+        }
     }
 
     /**

@@ -9,7 +9,7 @@
 class autresController
 {
     public function erreur(){
-        return new View();
+        return new View('Not found', 404);
     }
     
     /**
