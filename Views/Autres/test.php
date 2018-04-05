@@ -1,4 +1,5 @@
-TEST!<br/>
 <?php
-echo $strAAfficher
+/** @var Categorie $model */
 ?>
+TEST!<br/>
+<?=$model->description?>

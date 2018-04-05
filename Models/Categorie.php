@@ -9,15 +9,14 @@
     /**
      * Class Categorie modèle qui représente une catégorie
      */
-    class Categorie
+    class Categorie extends ModelBinding
     {
+        //Champs de la table
+        public $id;
         public $description;
-    
-        /**
-         * Categorie constructor.
-         * @param string $strDescription - Nom de la catégorie
-         */
-        function __construct($strDescription) {
-            $this->description = $strDescription;
+
+        public function __construct(array $properties = array())
+        {
+            parent::__construct($properties);
         }
     }

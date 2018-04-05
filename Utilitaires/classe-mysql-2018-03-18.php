@@ -150,6 +150,27 @@
           return $this->OK;
 
       }
+
+       /**
+        * Insère une série d'arguments à une table
+        * @param string $strNomTable Nom de la table
+        * @param array $tbValeurs Association key-valeurs a inserer
+        * @return bool succès ou échec de la requête
+        */
+       function insereEnregistrementTb($strNomTable, $tbValeurs) {
+           $this->requete = "INSERT INTO $strNomTable (";
+           foreach ($tbValeurs as $key => $value) {
+               $this->requete .= $key . ", ";
+           }
+           $this->requete = substr($this->requete,0, -2) . ") VALUES (";
+           foreach ($tbValeurs as $key => $value) {
+               $this->requete .= $value . ", ";
+           }
+           $this->requete = substr($this->requete,0, -2) . ")";
+           $this->OK = mysqli_query($this->cBD, $this->requete);
+           return $this->OK;
+
+       }
     
        /**
         * Modifie un champ d'une table
