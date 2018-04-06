@@ -12,27 +12,31 @@
         {
             //init
         }
-        
-        function login()
+    
+        function Login()
         {
             $strNomUtil = post("tbNomUtilisateur");
             $strMotPasse = post("tbMotDePasse");
+            $objView = new View(null, "Views/Login/LoginView.php");
+    
             if ($strNomUtil && $strMotPasse) {
-                /** @var mysql $BD */
-                global $BD;
                 $strConditions = "NomUtilisateur = " . $strNomUtil;
                 $strConditions .= "MotDePasse = " . $strMotPasse;
+                /** @var mysql $BD */
+                global $BD;
                 $objRetour = $BD->selectionneRow("Utilisateurs",
                     "NomUtilisateur, MotDePasse, StatutAdmin, NomComplet", $strConditions);
                 if ($objRetour) {
+                    $objUtilisateur = null;
                     $binAdmin = true;
-                    //TODO: request
                     if ($binAdmin) {
-                        require_once $_SERVER["DOCUMENT_ROOT"] . "/Views/AdminMenu/AdminMenuView.php";
+                        $objView = new View($objUtilisateur, "../Views/AdminMenu/AdminMenuView.php");
                     } else {
-                        require_once $_SERVER["DOCUMENT_ROOT"] . "/Views/UserMenu/UserMenuView.php";
+                        $objView = new View($objUtilisateur, "../Views/UserMenu/UserMenuView.php");
                     }
                 }
             }
+        
+            return $objView;
         }
     }

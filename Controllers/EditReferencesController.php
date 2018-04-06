@@ -1,3 +1,4 @@
+lol
 <?php
     /**
      * Created by PhpStorm.
