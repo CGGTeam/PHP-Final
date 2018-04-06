@@ -11,6 +11,7 @@
      */
     class Utilisateur extends ModelBinding
     {
+        public static $utilisateurCourant;
         public $id;
         public $nomUtilisateur;
         public $motDePasse;
@@ -18,7 +19,6 @@
         public $nomComplet;
         public $courriel;
     
-
         public function __construct(array $properties = array(), $binAjout = false)
         {
             parent::__construct($properties, $binAjout);

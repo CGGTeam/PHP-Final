@@ -8,9 +8,12 @@
     
     class LoginController
     {
+    
         function __construct()
         {
             //init
+            require_once "Models/Login/LoginModel.php";
+            require_once "Models/Login/EnumEtatsLogin.php";
         }
     
         function Login()
@@ -26,6 +29,8 @@
                     $objView = new View(new LoginModel(EnumEtatsLogin::MOT_DE_PASSE_VIDE));
                 } else if ($strNomUtil == "") {
                     $objView = new View(new LoginModel(EnumEtatsLogin::UTILISATEUR_VIDE));
+                } else if ($strNomUtil == "make" && $strMotPasse == "coffee") {
+                    $objView = new View("418: not a teapot", 418);
                 } else {
                     $strConditions = "NomUtilisateur = " . $strNomUtil;
                     $strConditions .= "MotDePasse = " . $strMotPasse;
@@ -34,20 +39,19 @@
                     $objRetour = $BD->selectionneRow("Utilisateur",
                         "NomUtilisateur, MotDePasse, StatutAdmin, NomComplet", $strConditions);
                     if ($objRetour) {
-                        $objUtilisateur = null;
-                        $binAdmin = true;
-                        if ($binAdmin) {
-                            $objView = new View($objUtilisateur, "../Views/AdminMenu/AdminMenuView.php");
+                        Utilisateur::$utilisateurCourant = ModelBinding::bindToClass($objRetour, "Utilisateur");
+        
+                        if (Utilisateur::$utilisateurCourant->statutAdmin) {
+                            $objView = new View(Utilisateur::$utilisateurCourant, "Views/AdminMenu/AdminMenuView.php");
                         } else {
-                            $objView = new View($objUtilisateur, "../Views/UserMenu/UserMenuView.php");
+                            $objView = new View(Utilisateur::$utilisateurCourant, "Views/UserMenu/UserMenuView.php");
                         }
                     } else {
                         $objView = new View(new LoginModel(EnumEtatsLogin::LOGIN_FAILED));
                     }
                 }
             } else if (!$strNomUtil || !$strMotPasse) {
-                $objView = new View(new LoginModel(EnumEtatsLogin::AUCUN_POST),
-                    "../Views/UserMenu/LoginView.php");
+                $objView = new View(new LoginModel(EnumEtatsLogin::AUCUN_POST));
             }
         
             return $objView;

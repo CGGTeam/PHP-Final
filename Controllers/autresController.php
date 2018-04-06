@@ -27,6 +27,6 @@ class autresController
     public function test(){
         $result = $this->bd->selectionneRow("tabletest");
         $categories = ModelBinding::bindToClass($result,'Categorie');
-        return new View($categories[0]);
+        return new View($categories[0] . "View");
     }
 }

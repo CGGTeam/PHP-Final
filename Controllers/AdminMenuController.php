@@ -11,6 +11,18 @@
         function __construct()
         {
             //init
+            require_once "Models/Donnees/Utilisateur.php";
+            require_once "Utilitaires/ModelBinding.php";
+        }
+    
+        function adminMenu()
+        {
+            echo "adminMenu";
+            if (Utilisateur::$utilisateurCourant && Utilisateur::$utilisateurCourant->statutAdmin) {
+                return new View();
+            } else {
+                return new View("403: Not Authorized", 403);
+            }
         }
         
         /**
@@ -20,7 +32,7 @@
          */
         function editDocuments()
         {
-        
+            return new View();
         }
         
         /**
@@ -31,7 +43,7 @@
          */
         function editReferences()
         {
-        
+            return new View();
         }
         
         /**
@@ -42,7 +54,7 @@
          */
         function editPrivileges()
         {
-        
+            return new View();
         }
         
         /**
@@ -53,7 +65,7 @@
          */
         function editGroupes()
         {
-        
+            return new View();
         }
         
         /**
@@ -63,11 +75,12 @@
          */
         function editArborescence()
         {
-        
+            return new View();
         }
         
         function quitter()
         {
-        
+            Utilisateur::$utilisateurCourant = null;
+            return new View(EnumEtatsLogin::AUCUN_POST, "Views/Login/LoginView.php");
         }
     }

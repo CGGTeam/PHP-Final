@@ -11,6 +11,11 @@ class ModelBinding
     /** @var mysql $bd */
     private $bd;
     private $modelState;
+    
+    /**
+     * ModelBinding constructor.
+     * @param array $properties
+     */
     public function __construct(Array $properties=array(), $binAjout=false)
     {
         global $bd;
@@ -38,7 +43,7 @@ class ModelBinding
         $objBound = [];
         if($result->num_rows>0){
             while($row = $result->fetch_assoc()){
-                $objBound[] = new $class($row);
+                $objBound = new $class($row);
             }
         }
         return $objBound;

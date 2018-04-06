@@ -10,11 +10,6 @@
     {
         function selection()
         {
-        
-        }
-        
-        function retour()
-        {
-        
+            return new View(null, "Views/EditDocuments/EditDocumentsView.php");
         }
     }

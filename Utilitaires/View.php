@@ -16,7 +16,7 @@ class View
         $this->model = $model;
         if(!$strChemin){
             $backtrace = debug_backtrace();
-            $this->strChemin = preg_replace('/(Controllers)\\\(.*)(Controller.php)/', 'Views\\\$2\\' . $backtrace[1]['function'] . '.php', $backtrace[0]['file']);
+            $this->strChemin = preg_replace('/(Controllers)\\\(.*)(Controller.php)/', 'Views\\\$2\\' . $backtrace[1]['function'] . 'View.php', $backtrace[0]['file']);
         } else if (is_int($strChemin)) {
             http_response_code($strChemin);
         } else {
