@@ -17,24 +17,37 @@
         {
             $strNomUtil = post("tbNomUtilisateur");
             $strMotPasse = post("tbMotDePasse");
-            $objView = new View(null, "Views/Login/LoginView.php");
+            $objView = null;
     
             if ($strNomUtil && $strMotPasse) {
-                $strConditions = "NomUtilisateur = " . $strNomUtil;
-                $strConditions .= "MotDePasse = " . $strMotPasse;
-                /** @var mysql $BD */
-                global $BD;
-                $objRetour = $BD->selectionneRow("Utilisateurs",
-                    "NomUtilisateur, MotDePasse, StatutAdmin, NomComplet", $strConditions);
-                if ($objRetour) {
-                    $objUtilisateur = null;
-                    $binAdmin = true;
-                    if ($binAdmin) {
-                        $objView = new View($objUtilisateur, "../Views/AdminMenu/AdminMenuView.php");
+                if ($strNomUtil == "" && $strMotPasse == "") {
+                    $objView = new View(new LoginModel(EnumEtatsLogin::UTILISATEUR_ET_MOT_DE_PASSE_VIDE));
+                } else if ($strMotPasse == "") {
+                    $objView = new View(new LoginModel(EnumEtatsLogin::MOT_DE_PASSE_VIDE));
+                } else if ($strNomUtil == "") {
+                    $objView = new View(new LoginModel(EnumEtatsLogin::UTILISATEUR_VIDE));
+                } else {
+                    $strConditions = "NomUtilisateur = " . $strNomUtil;
+                    $strConditions .= "MotDePasse = " . $strMotPasse;
+                    /** @var mysql $BD */
+                    global $BD;
+                    $objRetour = $BD->selectionneRow("Utilisateur",
+                        "NomUtilisateur, MotDePasse, StatutAdmin, NomComplet", $strConditions);
+                    if ($objRetour) {
+                        $objUtilisateur = null;
+                        $binAdmin = true;
+                        if ($binAdmin) {
+                            $objView = new View($objUtilisateur, "../Views/AdminMenu/AdminMenuView.php");
+                        } else {
+                            $objView = new View($objUtilisateur, "../Views/UserMenu/UserMenuView.php");
+                        }
                     } else {
-                        $objView = new View($objUtilisateur, "../Views/UserMenu/UserMenuView.php");
+                        $objView = new View(new LoginModel(EnumEtatsLogin::LOGIN_FAILED));
                     }
                 }
+            } else if (!$strNomUtil || !$strMotPasse) {
+                $objView = new View(new LoginModel(EnumEtatsLogin::AUCUN_POST),
+                    "../Views/UserMenu/LoginView.php");
             }
         
             return $objView;
