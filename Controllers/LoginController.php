@@ -56,8 +56,6 @@
             } else if (!$strNomUtil || !$strMotPasse) {
                 $objView = new View(new LoginModel(EnumEtatsLogin::AUCUN_POST));
             }
-    
-    
             return $objView;
         }
     }
