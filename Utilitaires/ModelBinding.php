@@ -49,4 +49,9 @@ class ModelBinding
         }
         return $objBound;
     }
+    
+    public function getModelState()
+    {
+        return $this->modelState;
+    }
 }
