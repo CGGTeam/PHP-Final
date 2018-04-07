@@ -8,6 +8,11 @@
     
     class EditGroupesController
     {
+        function editGroupes()
+        {
+            return new View();
+        }
+        
         function lireCSV()
         {
         

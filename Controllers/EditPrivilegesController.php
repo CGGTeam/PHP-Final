@@ -8,6 +8,11 @@
     
     class EditPrivilegesController
     {
+        function editPrivileges()
+        {
+            return new View();
+        }
+        
         function enregistrerPrivileges()
         {
         

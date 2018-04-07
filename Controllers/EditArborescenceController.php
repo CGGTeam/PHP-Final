@@ -8,8 +8,12 @@
     
     class EditArborescenceController
     {
+        function editArborescence()
+        {
+            return new View();
+        }
         function nettoyage()
         {
-        
+            return new View();
         }
     }

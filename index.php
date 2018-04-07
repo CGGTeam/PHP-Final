@@ -1,5 +1,4 @@
 <?php
-    require_once "Utilitaires/libraries-communes-2018-03-28.php";
     require_once "Utilitaires/classe-mysql-2018-03-18.php";
     require_once "sqlConnection.php";
     require_once "Utilitaires/View.php";
@@ -17,3 +16,4 @@ if (isset($_GET['controller']) && isset($_GET['action'])) {
 require_once "Views/header.php";
 require_once "routes.php";
 require_once "Views/footer.php";
+?>

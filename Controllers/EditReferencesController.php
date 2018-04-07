@@ -9,6 +9,11 @@ lol
     
     class EditReferencesController
     {
+        function editReferences()
+        {
+            return new View();
+        }
+        
         function ajouterSession()
         {
         

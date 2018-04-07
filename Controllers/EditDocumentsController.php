@@ -8,6 +8,10 @@
     
     class EditDocumentsController
     {
+        function editDocuments()
+        {
+            return new View();
+        }
         function selection()
         {
             return new View(null, "Views/EditDocuments/EditDocumentsView.php");

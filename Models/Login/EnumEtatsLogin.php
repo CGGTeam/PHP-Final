@@ -8,9 +8,6 @@
     
     abstract class EnumEtatsLogin
     {
-        const LOGIN_FAILED = 0;
-        const UTILISATEUR_ET_MOT_DE_PASSE_VIDE = 1;
-        const MOT_DE_PASSE_VIDE = 2;
-        const UTILISATEUR_VIDE = 3;
-        const AUCUN_POST = 4;
+        const AUCUN_POST = 0;
+        const LOGIN_FAILED = 1;
     }

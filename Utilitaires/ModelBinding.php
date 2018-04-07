@@ -15,6 +15,7 @@ class ModelBinding
     /**
      * ModelBinding constructor.
      * @param array $properties
+     * @param bool $binAjout
      */
     public function __construct(Array $properties=array(), $binAjout=false)
     {

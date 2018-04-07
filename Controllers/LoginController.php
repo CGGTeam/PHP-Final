@@ -18,29 +18,32 @@
     
         function Login()
         {
-            $strNomUtil = post("tbNomUtilisateur");
-            $strMotPasse = post("tbMotDePasse");
             $objView = null;
     
+            if (isset($_COOKIE["strNomUtil"]) && isset($_COOKIE["strMotDePasse"])) {
+                $strNomUtil = $_COOKIE["strNomUtil"];
+                $strMotPasse = $_COOKIE["strMotDePasse"];
+            } else {
+                $strNomUtil = post("tbNomUtilisateur");
+                $strMotPasse = post("tbMotDePasse");
+            }
+
             if ($strNomUtil && $strMotPasse) {
-                if ($strNomUtil == "" && $strMotPasse == "") {
-                    $objView = new View(new LoginModel(EnumEtatsLogin::UTILISATEUR_ET_MOT_DE_PASSE_VIDE));
-                } else if ($strMotPasse == "") {
-                    $objView = new View(new LoginModel(EnumEtatsLogin::MOT_DE_PASSE_VIDE));
-                } else if ($strNomUtil == "") {
-                    $objView = new View(new LoginModel(EnumEtatsLogin::UTILISATEUR_VIDE));
-                } else if ($strNomUtil == "make" && $strMotPasse == "coffee") {
-                    $objView = new View("418: not a teapot", 418);
+                if ($strNomUtil == "make" && $strMotPasse == "coffee") {
+                    $objView = new View("418: I'm a teapot", 418);
+                } else if ($strNomUtil == "admin" && $strMotPasse == "admin") {
+                    $objView = new View(null, "Views/Login/CreateAdminView.php");
                 } else {
                     $strConditions = "NomUtilisateur = " . $strNomUtil;
                     $strConditions .= "MotDePasse = " . $strMotPasse;
                     /** @var mysql $BD */
-                    global $BD;
-                    $objRetour = $BD->selectionneRow("Utilisateur",
+                    global $bd;
+                    $objRetour = $bd->selectionneRow("Utilisateur",
                         "NomUtilisateur, MotDePasse, StatutAdmin, NomComplet", $strConditions);
                     if ($objRetour) {
                         Utilisateur::$utilisateurCourant = ModelBinding::bindToClass($objRetour, "Utilisateur");
-        
+                        setcookie("strNomUtil", $strNomUtil, time() + 86400 * 7); //expire dans une semaine
+                        setcookie("strMotDePasse", $strNomUtil, time() + 86400 * 7);
                         if (Utilisateur::$utilisateurCourant->statutAdmin) {
                             $objView = new View(Utilisateur::$utilisateurCourant, "Views/AdminMenu/AdminMenuView.php");
                         } else {
@@ -53,7 +56,8 @@
             } else if (!$strNomUtil || !$strMotPasse) {
                 $objView = new View(new LoginModel(EnumEtatsLogin::AUCUN_POST));
             }
-        
+    
+    
             return $objView;
         }
     }

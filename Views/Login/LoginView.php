@@ -1,3 +1,10 @@
+<form id="frmSaisieLogin" action="index.php?controller=Login&action=Login" method="post">
+    <input id="tbNomUtilisateur" name="tbNomUtilisateur" type="text"/>
+    <input id="tbMotDePasse" name="tbMotDePasse" type="text"/>
+    <input id="btnSubmit" type="submit"/>
+</form>
+
+
 <?php
     /**
      * Created by PhpStorm.
@@ -6,4 +13,4 @@
      * Time: 4:43 PM
      */
     
-    echo "Page login";
+    echo $model->etat;
