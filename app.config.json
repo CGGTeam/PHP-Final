@@ -1,0 +1,10 @@
+{
+  "basedonnees":{
+    "hostname": "localhost",
+    "port": "3306",
+    "nombase": "php-final-bd",
+    "doInitBase": true,
+    "utilisateur": "php-final",
+    "motdepasse": "CykaBlyat69!"
+  }
+}
