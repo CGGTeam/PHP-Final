@@ -1,6 +1,3 @@
-<?php
-/** @var LoginModel $model */
-?>
 <h1>Page login</h1>
 <form method="post" action="">
     Username:
@@ -12,4 +9,7 @@
     <input type="submit">
 </form>
 <br/>
-<h2><?=$model->etat?></h2>
+<h2><?= $model->etat ?></h2>
+<?php
+/** @var LoginModel $model */
+?>

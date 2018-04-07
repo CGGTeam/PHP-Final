@@ -13,4 +13,3 @@ $strLocalHost = "localhost";
     global $bd;
     $bd = new mysql($strNomBD, $strInfosSensibles);
     $bd->connexion();
-    var_dump($bd->selectionneRow('Utilisateur'));

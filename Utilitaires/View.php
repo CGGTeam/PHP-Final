@@ -16,7 +16,7 @@ class View
         $this->model = $model;
         if(!$strChemin){
             $backtrace = debug_backtrace();
-            $this->strChemin = preg_replace('/(Controllers)\\\(.*)(Controller.php)/', 'Views\\\$2\\' . $backtrace[1]['function'] . 'View.php', $backtrace[0]['file']);
+            $this->strChemin = preg_replace('/(Controllers)\/(.*)(Controller.php)/', 'Views/$2/' . $backtrace[1]['function'] . 'View.php', $backtrace[0]['file']);
         } else if (is_int($strChemin)) {
             if ($strChemin == 418) {
                 header("HTTP/1.0 418 I'm A Teapot");
