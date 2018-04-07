@@ -4,6 +4,8 @@
     require_once "sqlConnection.php";
     require_once "Utilitaires/View.php";
     require_once "Utilitaires/ModelBinding.php";
+    require_once "Models/Donnees/Utilisateur.php";
+    require_once "Utilitaires/ModelState.php";
 
 
 if (isset($_GET['controller']) && isset($_GET['action'])) {

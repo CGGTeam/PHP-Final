@@ -32,12 +32,12 @@
                 } else if ($strNomUtil == "make" && $strMotPasse == "coffee") {
                     $objView = new View("418: not a teapot", 418);
                 } else {
-                    $strConditions = "NomUtilisateur = " . $strNomUtil;
-                    $strConditions .= "MotDePasse = " . $strMotPasse;
-                    /** @var mysql $BD */
-                    global $BD;
-                    $objRetour = $BD->selectionneRow("Utilisateur",
-                        "NomUtilisateur, MotDePasse, StatutAdmin, NomComplet", $strConditions);
+                    $strConditions = "NomUtilisateur = '" . $strNomUtil . "'";
+                    $strConditions .= " AND MotDePasse = '" . $strMotPasse . "'";
+                    /** @var mysql $bd */
+                    global $bd;
+                    $objRetour = $bd->selectionneRow("Utilisateur",
+                        "nomUtilisateur, motDePasse, statutAdmin, nomComplet", $strConditions);
                     if ($objRetour) {
                         Utilisateur::$utilisateurCourant = ModelBinding::bindToClass($objRetour, "Utilisateur");
         
