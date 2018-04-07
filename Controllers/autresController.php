@@ -12,7 +12,7 @@ class autresController
     private $bd;
     public function __construct()
     {
-        /* @var $this->bd mysql */
+        /* @var $bd mysql */
         global $bd;
         $this->bd = $bd;
     }

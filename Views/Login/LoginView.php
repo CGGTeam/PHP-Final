@@ -1,16 +1,15 @@
-<form id="frmSaisieLogin" action="index.php?controller=Login&action=Login" method="post">
-    <input id="tbNomUtilisateur" name="tbNomUtilisateur" type="text"/>
-    <input id="tbMotDePasse" name="tbMotDePasse" type="text"/>
-    <input id="btnSubmit" type="submit"/>
-</form>
-
-
 <?php
-    /**
-     * Created by PhpStorm.
-     * User: antoi
-     * Date: 2018-04-03
-     * Time: 4:43 PM
-     */
-    
-    echo $model->etat;
+/** @var LoginModel $model */
+?>
+<h1>Page login</h1>
+<form method="post" action="">
+    Username:
+    <input name="tbNomUtilisateur" type="text">
+    <br/>
+    Password:
+    <input name="tbMotDePasse" type="password">
+    <br/>
+    <input type="submit">
+</form>
+<br/>
+<h2><?=$model->etat?></h2>

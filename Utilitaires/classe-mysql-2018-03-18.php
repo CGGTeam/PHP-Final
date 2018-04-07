@@ -197,6 +197,7 @@
           if($strConditions != ""){
               $this->requete .= " WHERE $strConditions";
           }
+          //echo $this->requete;
           $this->OK = mysqli_query($this->cBD, $this->requete);
           return $this->OK;
       }
