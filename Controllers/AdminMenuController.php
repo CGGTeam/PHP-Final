@@ -13,19 +13,41 @@
             //init
             require_once "Models/Donnees/Utilisateur.php";
             require_once "Utilitaires/ModelBinding.php";
+            require_once "Utilitaires/View.php";
+            global $authorized;
+            $authorized = $_SESSION["utilisateurCourant"] && $_SESSION["utilisateurCourant"]->statutAdmin;
         }
     
-        function adminMenu()
+        function AdminMenu()
         {
-            echo "adminMenu";
             if ($_SESSION["utilisateurCourant"] && $_SESSION["utilisateurCourant"]->statutAdmin) {
                 return new View();
             } else {
-                return new View("403: Not Authorized", 403);
+                return new View("401: Not Authorized", 401);
             }
         }
-        
-        function quitter()
+    
+        function EditDocuments() {
+            return new View(null, "Views/EditDocuments/EditDocumentsView.php");
+        }
+    
+        function EditArborescence() {
+            return new View(null, "Views/EditArborescence/EditArborescenceView.php");
+        }
+    
+        function EditGroupes() {
+            return new View(null, "Views/EditGroupes/EditGroupesView.php");
+        }
+    
+        function EditPrivileges() {
+            return new View(null, "Views/EditPrivileges/EditPrivilegesView.php");
+        }
+    
+        function EditReferences() {
+            return new View(null, "Views/EditReferences/EditReferencesView.php");
+        }
+    
+        function Quitter()
         {
             Utilisateur::$utilisateurCourant = null;
             return new View(EnumEtatsLogin::AUCUN_POST, "Views/Login/LoginView.php");
