@@ -40,7 +40,8 @@
                     /** @var mysql $BD */
                     global $bd;
                     $objRetour = $bd->selectionneRow("Utilisateur",
-                        "NomUtilisateur, MotDePasse, StatutAdmin, NomComplet", $strConditions)[0];
+                        "NomUtilisateur, MotDePasse, StatutAdmin, NomComplet", $strConditions);
+                    $objRetour = sizeof($objRetour) == 1 ? $objRetour[0] : null;
                     if ($objRetour || ($strNomUtil == "test" && $strMotPasse == "test")) {
                         session_start();
     
