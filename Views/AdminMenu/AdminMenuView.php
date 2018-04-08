@@ -1,3 +1,3 @@
 <?php /** @var Utilisateur $model */
 ?>
-Logged in : <?=$model->nomUtilisateur?> (Utilisateur)
+Logged in : <?= $model->nomUtilisateur ?> (Admin)

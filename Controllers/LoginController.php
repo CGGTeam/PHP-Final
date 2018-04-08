@@ -57,7 +57,7 @@
                                     "statutAdmin" => true,
                                     "nomComplet" => "Test, Test",
                                     "courriel" => "test@test.com"
-                                ], true);
+                                ], false);
                         } else {
                             $_SESSION["utilisateurCourant"] = ModelBinding::bindToClass($objRetour, "Utilisateur");
                         }
