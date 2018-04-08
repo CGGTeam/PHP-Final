@@ -35,12 +35,12 @@
                 if ($strNomUtil == "make" && $strMotPasse == "coffee") {
                     $objView = new View("418: I'm a teapot", 418);
                 } else {
-                    $strConditions = "NomUtilisateur = '" . $strNomUtil . "'";
+                    $strConditions = "NomUtilisateur = '" . $strNomUtil . "' AND";
                     $strConditions .= "MotDePasse = '" . $strMotPasse . "'";
                     /** @var mysql $BD */
                     global $bd;
                     $objRetour = $bd->selectionneRow("Utilisateur",
-                        "NomUtilisateur, MotDePasse, StatutAdmin, NomComplet", $strConditions);
+                        "NomUtilisateur, MotDePasse, StatutAdmin, NomComplet", $strConditions)[0];
                     if ($objRetour || ($strNomUtil == "test" && $strMotPasse == "test")) {
                         session_start();
     
