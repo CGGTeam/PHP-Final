@@ -51,7 +51,7 @@ class ModelBinding
         $objBound = [];
         if($result->num_rows>0){
             while($row = $result->fetch_assoc()){
-                $objBound = new $class($row);
+                $objBound[] = new $class($row);
             }
         }
         return $objBound;

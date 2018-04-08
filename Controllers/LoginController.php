@@ -36,11 +36,11 @@
                     $objView = new View("418: I'm a teapot", 418);
                 } else {
                     $strConditions = "NomUtilisateur = '" . $strNomUtil . "'";
-                    $strConditions .= "MotDePasse = '" . $strMotPasse . "'";
+                    $strConditions .= " AND MotDePasse = '" . $strMotPasse . "'";
                     /** @var mysql $BD */
                     global $bd;
                     $objRetour = $bd->selectionneRow("Utilisateur",
-                        "NomUtilisateur, MotDePasse, StatutAdmin, NomComplet", $strConditions);
+                        "*", $strConditions);
                     if ($objRetour || ($strNomUtil == "test" && $strMotPasse == "test")) {
                         session_start();
     
