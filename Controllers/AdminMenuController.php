@@ -18,7 +18,7 @@
         function adminMenu()
         {
             echo "adminMenu";
-            if (Utilisateur::$utilisateurCourant && Utilisateur::$utilisateurCourant->statutAdmin) {
+            if ($_SESSION["utilisateurCourant"] && $_SESSION["utilisateurCourant"]->statutAdmin) {
                 return new View();
             } else {
                 return new View("403: Not Authorized", 403);
