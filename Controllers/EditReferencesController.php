@@ -1,4 +1,3 @@
-lol
 <?php
     /**
      * Created by PhpStorm.
@@ -7,9 +6,24 @@ lol
      * Time: 12:45 AM
      */
     
-    class EditReferencesController
+    require_once("Controllers/ModuleAdminBase.php");
+    
+    class EditReferencesController extends ModuleAdminBase
     {
-        function editReferences()
+        function __construct() {
+            require_once "Models/EditReferences/EnumEtatsReferences.php";
+            require_once "Models/EditReferences/ReferencesModel.php";
+            require_once "Utilitaires/ModelBinding.php";
+            require_once "Utilitaires/View.php";
+            require_once "Models/Donnees/Categorie.php";
+            require_once "Models/Donnees/Cours.php";
+            require_once "Models/Donnees/CoursSession.php";
+            require_once "Models/Donnees/Document.php";
+            require_once "Models/Donnees/Session.php";
+            require_once "Models/Donnees/Utilisateur.php";
+        }
+        
+        function EditReferences()
         {
             return new View();
         }
@@ -20,7 +34,7 @@ lol
             $objRetour = $bd->selectionneRow("Session");
             $tSessions = ModelBinding::bindToClass($objRetour, "Session");
     
-            return new View($tSessions);
+            return new View(new ReferencesModel($tSessions, EnumEtatsReferences::EDIT));
         }
     
         function confirmerSessions() {
@@ -32,8 +46,8 @@ lol
                 $tSessionsObj[] = $so;
                 $so->saveChangesOnObj();
             }
-        
-            return new View($tSessionsObj, "Views/EditReferences/AfficherSessionsView.php");
+    
+            return new View(new ReferencesModel($tSessionsObj), "Views/EditReferences/AfficherSessionsView.php");
         }
     
         function afficherCours()
@@ -42,7 +56,7 @@ lol
             $objRetour = $bd->selectionneRow("Cours");
             $tCours = ModelBinding::bindToClass($objRetour, "Cours");
     
-            return new View($tCours);
+            return new View(new ReferencesModel($tCours), EnumEtatsReferences::EDIT);
         }
     
         function confirmerCours()
@@ -56,7 +70,7 @@ lol
                 $co->saveChangesOnObj();
             }
     
-            return new View($tCoursObj, "Views/EditReferences/AfficherCoursView.php");
+            return new View(new ReferencesModel($tCoursObj), "Views/EditReferences/AfficherCoursView.php");
         }
     
         function afficherCoursSessions()
@@ -65,8 +79,7 @@ lol
             $objRetour = $bd->selectionneRow("CoursSession");
             $tCoursSessions = ModelBinding::bindToClass($objRetour, "CoursSession");
     
-    
-            return new View($tCoursSessions);
+            return new View(new ReferencesModel($tCoursSessions), EnumEtatsReferences::EDIT);
         }
     
         function confirmerCoursSessions()
@@ -80,7 +93,7 @@ lol
                 $cso->saveChangesOnObj();
             }
     
-            return new View($tCoursSessionsObj, "Views/EditReferences/AfficherCoursSessionsView.php");
+            return new View(new ReferencesModel($tCoursSessionsObj), "Views/EditReferences/AfficherCoursSessionsView.php");
         }
     
         function afficherCategories()
@@ -89,7 +102,7 @@ lol
             $objRetour = $bd->selectionneRow("Categorie");
             $tCategories = ModelBinding::bindToClass($objRetour, "Categorie");
     
-            return new View($tCategories);
+            return new View(new ReferencesModel($tCategories), EnumEtatsReferences::EDIT);
         }
     
         function confirmerCategories()
@@ -103,7 +116,7 @@ lol
                 $co->getModelState();
             }
     
-            return new View($tCategoriesObj, "Views/EditReferences/AfficherCategoriesView.php");
+            return new View(new ReferencesModel($tCategoriesObj), "Views/EditReferences/AfficherCategoriesView.php");
         }
     
         function afficherUtilisateurs()
@@ -112,7 +125,7 @@ lol
             $objRetour = $bd->selectionneRow("Utilisateur");
             $tUtilisateurs = ModelBinding::bindToClass($objRetour, "Utilisateur");
     
-            return new View($tUtilisateurs);
+            return new View(new ReferencesModel($tUtilisateurs), EnumEtatsReferences::EDIT);
         }
     
         function confirmerUtilisateurs()
@@ -126,6 +139,6 @@ lol
                 $uo->getModelState();
             }
     
-            return new View($tUtilisateursObj, "Views/EditReferences/AfficherUtilisateursView.php");
+            return new View(new ReferencesModel($tUtilisateursObj), "Views/EditReferences/AfficherUtilisateursView.php");
         }
     }

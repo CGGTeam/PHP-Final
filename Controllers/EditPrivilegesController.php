@@ -6,7 +6,9 @@
      * Time: 12:45 AM
      */
     
-    class EditPrivilegesController
+    require_once("Controllers/ModuleAdminBase.php");
+    
+    class EditPrivilegesController extends ModuleAdminBase
     {
         function editPrivileges()
         {

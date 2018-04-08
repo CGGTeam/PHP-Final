@@ -6,7 +6,9 @@
      * Time: 12:45 AM
      */
     
-    class EditGroupesController
+    require_once("Controllers/ModuleAdminBase.php");
+    
+    class EditGroupesController extends ModuleAdminBase
     {
         function editGroupes()
         {

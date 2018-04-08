@@ -5,8 +5,9 @@
      * Date: 2018-04-04
      * Time: 12:33 AM
      */
+    require_once("Controllers/ModuleAdminBase.php");
     
-    class AdminMenuController
+    class AdminMenuController extends ModuleAdminBase
     {
         function __construct()
         {
@@ -14,8 +15,6 @@
             require_once "Models/Donnees/Utilisateur.php";
             require_once "Utilitaires/ModelBinding.php";
             require_once "Utilitaires/View.php";
-            global $authorized;
-            $authorized = $_SESSION["utilisateurCourant"] && $_SESSION["utilisateurCourant"]->statutAdmin;
         }
     
         function AdminMenu()
