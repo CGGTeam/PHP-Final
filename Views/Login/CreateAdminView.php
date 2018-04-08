@@ -1,6 +1,7 @@
 <body>
+<?php echo $model->etat ?>
 <div id="sCreerAdmin">
-    <form id="frmCreerAdmin" method="post" action="index.php?controller=login&action=creerAdmin">
+    <form id="frmCreerAdmin" method="post" action="index.php?controller=Login&action=creerAdmin">
         <label for="tbNomUtilisateur">Nom D'Utilisateur</label>
         <input id="tbNomUtilisateur" name="tbNomUtilisateur" type="text"/><br/>
         <label for="tbNomComplet">Nom Complet</label>
