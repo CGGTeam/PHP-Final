@@ -1,5 +1,5 @@
 <body>
-<?php echo $model->etat ?>
+<?php var_dump($model) ?>
 <div id="sCreerAdmin">
     <form id="frmCreerAdmin" method="post" action="index.php?controller=Login&action=creerAdmin">
         <label for="tbNomUtilisateur">Nom D'Utilisateur</label>

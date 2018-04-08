@@ -43,7 +43,6 @@ class ModelBinding
                 default:
                     echo "NOT IMPLEMENTED";
                     break;
-                    //die;
             }
         }
     }

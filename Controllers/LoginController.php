@@ -92,20 +92,23 @@
             if ($strNomUtil && $strMotPasse && $strNomComplet && $strEmail) {
                 /** @var mysql $bd */
                 global $bd;
-                $objResultatNomUtil = $bd->selectionneRow("Utilisateur", "Courriel", "NomUtilisateur=" + $strNomUtil);
-                $objResultatCourriel = $bd->selectionneRow("Utilisateur", "Courriel", "Courriel=" + $strEmail);
+                $objResultatNomUtil = $bd->selectionneRow("Utilisateur", "Courriel", "NomUtilisateur='" . $strNomUtil . "'");
+                $objResultatCourriel = $bd->selectionneRow("Utilisateur", "Courriel", "Courriel='" . $strEmail . "'");
                 if (!$objResultatNomUtil || !$objResultatCourriel) {
-                    return new View(EnumEtatsUtil::ERREUR_BD, "Views/Login/CreateAdminView.php");
+                    $tempo = $objResultatNomUtil->fetch_array();
+                    return new View($tempo, "Views/Login/CreateAdminView.php");
                 } else if ($objResultatNomUtil->num_rows > 0 && $objResultatCourriel->num_rows > 0) {
-                    return new View(EnumEtatsUtil::SAME_BOTH, "Views/Login/CreateAdminView.php");
+                    $tempo = $objResultatNomUtil->fetch_array();
+                    return new View($tempo, "Views/Login/CreateAdminView.php");
                 } else if ($objResultatNomUtil->num_rows > 0) {
-                    return new View(EnumEtatsUtil::SAME_USER, "Views/Login/CreateAdminView.php");
+                    $tempo = $objResultatNomUtil->fetch_array();
+                    return new View($tempo, "Views/Login/CreateAdminView.php");
                 } else if ($objResultatCourriel->num_rows > 0) {
-                    return new View(EnumEtatsUtil::SAME_EMAIL, "Views/Login/CreateAdminView.php");
+                    $tempo = $objResultatNomUtil->fetch_array();
+                    return new View($tempo, "Views/Login/CreateAdminView.php");
                 }
                 $objUtil = new Utilisateur(
                     [
-                        "id" => null,
                         "nomUtilisateur" => $strNomUtil,
                         "motDePasse" => $strMotPasse,
                         "statutAdmin" => true,
@@ -114,6 +117,7 @@
                     ], true
                 );
                 $objUtil->saveChangesOnObj();
+                var_dump($objUtil);
         
                 $_SESSION["creerAdmin"] = false;
                 return new View(new LoginModel(EnumEtatsLogin::AUCUN_POST), "Views/Login/LoginView.php");

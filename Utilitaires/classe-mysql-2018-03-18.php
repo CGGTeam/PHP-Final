@@ -162,11 +162,12 @@
            foreach ($tbValeurs as $key => $value) {
                $this->requete .= $key . ", ";
            }
-           $this->requete = substr($this->requete,0, -2) . ") VALUES (";
+           $this->requete = substr($this->requete,0, -2) . ") VALUES ('";
            foreach ($tbValeurs as $key => $value) {
-               $this->requete .= $value . ", ";
+               $this->requete .= $value . "', '";
            }
-           $this->requete = substr($this->requete,0, -2) . ")";
+           $this->requete = substr($this->requete,0, -3) . ")";
+           echo "<br/>$this->requete";
            $this->OK = mysqli_query($this->cBD, $this->requete);
            return $this->OK;
 
@@ -197,7 +198,7 @@
           if($strConditions != ""){
               $this->requete .= " WHERE $strConditions";
           }
-          //echo $this->requete;
+          echo $this->requete;
           $this->OK = mysqli_query($this->cBD, $this->requete);
           return $this->OK;
       }
