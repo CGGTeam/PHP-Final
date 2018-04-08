@@ -11,6 +11,7 @@ class ModelBinding
     /** @var mysql $bd */
     private $bd;
     private $modelState;
+    private $tbValeurs;
     
     /**
      * ModelBinding constructor.
@@ -25,6 +26,7 @@ class ModelBinding
         $this->modelState = $binAjout ? ModelState::Added : ModelState::Same;
         foreach ($properties as $key => $value) {
             $this->{$key} = $value;
+            $this->tbValeurs[$key] = $value;
         }
     }
 
@@ -33,9 +35,15 @@ class ModelBinding
         if($this->modelState != ModelState::Same && $this->modelState != ModelState::Invalid) {
             switch ($this->modelState) {
                 case ModelState::Added:
-                    $this->modelState = $this->bd->insereEnregistrementTb(get_class($this), call_user_func('get_object_vars'), $this) ?
+                    $this->modelState = $this->bd->insereEnregistrementTb(get_class($this), $this->tbValeurs) ?
                         ModelState::Same : ModelState::Invalid;
                     break;
+                case ModelState::Same:
+                    break;
+                default:
+                    echo "NOT IMPLEMENTED";
+                    break;
+                    //die;
             }
         }
     }
