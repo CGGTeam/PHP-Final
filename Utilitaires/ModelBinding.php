@@ -33,7 +33,7 @@ class ModelBinding
         if($this->modelState != ModelState::Same && $this->modelState != ModelState::Invalid) {
             switch ($this->modelState) {
                 case ModelState::Added:
-                    $this->modelState = $this->bd->insereEnregistrementTb(get_class($this),call_user_func('get_object_vars()', $this)) ?
+                    $this->modelState = $this->bd->insereEnregistrementTb(get_class($this), call_user_func('get_object_vars'), $this) ?
                         ModelState::Same : ModelState::Invalid;
                     break;
             }

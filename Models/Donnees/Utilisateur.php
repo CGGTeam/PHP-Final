@@ -11,7 +11,6 @@
      */
     class Utilisateur extends ModelBinding
     {
-        public static $utilisateurCourant;
         public $id;
         public $nomUtilisateur;
         public $motDePasse;
