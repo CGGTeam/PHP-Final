@@ -11,6 +11,8 @@
         function __construct()
         {
             //init
+            global $authorized;
+            $authorized = true;
             require_once "Models/Login/LoginModel.php";
             require_once "Models/Login/EnumEtatsLogin.php";
             require_once "Models/Login/EnumEtatsUtil.php";
@@ -22,7 +24,7 @@
         {
             session_abort();
             $objView = null;
-    
+
             if (isset($_COOKIE["strNomUtil"]) && isset($_COOKIE["strMotDePasse"])) {
                 $strNomUtil = $_COOKIE["strNomUtil"];
                 $strMotPasse = $_COOKIE["strMotDePasse"];
@@ -40,26 +42,16 @@
                     /** @var mysql $BD */
                     global $bd;
                     $objRetour = $bd->selectionneRow("Utilisateur", "*", $strConditions);
-                    //$objRetour = sizeof($objRetour) == 1 ? $objRetour[0] : null;
-                    if ($objRetour || ($strNomUtil == "test" && $strMotPasse == "test")) {
+                    echo "<br />";
+                    $objRetour = $objRetour && sizeof($objRetour) == 1 ? $objRetour[0] : false;
+                    if ($objRetour) {
                         session_start();
-    
-                        if ($strNomUtil == "test" && $strMotPasse == "test") {
-                            $_SESSION["utilisateurCourant"] = new Utilisateur(
-                                [
-                                    "id" => null,
-                                    "nomUtilisateur" => "test",
-                                    "motDePasse" => "test",
-                                    "statutAdmin" => true,
-                                    "nomComplet" => "Test, Test",
-                                    "courriel" => "test@test.com"
-                                ], false);
-                        } else {
-                            $_SESSION["utilisateurCourant"] = ModelBinding::bindToClass($objRetour, "Utilisateur")[0];
-                        }
-
+        
+                        $_SESSION["utilisateurCourant"] = ModelBinding::bindToClass($objRetour, "Utilisateur")[0];
+                        
                         if ($_SESSION["utilisateurCourant"]->nomUtilisateur == "admin" && $_SESSION["utilisateurCourant"] == "admin") {
-
+                            header('Location: ?controller=Login&action=CreerAdmin');
+                            $objView = new View("", 301);
                         } else if ($_SESSION["utilisateurCourant"]->statutAdmin) {
                             header('Location: ?controller=AdminMenu&action=AdminMenu');
                             $objView = new View("", 302);
@@ -76,7 +68,7 @@
             return $objView;
         }
     
-        function creerAdmin()
+        function CreerAdmin()
         {
             session_start();
             global $authorized;

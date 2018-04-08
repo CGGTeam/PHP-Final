@@ -35,9 +35,13 @@ class View
 
     public function afficher(){
         $model = $this->model;
-        if(http_response_code() == 200) {
+        global $authorized;
+        if (http_response_code() == 200 && $authorized) {
             require_once $this->strChemin;
-        }else {
+        } else if (!$authorized) {
+            http_response_code(401);
+            echo "<h1>401: Not Authorized</h1>";
+        } else {
             echo "<h1>$model</h1>";
         }
     }
@@ -48,6 +52,10 @@ class View
     public function setModel($model)
     {
         $this->model = $model;
+    }
+    
+    public function getModel() {
+        return $this->model;
     }
     
 }

@@ -10,18 +10,18 @@
     
     class EditGroupesController extends ModuleAdminBase
     {
-        function editGroupes()
+        function EditGroupes()
         {
             return new View();
         }
         
         function lireCSV()
         {
-        
+            return new View();
         }
         
         function confirmer()
         {
-        
+            return new View();
         }
     }
