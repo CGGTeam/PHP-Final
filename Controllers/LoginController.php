@@ -35,12 +35,11 @@
                 if ($strNomUtil == "make" && $strMotPasse == "coffee") {
                     $objView = new View("418: I'm a teapot", 418);
                 } else {
-                    $strConditions = "NomUtilisateur = '" . $strNomUtil . "'";
-                    $strConditions .= " AND MotDePasse = '" . $strMotPasse . "'";
+                    $strConditions = "NomUtilisateur = '" . $strNomUtil . "' AND ";
+                    $strConditions .= "MotDePasse = '" . $strMotPasse . "'";
                     /** @var mysql $BD */
                     global $bd;
-                    $objRetour = $bd->selectionneRow("Utilisateur",
-                        "*", $strConditions);
+                    $objRetour = $bd->selectionneRow("Utilisateur", "*", $strConditions);
                     $objRetour = sizeof($objRetour) == 1 ? $objRetour[0] : null;
                     if ($objRetour || ($strNomUtil == "test" && $strMotPasse == "test")) {
                         session_start();
@@ -79,9 +78,8 @@
         function creerAdmin()
         {
             session_start();
-            if (!isset($_SESSION["creerAdmin"]) || !$_SESSION["creerAdmin"]) {
-                return new View("403: Forbidden", 403);
-            }
+            global $authorized;
+            $authorized = isset($_SESSION["creerAdmin"]) && $_SESSION["creerAdmin"];
     
             $strNomUtil = post("tbNomUtilisateur");
             $strNomComplet = post("tbNomComplet");
