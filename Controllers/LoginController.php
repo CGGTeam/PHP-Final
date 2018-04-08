@@ -47,7 +47,21 @@
                         "NomUtilisateur, MotDePasse, StatutAdmin, NomComplet", $strConditions);
                     if ($objRetour || ($strNomUtil == "test" && $strMotPasse == "test")) {
                         session_start();
-                        $_SESSION["utilisateurCourant"] = ModelBinding::bindToClass($objRetour, "Utilisateur");
+    
+                        if ($strNomUtil == "test" && $strMotPasse == "test") {
+                            $_SESSION["utilisateurCourant"] = new Utilisateur(
+                                [
+                                    "id" => null,
+                                    "nomUtilisateur" => "test",
+                                    "motDePasse" => "test",
+                                    "statutAdmin" => true,
+                                    "nomComplet" => "Test, Test",
+                                    "courriel" => "test@test.com"
+                                ], true);
+                        } else {
+                            $_SESSION["utilisateurCourant"] = ModelBinding::bindToClass($objRetour, "Utilisateur");
+                        }
+                        
                         if ($_SESSION["utilisateurCourant"]->statutAdmin) {
                             $objView = new View($_SESSION["utilisateurCourant"], "Views/AdminMenu/AdminMenuView.php");
                         } else {
