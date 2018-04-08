@@ -15,12 +15,13 @@
             require_once "Models/Donnees/Utilisateur.php";
             require_once "Utilitaires/ModelBinding.php";
             require_once "Utilitaires/View.php";
+            session_start();
         }
     
         function AdminMenu()
         {
             if ($_SESSION["utilisateurCourant"] && $_SESSION["utilisateurCourant"]->statutAdmin) {
-                return new View();
+                return new View($_SESSION["utilisateurCourant"]);
             } else {
                 return new View("401: Not Authorized", 401);
             }

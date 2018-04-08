@@ -40,7 +40,7 @@
                     /** @var mysql $BD */
                     global $bd;
                     $objRetour = $bd->selectionneRow("Utilisateur", "*", $strConditions);
-                    $objRetour = sizeof($objRetour) == 1 ? $objRetour[0] : null;
+                    //$objRetour = sizeof($objRetour) == 1 ? $objRetour[0] : null;
                     if ($objRetour || ($strNomUtil == "test" && $strMotPasse == "test")) {
                         session_start();
     
@@ -61,7 +61,8 @@
                         if ($_SESSION["utilisateurCourant"]->nomUtilisateur == "admin" && $_SESSION["utilisateurCourant"] == "admin") {
 
                         } else if ($_SESSION["utilisateurCourant"]->statutAdmin) {
-                            $objView = new View($_SESSION["utilisateurCourant"], "Views/AdminMenu/AdminMenuView.php");
+                            header('Location: ?controller=AdminMenu&action=AdminMenu');
+                            $objView = new View("", 302);
                         } else {
                             $objView = new View($_SESSION["utilisateurCourant"], "Views/UserMenu/UserMenuView.php");
                         }
