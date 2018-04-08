@@ -15,15 +15,7 @@
         public $titre;
         public $nomProf;
     
-        /**
-         * Cours constructor.
-         * @param string $strSigle - Sigle du cours (999-ZZZ; ADM-A99)
-         * @param string $strTitre - Titre du cours
-         * @param string $strNomProf - Nom et prénom du professeur
-         */
-        function __construct($strSigle, $strTitre, $strNomProf){
-            $this->sigle = $strSigle;
-            $this->titre = $strTitre;
-            $this->nomProf = $strNomProf;
+        function __construct(array $properties = array(), $binAjout = false) {
+            parent::__construct($properties, $binAjout);
         }
     }

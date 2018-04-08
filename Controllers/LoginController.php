@@ -34,13 +34,9 @@
             if ($strNomUtil && $strMotPasse) {
                 if ($strNomUtil == "make" && $strMotPasse == "coffee") {
                     $objView = new View("418: I'm a teapot", 418);
-                } else if ($strNomUtil == "admin" && $strMotPasse == "admin") {
-                    session_start();
-                    $_SESSION["creerAdmin"] = true;
-                    $objView = new View(new LoginModel(EnumEtatsLogin::AUCUN_POST), "Views/Login/CreateAdminView.php");
                 } else {
-                    $strConditions = "NomUtilisateur = " . $strNomUtil;
-                    $strConditions .= "MotDePasse = " . $strMotPasse;
+                    $strConditions = "NomUtilisateur = '" . $strNomUtil . "'";
+                    $strConditions .= "MotDePasse = '" . $strMotPasse . "'";
                     /** @var mysql $BD */
                     global $bd;
                     $objRetour = $bd->selectionneRow("Utilisateur",
@@ -59,10 +55,12 @@
                                     "courriel" => "test@test.com"
                                 ], false);
                         } else {
-                            $_SESSION["utilisateurCourant"] = ModelBinding::bindToClass($objRetour, "Utilisateur");
+                            $_SESSION["utilisateurCourant"] = ModelBinding::bindToClass($objRetour, "Utilisateur")[0];
                         }
-                        
-                        if ($_SESSION["utilisateurCourant"]->statutAdmin) {
+
+                        if ($_SESSION["utilisateurCourant"]->nomUtilisateur == "admin" && $_SESSION["utilisateurCourant"] == "admin") {
+
+                        } else if ($_SESSION["utilisateurCourant"]->statutAdmin) {
                             $objView = new View($_SESSION["utilisateurCourant"], "Views/AdminMenu/AdminMenuView.php");
                         } else {
                             $objView = new View($_SESSION["utilisateurCourant"], "Views/UserMenu/UserMenuView.php");
@@ -92,21 +90,20 @@
             if ($strNomUtil && $strMotPasse && $strNomComplet && $strEmail) {
                 /** @var mysql $bd */
                 global $bd;
-                $objResultatNomUtil = $bd->selectionneRow("Utilisateur", "Courriel", "NomUtilisateur='" . $strNomUtil . "'");
-                $objResultatCourriel = $bd->selectionneRow("Utilisateur", "Courriel", "Courriel='" . $strEmail . "'");
+                $objResultatNomUtil = $bd->selectionneRow("Utilisateur", "Courriel", "NomUtilisateur= '" . $strNomUtil . "'");
+                $objResultatCourriel = $bd->selectionneRow("Utilisateur", "Courriel", "Courriel= '" . $strEmail . "'");
                 if (!$objResultatNomUtil || !$objResultatCourriel) {
-                    $tempo = $objResultatNomUtil->fetch_array();
-                    return new View($tempo, "Views/Login/CreateAdminView.php");
+                    return new View(EnumEtatsUtil::ERREUR_BD, "Views/Login/CreateAdminView.php");
                 } else if ($objResultatNomUtil->num_rows > 0 && $objResultatCourriel->num_rows > 0) {
-                    $tempo = $objResultatNomUtil->fetch_array();
-                    return new View($tempo, "Views/Login/CreateAdminView.php");
+                    return new View(EnumEtatsUtil::SAME_BOTH, "Views/Login/CreateAdminView.php");
                 } else if ($objResultatNomUtil->num_rows > 0) {
-                    $tempo = $objResultatNomUtil->fetch_array();
-                    return new View($tempo, "Views/Login/CreateAdminView.php");
+                    return new View(EnumEtatsUtil::SAME_USER, "Views/Login/CreateAdminView.php");
                 } else if ($objResultatCourriel->num_rows > 0) {
-                    $tempo = $objResultatNomUtil->fetch_array();
-                    return new View($tempo, "Views/Login/CreateAdminView.php");
+                    return new View(EnumEtatsUtil::SAME_EMAIL, "Views/Login/CreateAdminView.php");
+                } else if ($strNomUtil == "admin" && $strMotPasse == "admin") {
+                    return new View(EnumEtatsUtil::ADMIN_ADMIN, "Views/Login/CreateAdminView.php");
                 }
+
                 $objUtil = new Utilisateur(
                     [
                         "nomUtilisateur" => $strNomUtil,
@@ -117,8 +114,11 @@
                     ], true
                 );
                 $objUtil->saveChangesOnObj();
-                var_dump($objUtil);
-        
+
+                /** @var Utilisateur $utilCourant */
+                $utilCourant = $_SESSION["utilisateurCourant"];
+                $utilCourant->setModelState(ModelState::Deleted);
+                $utilCourant->saveChangesOnObj();
                 $_SESSION["creerAdmin"] = false;
                 return new View(new LoginModel(EnumEtatsLogin::AUCUN_POST), "Views/Login/LoginView.php");
                 

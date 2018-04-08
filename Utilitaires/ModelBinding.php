@@ -57,8 +57,11 @@ class ModelBinding
         return $objBound;
     }
     
-    public function getModelState()
-    {
+    public function getModelState() {
         return $this->modelState;
+    }
+    
+    public function setModelState($modelState) {
+        $this->modelState = $modelState;
     }
 }

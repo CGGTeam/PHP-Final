@@ -14,8 +14,8 @@
         //Champs de la table
         public $id;
         public $description;
-
-        public function __construct(array $properties = array())
+    
+        public function __construct(array $properties = array(), $binAjout = false)
         {
             parent::__construct($properties);
         }

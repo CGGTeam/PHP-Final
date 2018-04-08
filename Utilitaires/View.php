@@ -49,6 +49,5 @@ class View
     {
         $this->model = $model;
     }
-
-
+    
 }

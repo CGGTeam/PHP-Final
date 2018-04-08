@@ -14,4 +14,5 @@
         const SAME_EMAIL = 2;
         const SAME_BOTH = 3;
         const ERREUR_BD = 4;
+        const ADMIN_ADMIN = 5;
     }
