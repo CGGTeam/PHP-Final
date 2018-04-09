@@ -47,9 +47,8 @@
                     $objRetour = $bd->selectionneRow("Utilisateur", "*", $strConditions);
 
                     echo "<br />";
-                    echo "ALFKJHNIUFGHWAOIF";
-
-                    if ($objRetour && $objRetour->num_rows > 0) {
+                    $objRetour = $objRetour && $objRetour->num_rows == 1 ? $objRetour : false;
+                    if ($objRetour) {
                         session_start();
                         echo "ALFKJHNIUFGHWAOIF";
                         $_SESSION["utilisateurCourant"] = ModelBinding::bindToClass($objRetour, "Utilisateur")[0];
