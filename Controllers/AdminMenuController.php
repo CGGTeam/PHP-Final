@@ -21,7 +21,7 @@
     
         function AdminMenu()
         {
-            return new View();
+            return new View($_SESSION["utilisateurCourant"]);
         }
     
         function EditDocuments() {

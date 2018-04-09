@@ -43,7 +43,7 @@
                     global $bd;
                     $objRetour = $bd->selectionneRow("Utilisateur", "*", $strConditions);
                     echo "<br />";
-                    $objRetour = $objRetour && sizeof($objRetour) == 1 ? $objRetour[0] : false;
+                    $objRetour = $objRetour && $objRetour->num_rows == 1 ? $objRetour : false;
                     if ($objRetour) {
                         session_start();
         
