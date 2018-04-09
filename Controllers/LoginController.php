@@ -19,16 +19,19 @@
             require_once "Models/Donnees/Utilisateur.php";
             require_once "Utilitaires/ModelState.php";
         }
-    
+
+        /**
+         * @return null|View
+         */
         function Login()
         {
-            session_abort();
             $objView = null;
 
-            if (isset($_COOKIE["strNomUtil"]) && isset($_COOKIE["strMotDePasse"])) {
-                $strNomUtil = $_COOKIE["strNomUtil"];
-                $strMotPasse = $_COOKIE["strMotDePasse"];
+            if (isset($_SESSION["strNomUtil"])) {
+                $strNomUtil = $_SESSION["strNomUtil"]->nomUtilisateur;
+                $strMotPasse = $_COOKIE["strMotDePasse"]->motDePasse;
             } else {
+                session_unset();
                 $strNomUtil = post("tbNomUtilisateur");
                 $strMotPasse = post("tbMotDePasse");
             }
@@ -42,14 +45,17 @@
                     /** @var mysql $BD */
                     global $bd;
                     $objRetour = $bd->selectionneRow("Utilisateur", "*", $strConditions);
+
                     echo "<br />";
-                    $objRetour = $objRetour && sizeof($objRetour) == 1 ? $objRetour[0] : false;
-                    if ($objRetour) {
+                    echo "ALFKJHNIUFGHWAOIF";
+
+                    if ($objRetour && $objRetour->num_rows > 0) {
                         session_start();
-        
+                        echo "ALFKJHNIUFGHWAOIF";
                         $_SESSION["utilisateurCourant"] = ModelBinding::bindToClass($objRetour, "Utilisateur")[0];
                         
-                        if ($_SESSION["utilisateurCourant"]->nomUtilisateur == "admin" && $_SESSION["utilisateurCourant"] == "admin") {
+                        if ($_SESSION["utilisateurCourant"]->nomUtilisateur == "admin" && $_SESSION["utilisateurCourant"]->motDePasse == "admin") {
+                            $_SESSION["creerAdmin"] = true;
                             header('Location: ?controller=Login&action=CreerAdmin');
                             $objView = new View("", 301);
                         } else if ($_SESSION["utilisateurCourant"]->statutAdmin) {
@@ -63,6 +69,7 @@
                     }
                 }
             } else if (!$strNomUtil || !$strMotPasse) {
+                session_unset();
                 $objView = new View(new LoginModel(EnumEtatsLogin::AUCUN_POST));
             }
             return $objView;
