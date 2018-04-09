@@ -10,13 +10,14 @@
     
     class EditPrivilegesController extends ModuleAdminBase
     {
-        function editPrivileges()
+        function EditPrivileges()
         {
             return new View();
         }
         
         function enregistrerPrivileges()
         {
-        
+            header("Location: ");
+            return new View("", 301);
         }
     }

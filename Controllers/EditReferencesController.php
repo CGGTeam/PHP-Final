@@ -22,13 +22,13 @@
             require_once "Models/Donnees/Session.php";
             require_once "Models/Donnees/Utilisateur.php";
         }
-        
+    
         function EditReferences()
         {
             return new View();
         }
     
-        function afficherSessions()
+        function AfficherSessions()
         {
             global $bd;
             $objRetour = $bd->selectionneRow("Session");
@@ -37,7 +37,7 @@
             return new View(new ReferencesModel($tSessions, EnumEtatsReferences::EDIT));
         }
     
-        function confirmerSessions() {
+        function ConfirmerSessions() {
             $strDonnees = post("donneesSession");
             $tSessionsJson = json_decode($strDonnees, true);
             $tSessionsObj = array();
@@ -46,11 +46,12 @@
                 $tSessionsObj[] = $so;
                 $so->saveChangesOnObj();
             }
-    
-            return new View(new ReferencesModel($tSessionsObj), "Views/EditReferences/AfficherSessionsView.php");
+        
+            header('Location: ?controller=EditReferences&action=AfficherSessions');
+            return new View("", 301);
         }
     
-        function afficherCours()
+        function AfficherCours()
         {
             global $bd;
             $objRetour = $bd->selectionneRow("Cours");
@@ -59,7 +60,7 @@
             return new View(new ReferencesModel($tCours), EnumEtatsReferences::EDIT);
         }
     
-        function confirmerCours()
+        function ConfirmerCours()
         {
             $strDonnees = post("donneesCours");
             $tCoursJson = json_decode($strDonnees, true);
@@ -70,10 +71,11 @@
                 $co->saveChangesOnObj();
             }
     
-            return new View(new ReferencesModel($tCoursObj), "Views/EditReferences/AfficherCoursView.php");
+            header('Location: ?controller=EditReferences&action=AfficherCours');
+            return new View("", 301);
         }
     
-        function afficherCoursSessions()
+        function AfficherCoursSessions()
         {
             global $bd;
             $objRetour = $bd->selectionneRow("CoursSession");
@@ -82,7 +84,7 @@
             return new View(new ReferencesModel($tCoursSessions), EnumEtatsReferences::EDIT);
         }
     
-        function confirmerCoursSessions()
+        function ConfirmerCoursSessions()
         {
             $strDonnees = post("donneesCoursSessions");
             $tCoursSessionsJson = json_decode($strDonnees, true);
@@ -93,10 +95,11 @@
                 $cso->saveChangesOnObj();
             }
     
-            return new View(new ReferencesModel($tCoursSessionsObj), "Views/EditReferences/AfficherCoursSessionsView.php");
+            header('Location: ?controller=EditReferences&action=AfficherCoursSessions');
+            return new View("", 301);
         }
     
-        function afficherCategories()
+        function AfficherCategories()
         {
             global $bd;
             $objRetour = $bd->selectionneRow("Categorie");
@@ -105,7 +108,7 @@
             return new View(new ReferencesModel($tCategories), EnumEtatsReferences::EDIT);
         }
     
-        function confirmerCategories()
+        function ConfirmerCategories()
         {
             $strDonnees = post("donneesCategories");
             $tCategoriesJson = json_decode($strDonnees, true);
@@ -116,10 +119,11 @@
                 $co->getModelState();
             }
     
-            return new View(new ReferencesModel($tCategoriesObj), "Views/EditReferences/AfficherCategoriesView.php");
+            header('Location: ?controller=EditReferences&action=AfficherCategories');
+            return new View("", 301);
         }
     
-        function afficherUtilisateurs()
+        function AfficherUtilisateurs()
         {
             global $bd;
             $objRetour = $bd->selectionneRow("Utilisateur");
@@ -128,7 +132,7 @@
             return new View(new ReferencesModel($tUtilisateurs), EnumEtatsReferences::EDIT);
         }
     
-        function confirmerUtilisateurs()
+        function ConfirmerUtilisateurs()
         {
             $strDonnees = post("donneesUtilisateurs");
             $tUtilisateursJson = json_decode($strDonnees, true);
@@ -139,6 +143,7 @@
                 $uo->getModelState();
             }
     
-            return new View(new ReferencesModel($tUtilisateursObj), "Views/EditReferences/AfficherUtilisateursView.php");
+            rheader('Location: ?controller=EditReferences&action=AfficherUtilisateurs');
+            return new View("", 301);
         }
     }

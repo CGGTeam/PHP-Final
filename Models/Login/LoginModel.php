@@ -15,7 +15,7 @@
          * @param Utilisateur $utilisateur L'utilisateur, s'il y en a, qui s'est connecté
          * @param int $etat L'état de la tentative de connexion
          */
-        function __construct($etat)
+        function __construct($etat = 0)
         {
             $this->etat = $etat;
         }

@@ -9,7 +9,7 @@
     
     class EditArborescenceController extends ModuleAdminBase
     {
-        function editArborescence()
+        function EditArborescence()
         {
             return new View();
         }

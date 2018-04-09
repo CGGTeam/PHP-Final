@@ -7,9 +7,9 @@
  */
 
 abstract class ModelState{
-    const Added = 'Added';
-    const Deleted = 'Deleted';
-    const Modified = 'Modified';
-    const Same = 'Same';
-    const Invalid = 'Invalid';
+    const Added = 0;
+    const Deleted = 1;
+    const Modified = 2;
+    const Same = 3;
+    const Invalid = 4;
 }

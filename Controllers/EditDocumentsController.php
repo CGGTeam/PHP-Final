@@ -9,12 +9,13 @@
     
     class EditDocumentsController extends ModuleAdminBase
     {
-        function editDocuments()
+        function EditDocuments()
         {
             return new View();
         }
         function selection()
         {
-            return new View(null, "Views/EditDocuments/EditDocumentsView.php");
+            header('Location: ?controller=Login&action=CreerAdmin');
+            return View("", 301);
         }
     }

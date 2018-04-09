@@ -12,44 +12,47 @@
         function __construct()
         {
             //init
+            session_start();
+            parent::__construct();
             require_once "Models/Donnees/Utilisateur.php";
             require_once "Utilitaires/ModelBinding.php";
             require_once "Utilitaires/View.php";
-            session_start();
         }
     
         function AdminMenu()
         {
-            if ($_SESSION["utilisateurCourant"] && $_SESSION["utilisateurCourant"]->statutAdmin) {
-                return new View($_SESSION["utilisateurCourant"]);
-            } else {
-                return new View("401: Not Authorized", 401);
-            }
+            return new View();
         }
     
         function EditDocuments() {
-            return new View(null, "Views/EditDocuments/EditDocumentsView.php");
+            header('Location: ?controller=EditDocuments&action=EditDocuments');
+            return new View("", 301);
         }
     
         function EditArborescence() {
-            return new View(null, "Views/EditArborescence/EditArborescenceView.php");
+            header('Location: ?controller=EditArborescence&action=EditArborescence');
+            return new View("", 301);
         }
     
         function EditGroupes() {
-            return new View(null, "Views/EditGroupes/EditGroupesView.php");
+            header('Location: ?controller=EditGroupes&action=EditGroupes');
+            return new View("", 301);
         }
     
         function EditPrivileges() {
-            return new View(null, "Views/EditPrivileges/EditPrivilegesView.php");
+            header('Location: ?controller=EditPrivileges&action=EditPrivileges');
+            return new View("", 301);
         }
     
         function EditReferences() {
-            return new View(null, "Views/EditReferences/EditReferencesView.php");
+            header('Location: ?controller=EditReferences&action=EditReferences');
+            return new View("", 301);
         }
     
         function Quitter()
         {
-            Utilisateur::$utilisateurCourant = null;
-            return new View(EnumEtatsLogin::AUCUN_POST, "Views/Login/LoginView.php");
+            session_abort();
+            header('Location: ?controller=Login&action=Login');
+            return new View("", 301);
         }
     }
