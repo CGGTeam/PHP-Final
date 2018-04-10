@@ -10,6 +10,10 @@
     
     class EditPrivilegesController extends ModuleAdminBase
     {
+        function __construct() {
+            parent::__construct();
+        }
+    
         function EditPrivileges()
         {
             return new View();

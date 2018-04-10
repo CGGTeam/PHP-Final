@@ -21,9 +21,10 @@
             </td>
         </tr>
     </table>
+    <h2><?= $model->etat ?></h2>
 </form>
 </div>
-<h2><?= $model->etat ?></h2>
+
 <?php
     /** @var LoginModel $model */
 ?>

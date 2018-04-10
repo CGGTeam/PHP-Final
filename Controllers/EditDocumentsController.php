@@ -9,6 +9,10 @@
     
     class EditDocumentsController extends ModuleAdminBase
     {
+        function __construct() {
+            parent::__construct();
+        }
+    
         function EditDocuments()
         {
             return new View();

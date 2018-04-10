@@ -21,6 +21,7 @@
             require_once "Models/Donnees/Document.php";
             require_once "Models/Donnees/Session.php";
             require_once "Models/Donnees/Utilisateur.php";
+            parent::__construct();
         }
     
         function EditReferences()
@@ -143,7 +144,7 @@
                 $uo->getModelState();
             }
     
-            rheader('Location: ?controller=EditReferences&action=AfficherUtilisateurs');
+            header('Location: ?controller=EditReferences&action=AfficherUtilisateurs');
             return new View("", 301);
         }
     }
