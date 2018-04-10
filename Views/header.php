@@ -16,7 +16,9 @@
                     <span class="hCieName">PaperSensation</span>
                 </td>
                 <td class="d2">
-                    <span class="hCentre"><?php echo $GLOBALS["titrePage"] ?></span>
+                    <span class="hCentre"><?php if (isset($GLOBALS["titrePage"])) {
+                            echo $GLOBALS["titrePage"];
+                        } ?></span>
                 </td>
                 <td class="d3">
                     <?php
