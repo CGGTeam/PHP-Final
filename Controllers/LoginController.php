@@ -45,14 +45,10 @@
                     /** @var mysql $BD */
                     global $bd;
                     $objRetour = $bd->selectionneRow("Utilisateur", "*", $strConditions);
-
-                    echo "<br />";
-                    $objRetour = $objRetour && $objRetour->num_rows == 1 ? $objRetour : false;
-                    if ($objRetour) {
+    
+                    if ($objRetour && $objRetour->num_rows) {
                         session_start();
-                        echo "ALFKJHNIUFGHWAOIF";
                         $_SESSION["utilisateurCourant"] = ModelBinding::bindToClass($objRetour, "Utilisateur")[0];
-                        
                         if ($_SESSION["utilisateurCourant"]->nomUtilisateur == "admin" && $_SESSION["utilisateurCourant"]->motDePasse == "admin") {
                             $_SESSION["creerAdmin"] = true;
                             header('Location: ?controller=Login&action=CreerAdmin');
@@ -91,15 +87,15 @@
                 $objResultatNomUtil = $bd->selectionneRow("Utilisateur", "Courriel", "NomUtilisateur= '" . $strNomUtil . "'");
                 $objResultatCourriel = $bd->selectionneRow("Utilisateur", "Courriel", "Courriel= '" . $strEmail . "'");
                 if (!$objResultatNomUtil || !$objResultatCourriel) {
-                    return new View(EnumEtatsUtil::ERREUR_BD, "Views/Login/CreateAdminView.php");
+                    return new View(EnumEtatsUtil::ERREUR_BD);
                 } else if ($objResultatNomUtil->num_rows > 0 && $objResultatCourriel->num_rows > 0) {
-                    return new View(EnumEtatsUtil::SAME_BOTH, "Views/Login/CreateAdminView.php");
+                    return new View(EnumEtatsUtil::SAME_BOTH);
                 } else if ($objResultatNomUtil->num_rows > 0) {
-                    return new View(EnumEtatsUtil::SAME_USER, "Views/Login/CreateAdminView.php");
+                    return new View(EnumEtatsUtil::SAME_USER);
                 } else if ($objResultatCourriel->num_rows > 0) {
-                    return new View(EnumEtatsUtil::SAME_EMAIL, "Views/Login/CreateAdminView.php");
+                    return new View(EnumEtatsUtil::SAME_EMAIL);
                 } else if ($strNomUtil == "admin" && $strMotPasse == "admin") {
-                    return new View(EnumEtatsUtil::ADMIN_ADMIN, "Views/Login/CreateAdminView.php");
+                    return new View(EnumEtatsUtil::ADMIN_ADMIN);
                 }
 
                 $objUtil = new Utilisateur(
@@ -111,6 +107,7 @@
                         "courriel" => $strEmail
                     ], true
                 );
+                $objUtil->setModelState(ModelState::Added);
                 $objUtil->saveChangesOnObj();
 
                 /** @var Utilisateur $utilCourant */
@@ -118,10 +115,12 @@
                 $utilCourant->setModelState(ModelState::Deleted);
                 $utilCourant->saveChangesOnObj();
                 $_SESSION["creerAdmin"] = false;
-                return new View(new LoginModel(EnumEtatsLogin::AUCUN_POST), "Views/Login/LoginView.php");
-                
+    
+                die();
+                header('Location: ?controller=Login&action=Login');
+                return new View("", 302);
             } else {
-                return new View(new LoginModel(EnumEtatsLogin::AUCUN_POST), "Views/Login/CreateAdminView.php");
+                return new View(new LoginModel(EnumEtatsLogin::AUCUN_POST));
             }
         }
     }

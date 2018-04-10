@@ -1,34 +1,96 @@
 @charset "utf-8";
 form {
 }
+
 body {
-	background-color: #d5d5d5;
-	margin: 0px;
+    background-image: url("../../images/Books_Blurred.jpg");
+    margin: 0px;
+    font-family: "acumin-pro", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18pt;
+    color: #282D35;
 }
+
 .headerTable {
     width: 100%;
 }
-td {
-    vertical-align: top;
 
+.sTableFormulaire {
+    margin: 0 auto;
+    font-family: "acumin-pro", sans-serif;
+    font-style: normal;
+    font-weight: 200;
+    font-size: 15pt;
+    /*border-radius: 10px;*/
+    background-color: #9099A2;
+    text-align: center;
+
+    width: 35%;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    padding-left: 150px;
+    padding-right: 150px;
 }
-.d1 {
-    text-align: left;
+
+.sTb{
+    background-color: #d5d5d5;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+    /*border-radius: 10px;*/
+    color: #282D35;
+    border: none;
+
+    font-family: "acumin-pro", sans-serif;
+    font-style: normal;
+    font-weight: 200;
+    font-size: 15pt;
+
+    width: 100%;
 }
-.d2 {
-    text-align:center;
+
+.sBtn{
+    background-color: #00866e;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+    /*border-radius: 10px;*/
+    color: #282D35;
+    margin-top: 15px;
+
+    font-family: "acumin-pro", sans-serif;
+    font-style: normal;
+    font-weight: 200;
+    font-size: 15pt;
+
+    width: 100%;
 }
-.d3 {
-    text-align:right;
+
+.sForm{
+    position: relative;
+    transform: translateY(50%);
 }
-.hCieName,.hCentre,.hDroite{
-	
+
+.sContSingleButton{
+    text-align: center;
 }
-.sHeaderLogin{
-	background-color: #9099A2;
-	font-family: "acumin-pro",sans-serif;
-	font-style: normal;
-	font-weight: 200;
-	font-size: 25pt;
-	color: #282D35;
+
+input{
+    margin-top: 15px;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #535f75;
+    opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #535f75;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: #535f75;
 }
