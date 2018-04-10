@@ -1,20 +1,4 @@
-<body>
 <link href="/michael/michael/Views/Login/LoginStyle.css" rel="stylesheet" type="text/css">
-<div class="sHeaderLogin">
-    <table class="headerTable">
-        <tr>
-            <td class="d1">
-                <span class="hCieName">PaperSensation</span>
-            </td>
-            <td class="d2">
-                <span class="hCentre"></span>
-            </td>
-            <td class="d3">
-                <span class="hDroite">Annuler</span>
-            </td>
-        </tr>
-    </table>
-</div>
 <div id="sCreerAdmin">
     <form id="frmCreerAdmin" method="post" action="index.php?controller=Login&action=CreerAdmin" class="sForm">
         <table class="sTableFormulaire" style="width: 45%">
@@ -41,7 +25,3 @@
         </table>
     </form>
 </div>
-<div class="sFooterBas">
-    <p class="sTexteFooter">&copy; PaperSensation 2018, tous les droits reserves.</p>
-</div>
-</body>
