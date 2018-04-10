@@ -34,11 +34,19 @@ class ModelBinding
         //TODO saveChanges pour chaque modelState
         if($this->modelState != ModelState::Same && $this->modelState != ModelState::Invalid) {
             switch ($this->modelState) {
-                case ModelState::Added:
+                case ModelState::Added :
                     $this->modelState = $this->bd->insereEnregistrementTb(get_class($this), $this->tbValeurs) ?
                         ModelState::Same : ModelState::Invalid;
                     break;
-                case ModelState::Same:
+                case ModelState::Same :
+                    break;
+                case ModelState::Deleted :
+                    $strConditions = "";
+                    foreach ($this->tbValeurs as $nomChamp => $valeur) {
+                        $strConditions .= "$nomChamp = '$valeur' AND ";
+                    }
+                    $strConditions = substr($strConditions, 0, strlen($strConditions) - 5);
+                    $this->bd->supprimeEnregistrements(get_class($this), $strConditions);
                     break;
                 default:
                     echo "NOT IMPLEMENTED";

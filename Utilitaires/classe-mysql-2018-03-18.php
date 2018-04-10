@@ -10,6 +10,7 @@
       | Attributs
       |----------------------------------------------------------------------------------|
       */
+       /** @var mysqli $cBD */
       public $cBD = null;                       /* Identifiant de connexion */
       public $listeEnregistrements = null;      /* Liste des enregistrements retournés */
       public $nomFichierInfosSensibles = "";    /* Nom du fichier 'InfosSensibles' */
@@ -223,7 +224,9 @@
           if($strListeConditions != ""){
               $this->requete .= " WHERE $strListeConditions";
           }
+          echo "<br/><br/>$this->requete";
           $this->OK = mysqli_query($this->cBD, $this->requete);
+    
           return $this->OK;
       }
     
