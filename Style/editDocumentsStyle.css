@@ -1,5 +1,4 @@
 @charset "UTF-8";
-@import url("../Main.css");
 /* Body */
 body {
     font-family: Acumin-Pro;
@@ -43,6 +42,15 @@ body h1 {
     margin-bottom: 70px;
 }
 
+body h2 {
+    color: #FFFFFF;
+    text-align: left;
+    font-size: 25px;
+    font-family: acumin-pro-wide,sans-serif;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
 sousTitre .tableHeader  {
 }
 
@@ -64,9 +72,10 @@ sousTitre .tableHeader  {
 
 
 .container form table {
-    background-color: rgba(213,213,213,0.80);
-    width: 100%;
-    border-collapse: collapse;
+	background-color: rgba(213,213,213,0.80);
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 20px;
 }
 
 
@@ -401,6 +410,7 @@ html {
         margin-top: 25px;
         margin-right: 0px;
         margin-bottom: 0px;
+
         margin-left: 12px;
         float: none;
         text-align: center;

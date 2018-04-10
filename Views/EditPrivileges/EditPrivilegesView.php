@@ -264,5 +264,8 @@
                 </tr>
                 </tbody>
             </table>
+            <input style="width: 200px;" type="submit" name="submit" id="submit" value="Enregistrement">
+            <input style="width: 200px" type="button" name="button" id="button" value="Retour" onclick="window.location='?controller=AdminMenu&action=AdminMenu';">
         </form>
     </div>
+</div>
