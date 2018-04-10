@@ -37,7 +37,9 @@ class View
         $model = $this->model;
         global $authorized;
         if (http_response_code() == 200 && $authorized) {
+            require_once "Views/header.php";
             require_once $this->strChemin;
+            require_once "Views/footer.php";
         } else if (!$authorized) {
             http_response_code(401);
             echo "<h1>401: Not Authorized</h1>";

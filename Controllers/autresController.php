@@ -8,13 +8,14 @@
 
 class autresController
 {
-
     private $bd;
     public function __construct()
     {
         /* @var $bd mysql */
         global $bd;
         $this->bd = $bd;
+        global $authorized;
+        $authorized = true;
     }
 
     public function erreur(){

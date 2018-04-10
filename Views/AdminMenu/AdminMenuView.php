@@ -1,18 +1,60 @@
-<?php /** @var Utilisateur $model */
-?>
-Logged in : <?= $model->nomUtilisateur ?> (Admin)
-<br/>
-<a href="?controller=AdminMenu&action=EditDocuments">1. Mettre à jour la liste des documents</a><br/>
-<i>Cliquez sur le lien ci-dessus si vous désirez ajouter/modifier/retirer un ou plusieurs docu-ments.</i><br/>
-<a href="?controller=AdminMenu&action=EditReferences">2. Mettre à jour les tables de référence</a><br/>
-<i>Cliquez sur le lien ci-dessus si vous désirez ajouter/modifier/retirer une ou plusieurs ses-sions, cours, catégories
-    de document et/ou utilisateurs.</i><br/>
-<a href="?controller=AdminMenu&action=EditPrivileges"> 3. Assigner les privilèges d'accès aux documents </a><br/>
-<i>Cliquez sur le lien ci-dessus pour assigner les privilèges d'accès aux documents pour un ou plusieurs
-    utilisateurs.</i><br/>
-<a href="?controller=AdminMenu&action=EditGroupes">4. Assigner un groupe d'utilisateurs à un cours-session</a><br>
-<i>Cliquez sur le lien ci-dessus si vous désirez ajouter une série d'utilisateurs et les assigner à un cours-session
-    existant.</i><br/>
-<a href="?controller=AdminMenu&action=EditArborescence">5. Reconstruire l'arborescence des documents</a><br/>
-<i>Cliquez sur le lien ci-dessus si vous désirez effectuer du ménage dans les listes de documents enregistrés.</i><br/>
-<a href="?controller=Login&action=Login">6. Terminer l'application</a><br/>
+<link href="Views/AdminMenu/AdminMenuStyle.css" rel="stylesheet" type="text/css"/>
+<table class="tableauBoutons">
+    <tr>
+        <td>
+            <form method="post" action="index.php?controller=AdminMenu&action=EditDocuments">
+                <button type="submit">
+                    1. Mettre à jour la liste des documents
+                </button>
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <form method="post" action="index.php?controller=AdminMenu&action=EditReferences">
+                <button type="submit">
+                    2. Mettre à jour les tables de référence
+                </button>
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <form method="post" action="index.php?controller=AdminMenu&action=EditPrivileges">
+                <button type="submit">
+                    3. Assigner les privilèges d'accès aux documents
+                </button>
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <form method="post" action="index.php?controller=AdminMenu&action=EditGroupes">
+                <button type="submit">
+                    4. Assigner un groupe d'utilisateurs à un cours-session
+                </button>
+            </form>
+            <a href="">
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <form method="post" action="index.php?controller=AdminMenu&action=EditArborescence">
+                <button type="submit">
+                    5. Reconstruire l'arborescence des documents
+                </button>
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <form method="post" action="index.php?controller=Login&action=Login">
+                <button type="submit">
+                    6. Terminer l'application
+                </button>
+            </form>
+        </td>
+    </tr>
+</table>
+

@@ -1,3 +1,13 @@
+body {
+    background-image: url("../images/Books_Blurred.jpg");
+    margin: 0px;
+    font-family: "acumin-pro", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18pt;
+    color: #282D35;
+}
+
 .sHeaderLogin {
     background-color: #9099A2;
 }

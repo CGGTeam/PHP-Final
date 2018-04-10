@@ -9,6 +9,10 @@
     
     class EditArborescenceController extends ModuleAdminBase
     {
+        function __construct() {
+            parent::__construct();
+        }
+    
         function EditArborescence()
         {
             return new View();

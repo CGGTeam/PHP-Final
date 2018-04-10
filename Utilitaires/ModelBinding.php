@@ -5,8 +5,8 @@
  * Date: 04/04/18
  * Time: 23:44
  */
-
-class ModelBinding
+    
+    abstract class ModelBinding
 {
     /** @var mysql $bd */
     private $bd;

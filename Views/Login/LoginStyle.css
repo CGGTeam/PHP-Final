@@ -37,11 +37,8 @@ body {
     background-color: #9099A2;
     text-align: center;
 
-    width: 35%;
-    padding-top: 80px;
-    padding-bottom: 80px;
-    padding-left: 150px;
-    padding-right: 150px;
+    width: 100%;
+    padding: 2.5% 5%;
 }
 
 .sTb{
@@ -62,10 +59,7 @@ body {
 
 .sBtn{
     background-color: #00866e;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-right: 10px;
-    padding-left: 10px;
+    padding: 5px 10px;
     /*border-radius: 10px;*/
     color: #282D35;
     margin-top: 15px;

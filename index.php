@@ -17,6 +17,4 @@ if (isset($_GET['controller']) && isset($_GET['action'])) {
     $action = 'Login';
 }
 
-require_once "Views/header.php";
 require_once "routes.php";
-require_once "Views/footer.php";
