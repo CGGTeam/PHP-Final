@@ -17,7 +17,9 @@
         </tr>
         <tr>
             <td class="sContSingleButton" colspan="2">
-                <input class="sBtn" type="submit" value="Connexion">
+                <button class="sBtn" type="submit">
+                    Connexion
+                </button>
             </td>
         </tr>
     </table>

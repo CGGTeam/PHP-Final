@@ -66,7 +66,8 @@
                             header('Location: ?controller=AdminMenu&action=AdminMenu');
                             $objView = new View("", 302);
                         } else {
-                            $objView = new View($_SESSION["utilisateurCourant"], "Views/UserMenu/UserMenuView.php");
+                            header('Location: ?controller=UserMenu&action=ChoixCours');
+                            $objView = new View("", 302);
                         }
                     } else {
                         $objView = new View(new LoginModel(EnumEtatsLogin::LOGIN_FAILED));

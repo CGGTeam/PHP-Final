@@ -1,20 +1,30 @@
+:root {
+    --font: "acumin-pro-wide", sans-serif;
+    --text: #282D35;
+    --input: #00866e;
+    --input_focused: #383f4d;
+    --input_active: #21252e;
+    --input_hover: #00a189;
+    --primary: #9099A2;
+}
+
 body {
     background-image: url("../images/Books_Blurred.jpg");
     margin: 0px;
-    font-family: "acumin-pro", sans-serif;
+    font-family: var(--font);
     font-style: normal;
     font-weight: normal;
     font-size: 18pt;
-    color: #282D35;
+    color: var(--text);
 }
 
 .sHeaderLogin {
-    background-color: #9099A2;
+    background-color: var(--primary);
 }
 
 .sHeaderLogin > table{
     color: #282D35;
-    font-family: "acumin-pro-wide", sans-serif;
+    font-family: var(--font);
     font-style: normal;
     font-weight: 200;
     font-size: 24pt;
@@ -32,8 +42,8 @@ body {
 }
 
 .sTexteFooter{
-    background-color: #9099A2;
-    font-family: "acumin-pro-wide", sans-serif;
+    background-color: var(--primary);
+    font-family: var(--font);
     font-style: normal;
     font-weight: 200;
     font-size: 18pt;
@@ -55,4 +65,38 @@ td {
 
 .d3 {
     text-align: right;
+}
+
+select {
+    background-color: var(--input);
+    border-color: var(--text);
+    color: var(--text);
+    height: 5vh;
+}
+
+button {
+    font-family: var(--font);
+    display: block;
+    border-color: var(--text);
+    text-align: center;
+    background-color: var(--input);
+    color: var(--text);
+}
+
+button:focus {
+    font-family: var(--font);
+    background-color: var(--input_focused);
+    color: white;
+}
+
+button:active {
+    font-family: var(--font);
+    background-color: var(--input_active);
+    color: white;
+}
+
+button:hover {
+    font-family: var(--font);
+    background-color: var(--input_hover);
+    color: var(--text);
 }
