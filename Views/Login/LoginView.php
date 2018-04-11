@@ -17,13 +17,16 @@
         </tr>
         <tr>
             <td class="sContSingleButton" colspan="2">
-                <input class="sBtn" type="submit" value="Connexion">
+                <button class="sBtn" type="submit">
+                    Connexion
+                </button>
             </td>
         </tr>
     </table>
+    <h2><?= $model->etat ?></h2>
 </form>
 </div>
-<h2><?= $model->etat ?></h2>
+
 <?php
     /** @var LoginModel $model */
 ?>

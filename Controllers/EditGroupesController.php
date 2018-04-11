@@ -10,6 +10,10 @@
     
     class EditGroupesController extends ModuleAdminBase
     {
+        function __construct() {
+            parent::__construct();
+        }
+        
         function EditGroupes()
         {
             return new View();

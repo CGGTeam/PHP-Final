@@ -5,11 +5,11 @@ form {
 body {
     background-image: url("../../images/Books_Blurred.jpg");
     margin: 0px;
-    font-family: "acumin-pro", sans-serif;
+    font-family: var(--font);
     font-style: normal;
     font-weight: normal;
     font-size: 18pt;
-    color: #282D35;
+    color: var(--text);
 }
 
 .headerTable {
@@ -34,14 +34,11 @@ body {
     font-weight: 200;
     font-size: 15pt;
     /*border-radius: 10px;*/
-    background-color: #9099A2;
+    background-color: var(--primary);
     text-align: center;
 
-    width: 35%;
-    padding-top: 80px;
-    padding-bottom: 80px;
-    padding-left: 150px;
-    padding-right: 150px;
+    width: 100%;
+    padding: 2.5% 5%;
 }
 
 .sTb{
@@ -52,7 +49,7 @@ body {
     color: #282D35;
     border: none;
 
-    font-family: "acumin-pro", sans-serif;
+    font-family: var(--font);
     font-style: normal;
     font-weight: 200;
     font-size: 15pt;
@@ -61,29 +58,13 @@ body {
 }
 
 .sBtn{
-    background-color: #00866e;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-right: 10px;
-    padding-left: 10px;
-    /*border-radius: 10px;*/
-    color: #282D35;
+    padding: 5px 10px;
     margin-top: 15px;
-
-    font-family: "acumin-pro", sans-serif;
-    font-style: normal;
-    font-weight: 200;
-    font-size: 15pt;
-
     width: 100%;
 }
 
 .sContSingleButton{
     text-align: center;
-}
-
-input{
-    margin-top: 15px;
 }
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */

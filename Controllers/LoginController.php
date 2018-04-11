@@ -19,7 +19,13 @@
             require_once "Models/Donnees/Utilisateur.php";
             require_once "Utilitaires/ModelState.php";
         }
-
+    
+        function Logout() {
+            session_unset();
+            header('Location: ?controller=Login&action=Logout');
+            return new View("", 302);
+        }
+        
         /**
          * @return null|View
          */
@@ -31,11 +37,14 @@
                 $strNomUtil = $_SESSION["strNomUtil"]->nomUtilisateur;
                 $strMotPasse = $_COOKIE["strMotDePasse"]->motDePasse;
             } else {
-                session_unset();
                 $strNomUtil = post("tbNomUtilisateur");
                 $strMotPasse = post("tbMotDePasse");
             }
-
+    
+            if (isset($_SESSION["creerAdmin"])) {
+                $_SESSION["creerAdmin"] = false;
+            }
+            
             if ($strNomUtil && $strMotPasse) {
                 if ($strNomUtil == "make" && $strMotPasse == "coffee") {
                     $objView = new View("418: I'm a teapot", 418);
@@ -57,14 +66,14 @@
                             header('Location: ?controller=AdminMenu&action=AdminMenu');
                             $objView = new View("", 302);
                         } else {
-                            $objView = new View($_SESSION["utilisateurCourant"], "Views/UserMenu/UserMenuView.php");
+                            header('Location: ?controller=UserMenu&action=ChoixCours');
+                            $objView = new View("", 302);
                         }
                     } else {
                         $objView = new View(new LoginModel(EnumEtatsLogin::LOGIN_FAILED));
                     }
                 }
             } else if (!$strNomUtil || !$strMotPasse) {
-                session_unset();
                 $objView = new View(new LoginModel(EnumEtatsLogin::AUCUN_POST));
             }
             return $objView;
@@ -86,6 +95,7 @@
                 global $bd;
                 $objResultatNomUtil = $bd->selectionneRow("Utilisateur", "Courriel", "NomUtilisateur= '" . $strNomUtil . "'");
                 $objResultatCourriel = $bd->selectionneRow("Utilisateur", "Courriel", "Courriel= '" . $strEmail . "'");
+    
                 if (!$objResultatNomUtil || !$objResultatCourriel) {
                     return new View(EnumEtatsUtil::ERREUR_BD);
                 } else if ($objResultatNomUtil->num_rows > 0 && $objResultatCourriel->num_rows > 0) {
@@ -116,7 +126,7 @@
                 $utilCourant->saveChangesOnObj();
                 $_SESSION["creerAdmin"] = false;
     
-                die();
+                session_unset();
                 header('Location: ?controller=Login&action=Login');
                 return new View("", 302);
             } else {

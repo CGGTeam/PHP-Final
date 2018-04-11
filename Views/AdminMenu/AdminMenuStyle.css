@@ -1,0 +1,54 @@
+body {
+    background-image: url("../../images/Books_Blurred.jpg");
+    margin: 0px;
+    font-family: "acumin-pro", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18pt;
+    color: #282D35;
+}
+
+.tableauBoutons {
+    position: absolute;
+    display: inline-block;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 65vw;
+    height: 65vh;
+}
+
+.tableauBoutons tbody {
+    background-color: var(--primary);
+    display: block;
+    padding: 5%;
+    width: 95%;
+    text-align: center;
+}
+
+.tableauBoutons tr {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding-top: 0.25vh;
+    padding-bottom: 0.25vh;
+}
+
+.tableauBoutons tr td {
+    display: block;
+    width: 100%;
+    padding: 5px 0px;
+    text-align: center;
+}
+
+.tableauBoutons tr td button {
+    display: block;
+    text-align: center;
+    width: 100%;
+    min-height: 5vh;
+    height: auto;
+    font-size: 2vmax;
+    font-weight: bolder;
+}
