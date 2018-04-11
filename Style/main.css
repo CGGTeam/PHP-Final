@@ -27,7 +27,7 @@ body {
     font-family: var(--font);
     font-style: normal;
     font-weight: 200;
-    font-size: 24pt;
+    font-size: 2vmax;
 }
 .headerTable {
     width: 100%;
@@ -37,7 +37,7 @@ body {
     position: fixed;
     left: 0;
     bottom: 0;
-    width: 100%;
+    width: 100vw;
     color: #282D35;
 }
 
@@ -100,3 +100,19 @@ button:hover {
     background-color: var(--input_hover);
     color: var(--text);
 }
+
+/* ===== STICKY HEADER ===== */
+/* The navigation bar */
+.sHeader {
+    overflow: hidden;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
+    height: 5.5vh;
+}
+
+/* Main content */
+.sContenuPage {
+    margin-top: 5.5vh; /* Add a top margin to avoid content overlay */
+}
+/* =========================== */

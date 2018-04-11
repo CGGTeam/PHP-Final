@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="https://use.typekit.net/gij1vpi.css">
     </head>
     <body class="">
-    <div class="sHeaderLogin">
+    <div class="sHeader sHeaderLogin">
         <table class="headerTable">
             <tr>
                 <td class="d1">
@@ -50,4 +50,4 @@
             </tr>
         </table>
     </div>
-    
+    <div class="sContenuPage">
