@@ -1,7 +1,7 @@
 <link href="Views/Login/LoginStyle.css" rel="stylesheet" type="text/css">
 <div class="sCreerAdmin">
     <form id="frmCreerAdmin" method="post" action="index.php?controller=Login&action=CreerAdmin" class="sForm">
-        <table class="sTableFormulaire" style="width: 45%">
+        <table class="sTableFormulaire">
             <tr>
                 <td>
                     <h1>Premiere Execution</h1>
