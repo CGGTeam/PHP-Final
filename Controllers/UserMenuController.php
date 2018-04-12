@@ -18,10 +18,12 @@
         
         function ChoixCours()
         {
+            $GLOBALS["titrePage"] = "Choix d'un cours";
             return new View();
         }
         
         function AfficherCours() {
+            $GLOBALS["titrePage"] = "Affichage des cours";
             return new View();
         }
     }

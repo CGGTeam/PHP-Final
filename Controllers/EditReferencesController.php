@@ -26,11 +26,14 @@
     
         function EditReferences()
         {
+            $GLOBALS["titrePage"] = "Modification des tables de référence";
             return new View();
         }
     
         function AfficherSessions()
         {
+            $GLOBALS["titrePage"] = "Affichage des sessions";
+            
             global $bd;
             $objRetour = $bd->selectionneRow("Session");
             $tSessions = ModelBinding::bindToClass($objRetour, "Session");
@@ -54,6 +57,8 @@
     
         function AfficherCours()
         {
+            $GLOBALS["titrePage"] = "Affichage des cours";
+    
             global $bd;
             $objRetour = $bd->selectionneRow("Cours");
             $tCours = ModelBinding::bindToClass($objRetour, "Cours");
@@ -78,6 +83,8 @@
     
         function AfficherCoursSessions()
         {
+            $GLOBALS["titrePage"] = "Affichage des cours session";
+            
             global $bd;
             $objRetour = $bd->selectionneRow("CoursSession");
             $tCoursSessions = ModelBinding::bindToClass($objRetour, "CoursSession");
@@ -102,6 +109,8 @@
     
         function AfficherCategories()
         {
+            $GLOBALS["titrePage"] = "Affichage des catégories";
+            
             global $bd;
             $objRetour = $bd->selectionneRow("Categorie");
             $tCategories = ModelBinding::bindToClass($objRetour, "Categorie");
@@ -126,6 +135,8 @@
     
         function AfficherUtilisateurs()
         {
+            $GLOBALS["titrePage"] = "Affichage des utilisateurs";
+            
             global $bd;
             $objRetour = $bd->selectionneRow("Utilisateur");
             $tUtilisateurs = ModelBinding::bindToClass($objRetour, "Utilisateur");
