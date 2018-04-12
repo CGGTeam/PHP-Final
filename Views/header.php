@@ -13,7 +13,7 @@
         <table class="headerTable">
             <tr>
                 <td class="d1">
-                    <span class="hCieName">PaperSensation</span>
+                    <span>PaperSensation</span>
                 </td>
                 <td class="d2">
                     <span class="hCentre"><?php if (isset($GLOBALS["titrePage"])) {
