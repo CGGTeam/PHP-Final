@@ -1,15 +1,7 @@
 @charset "UTF-8";
 body {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    font-family: var(--font);
-    color: var(--text);
-    height: 100vh;
-    width: 100vw;
     background: url(../images/MD-portes-GG.png) round !important;
     background-size: 100%;
-
 }
 
 .boutonsConfirm {

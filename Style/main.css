@@ -16,12 +16,14 @@
 
 body {
     background-image: url("../images/Books_Blurred.jpg");
-    margin: 0px;
+    margin: 0;
+    align-items: center;
+    display: flex;
+    justify-content: center;
     font-family: var(--font);
-    font-style: normal;
-    font-weight: normal;
-    font-size: 18pt;
     color: var(--text);
+    height: 100vh;
+    width: 100vw;
 }
 
 .sHeaderLogin {
@@ -118,10 +120,5 @@ button:hover {
     top: 0; /* Position the navbar at the top of the page */
     width: 100vw; /* Full width */
     height: var(--footerVH);
-}
-
-/* Main content */
-.sContenuPage {
-    margin-top: 5.5vh; /* Add a top margin to avoid content overlay */
 }
 /* =========================== */

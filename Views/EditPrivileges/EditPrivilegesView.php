@@ -1,7 +1,6 @@
 <link href="Style/privilegeStyles.css" rel="stylesheet" type="text/css">
 <div class="container">
-    <h1>LES PRIVILÈGES D'ACCÈS</h1>
-    <div style="width: 90%; margin: auto">
+    <div>
         <form>
             <table border="1" cellspacing="5" cellpadding="5">
                 <tbody>
@@ -264,8 +263,13 @@
                 </tr>
                 </tbody>
             </table>
-            <input style="width: 200px;" type="submit" name="submit" id="submit" value="Enregistrement">
-            <input style="width: 200px" type="button" name="button" id="button" value="Retour" onclick="window.location='?controller=AdminMenu&action=AdminMenu';">
+            <button type="submit" name="submit" id="submit">
+                Enregistrement
+            </button>
+            <button type="button" name="button" id="button"
+                    onclick="window.location='?controller=AdminMenu&action=AdminMenu';">
+                Retour
+            </button>
         </form>
     </div>
 </div>
