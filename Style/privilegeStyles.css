@@ -9,7 +9,7 @@ body {
     margin-left: 0px;
     font-style: normal;
     font-weight: 200;
-    color: #282D35;
+    color: var(--text);
     height: 100%;
 }
 #button,
@@ -324,7 +324,7 @@ tbody tr:nth-child(even) {
 }
 .divTitre {
     height: 5%;
-    background-color: #D5D5D5;
+    background-color: var(--quaternary);
 }
 html {
     height: 100%;
@@ -603,8 +603,8 @@ input[type="checkbox"] {
     display: block;
     width: 10px;
     height: 5px;
-    border-bottom: 2px solid #96858F;
-    border-left: 2px solid #96858F;
+    border-bottom: 2px solid var(--tertiary);
+    border-left: 2px solid var(--tertiary);
     -webkit-transform: rotate(-45deg) scale(0);
     -moz-transform: rotate(-45deg) scale(0);
     -ms-transform: rotate(-45deg) scale(0);
@@ -614,7 +614,7 @@ input[type="checkbox"] {
     left: 10px;
 }
 input[type="checkbox"]:checked ~ .helper::before {
-    color: #96858F;
+    color: var(--tertiary);
 }
 
 input[type="checkbox"]:checked ~ .helper::after {

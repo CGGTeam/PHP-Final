@@ -23,7 +23,11 @@
                            placeholder="Mot de passe"/></td>
             </tr>
             <tr>
-                <td><input class="sBtn" id="btnSoumettre" name="btnSoumettre" type="submit" value="Creer"/></td>
+                <td>
+                    <button class="sBtn" id="btnSoumettre" name="btnSoumettre" type="submit">
+                        Creer
+                    </button>
+                </td>
             </tr>
         </table>
     </form>
