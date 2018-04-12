@@ -44,6 +44,7 @@ body h2 {
     border: 1px  #000000;
     display: table-cell;
     vertical-align: middle;
+    border-bottom-style: hidden;
 }
 
 .container table tbody tr:nth-child(even) {
