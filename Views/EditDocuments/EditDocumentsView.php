@@ -18,7 +18,6 @@
         </tr>
         <tr>
             <td><input type="date" name="date5" id="date9">
-            </th>
             <td><select name="select4" id="select7">
                     <option>1</option>
                     <option>2</option>
@@ -41,35 +40,25 @@
                     <option>19</option>
                     <option>20</option>
                 </select>
-            </th>
             <td><input type="date" name="date5" id="date10">
-            </th>
             <td><input type="date" name="date5" id="date11">
-            </th>
             <td><input type="text" name="textfield3" id="textfield5" placeholder="Entrez un titre">
-            </th>
             <td><input type="text" name="textfield3" id="textfield6" placeholder="Entrez une description">
-            </th>
             <td><input type="number" name="number2" id="number3">
-            </th>
             <td><select name="select4" id="select8">
                     <option>Categorie 1</option>
                     <option>Categorie 2</option>
                     <option>Categorie 3</option>
                     <option>Categorie 4</option>
                 </select>
-            </th>
             <td><select name="select4" id="select9">
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
                     <option>4</option>
                 </select>
-            </th>
             <td><input type="date" name="date5" id="date12">
-            </th>
             <td><a href="http://google.com">google</a>
-            </th>
         </tr>
         </tbody>
     </table>
