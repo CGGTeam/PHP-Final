@@ -15,6 +15,7 @@
     
         function EditDocuments()
         {
+            $GLOBALS["titrePage"] = "Modification des documents";
             return new View();
         }
         function selection()

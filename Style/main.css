@@ -6,16 +6,24 @@
     --input_active: #21252e;
     --input_hover: #00a189;
     --primary: #9099A2;
+    --secondary: #607993;
+    --tertiary: #96858F;
+    --quaternary: #D5D5D5;
+    --headerVH: 5vh;
+    --footerVH: 5vh;
+    --bodyVH: 90vh;
 }
 
 body {
     background-image: url("../images/Books_Blurred.jpg");
-    margin: 0px;
+    margin: 0;
+    align-items: center;
+    display: flex;
+    justify-content: center;
     font-family: var(--font);
-    font-style: normal;
-    font-weight: normal;
-    font-size: 18pt;
     color: var(--text);
+    height: 100vh;
+    width: 100vw;
 }
 
 .sHeaderLogin {
@@ -23,32 +31,45 @@ body {
 }
 
 .sHeaderLogin > table{
-    color: #282D35;
+    color: var(--text);
     font-family: var(--font);
     font-style: normal;
     font-weight: 200;
-    font-size: 2vmax;
+    font-size: 3vh;
+    padding: 0 0.5vw;
 }
+
 .headerTable {
     width: 100%;
+    height: 5vh;
+}
+
+.headerTable td {
+    width: 33%;
+    height: 5vh;
 }
 
 .sFooterBas {
+    align-items: center;
+    display: flex;
+    justify-content: left;
     position: fixed;
     left: 0;
     bottom: 0;
+    height: var(--footerVH);
+    font-size: 4vh;
     width: 100vw;
-    color: #282D35;
+    color: var(--text);
+    background-color: var(--primary);
 }
 
 .sTexteFooter{
-    background-color: var(--primary);
+    padding: 0 0.5vw;
     font-family: var(--font);
     font-style: normal;
     font-weight: 200;
-    font-size: 18pt;
+    font-size: 2vh;
     margin: 0;
-    padding: 10px;
 }
 
 td {
@@ -71,7 +92,14 @@ select {
     background-color: var(--input);
     border-color: var(--text);
     color: var(--text);
-    height: 5vh;
+    height: 2.5vh;
+}
+
+table select {
+    width: 80%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 button {
@@ -107,12 +135,7 @@ button:hover {
     overflow: hidden;
     position: fixed; /* Set the navbar to fixed position */
     top: 0; /* Position the navbar at the top of the page */
-    width: 100%; /* Full width */
-    height: 5.5vh;
-}
-
-/* Main content */
-.sContenuPage {
-    margin-top: 5.5vh; /* Add a top margin to avoid content overlay */
+    width: 100vw; /* Full width */
+    height: var(--headerVH);
 }
 /* =========================== */

@@ -11,8 +11,11 @@
      */
     class Session extends ModelBinding
     {
+        /** @var string $description No de la session (A-2099; H-2018 à A-2021) */
         public $description;
+        /** @var string $dateDebut Date de début de la session */
         public $dateDebut;
+        /** @var string $dateFin Date de fin de la session */
         public $dateFin;
 
         public function __construct(array $properties = array(), $binAjout = false)

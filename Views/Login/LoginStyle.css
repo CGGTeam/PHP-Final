@@ -46,7 +46,7 @@ body {
     padding-top: 5px;
     padding-bottom: 5px;
     /*border-radius: 10px;*/
-    color: #282D35;
+    color: var(--text);
     border: none;
 
     font-family: var(--font);
@@ -61,6 +61,7 @@ body {
     padding: 5px 10px;
     margin-top: 15px;
     width: 100%;
+    font-size: 2vmax;
 }
 
 .sContSingleButton{
