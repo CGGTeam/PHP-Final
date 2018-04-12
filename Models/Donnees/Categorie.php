@@ -11,8 +11,9 @@
      */
     class Categorie extends ModelBinding
     {
-        //Champs de la table
+        /** @var int $id */
         public $id;
+        /** @var string $description nom de la catégorie */
         public $description;
     
         public function __construct(array $properties = array(), $binAjout = false)
