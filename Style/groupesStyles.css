@@ -60,7 +60,7 @@ body {
 }
 
 .fichierSelect{
-    padding-bottom: 5vh;
+    padding-bottom: 3vh;
 }
 
 .fichierSelect input{
@@ -150,6 +150,11 @@ input[type="checkbox"] {
 
 .rouge {
     background-color: red;
+}
+
+.sessionSelect{
+    padding-bottom: 2vh;
+    width: 15vw;
 }
 
 input[type="checkbox"]:checked ~ .helper::before {

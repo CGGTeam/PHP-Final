@@ -7,6 +7,17 @@
             <input type="file" style="" name="fileToUpload" id="fileToUpload">
         </form>
 
+        <div class="sessionSelect">
+            <select style="width: 100%">
+                <option value="" disabled selected>Choisir session</option>
+                <option>A-2016</option>
+                <option>H-2016</option>
+                <option>A-2017</option>
+                <option>H-2016</option>
+                <option>A-2018</option>
+                <option>H-2016</option>
+            </select>
+        </div>
         <form>
             <table border="1" cellspacing="5" cellpadding="5">
                 <tbody>
