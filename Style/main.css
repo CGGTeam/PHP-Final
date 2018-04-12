@@ -35,14 +35,24 @@ body {
     font-family: var(--font);
     font-style: normal;
     font-weight: 200;
-    font-size: 4vh;
+    font-size: 3vh;
+    padding: 0 0.5vw;
 }
+
 .headerTable {
     width: 100%;
     height: 5vh;
 }
 
+.headerTable td {
+    width: 33%;
+    height: 5vh;
+}
+
 .sFooterBas {
+    align-items: center;
+    display: flex;
+    justify-content: left;
     position: fixed;
     left: 0;
     bottom: 0;
@@ -50,16 +60,16 @@ body {
     font-size: 4vh;
     width: 100vw;
     color: var(--text);
+    background-color: var(--primary);
 }
 
 .sTexteFooter{
-    background-color: var(--primary);
+    padding: 0 0.5vw;
     font-family: var(--font);
     font-style: normal;
     font-weight: 200;
-    font-size: 18pt;
+    font-size: 2vh;
     margin: 0;
-    padding: 10px;
 }
 
 td {
@@ -126,6 +136,6 @@ button:hover {
     position: fixed; /* Set the navbar to fixed position */
     top: 0; /* Position the navbar at the top of the page */
     width: 100vw; /* Full width */
-    height: var(--footerVH);
+    height: var(--headerVH);
 }
 /* =========================== */

@@ -16,16 +16,19 @@
         
         function EditGroupes()
         {
+            $GLOBALS["titrePage"] = "Modification des groupes";
             return new View();
         }
         
         function lireCSV()
         {
+            $GLOBALS["titrePage"] = "Lecture du csv";
             return new View();
         }
         
         function confirmer()
         {
+            $GLOBALS["titrePage"] = "Modification des groupes";
             return new View();
         }
     }

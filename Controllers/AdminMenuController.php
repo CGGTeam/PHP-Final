@@ -21,6 +21,7 @@
     
         function AdminMenu()
         {
+            $GLOBALS["titrePage"] = "Menu Admin";
             return new View($_SESSION["utilisateurCourant"]);
         }
     

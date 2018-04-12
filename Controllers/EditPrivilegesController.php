@@ -16,12 +16,13 @@
     
         function EditPrivileges()
         {
+            $GLOBALS["titrePage"] = "Modification des privilèges";
             return new View();
         }
         
         function enregistrerPrivileges()
         {
-            header("Location: ");
+            header("Location: ?controller=EditPrivileges&action=EditPrivileges");
             return new View("", 301);
         }
     }

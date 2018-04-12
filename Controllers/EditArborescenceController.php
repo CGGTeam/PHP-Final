@@ -15,10 +15,12 @@
     
         function EditArborescence()
         {
+            $GLOBALS["titrePage"] = "Arborescence des documents";
             return new View();
         }
         function nettoyage()
         {
+            $GLOBALS["titrePage"] = "Nettoyage de l'arborescence";
             return new View();
         }
     }

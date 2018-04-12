@@ -31,6 +31,7 @@
          */
         function Login()
         {
+            $GLOBALS["titrePage"] = "Connexion";
             $objView = null;
 
             if (isset($_SESSION["strNomUtil"])) {
@@ -81,6 +82,8 @@
     
         function CreerAdmin()
         {
+            $GLOBALS["titrePage"] = "Première connexion";
+    
             session_start();
             global $authorized;
             $authorized = isset($_SESSION["creerAdmin"]) && $_SESSION["creerAdmin"];
