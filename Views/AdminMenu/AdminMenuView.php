@@ -2,7 +2,7 @@
 <table class="tableauBoutons">
     <tr>
         <td>
-            <form method="post" action="index.php?controller=AdminMenu&action=EditDocuments">
+            <form method="post" action="?controller=AdminMenu&action=EditDocuments">
                 <button type="submit">
                     1. Mettre à jour la liste des documents
                 </button>
@@ -11,7 +11,7 @@
     </tr>
     <tr>
         <td>
-            <form method="post" action="index.php?controller=AdminMenu&action=EditReferences">
+            <form method="post" action="?controller=AdminMenu&action=EditReferences">
                 <button type="submit">
                     2. Mettre à jour les tables de référence
                 </button>
@@ -20,7 +20,7 @@
     </tr>
     <tr>
         <td>
-            <form method="post" action="index.php?controller=AdminMenu&action=EditPrivileges">
+            <form method="post" action="?controller=AdminMenu&action=EditPrivileges">
                 <button type="submit">
                     3. Assigner les privilèges d'accès aux documents
                 </button>
@@ -29,7 +29,7 @@
     </tr>
     <tr>
         <td>
-            <form method="post" action="index.php?controller=AdminMenu&action=EditGroupes">
+            <form method="post" action="?controller=AdminMenu&action=EditGroupes">
                 <button type="submit">
                     4. Assigner un groupe d'utilisateurs à un cours-session
                 </button>
@@ -40,7 +40,7 @@
     </tr>
     <tr>
         <td>
-            <form method="post" action="index.php?controller=AdminMenu&action=EditArborescence">
+            <form method="post" action="?controller=AdminMenu&action=EditArborescence">
                 <button type="submit">
                     5. Reconstruire l'arborescence des documents
                 </button>

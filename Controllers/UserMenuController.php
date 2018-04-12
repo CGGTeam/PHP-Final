@@ -6,20 +6,22 @@
      * Time: 12:56 PM
      */
     
-    class UserMenuController
+    require_once "Controllers/ModuleUtilisateurBase.php";
+    
+    class UserMenuController extends ModuleUtilisateurBase
     {
         function __construct()
         {
-            //init
+            parent::__construct();
             require_once "Models/Donnees/Utilisateur.php";
         }
         
-        function userMenu()
+        function ChoixCours()
         {
-            if (Utilisateur::$utilisateurCourant) {
-                return new View();
-            } else {
-                return new View("403: Not Authorized", 403);
-            }
+            return new View();
+        }
+        
+        function AfficherCours() {
+            return new View();
         }
     }
