@@ -3,12 +3,13 @@
 
 /* Body */
 body {
-    background: url(../images/MD-portes-GG.png) no-repeat center center fixed;
-    background-size: cover;
+    background: url(../images/MD-portes-GG.png) round !important;
+    background-size: 100%;
 }
 
 #button,
-#submit{
+#submit,
+.fichierSelect label{
     position: relative;
     display: inline-block;
     padding: 18px 39px;
@@ -21,32 +22,31 @@ body {
 /* Container */
 .container {
     width: 80vw;
-    height: 80vh;
 }
 
-.container table {
+.container form table {
     background-color: rgba(213,213,213,0.80);
     width: 100%;
     border-collapse: collapse;
 }
 
-.container table tbody tr th {
+.container tbody tr th {
     background-color: #9099A2;
     font-weight: bold;
 }
 
-.container table tbody tr td {
+.container tbody tr td {
     padding: 8px;
     border: 1px  #000000;
     display: table-cell;
     vertical-align: middle;
 }
 
-.container table tbody tr:nth-child(even) {
+.container tbody tr:nth-child(even) {
     background-color: rgba(213,213,213,0.90);
 }
 
-th .sousTitre {
+.container th .sousTitre {
     font-size: 10px;
     font-style: italic;
 }
@@ -57,6 +57,47 @@ th .sousTitre {
     display: block;
     width: 26px;
     height: 26px;
+}
+
+.fichierSelect{
+    padding-bottom: 3vh;
+}
+
+.fichierSelect input{
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+
+.fichierSelect label {
+    font-family: var(--font);
+    display: block;
+    border-color: var(--text);
+    text-align: center;
+    background-color: var(--input);
+    color: var(--text);
+}
+
+.fichierSelect label:focus {
+    font-family: var(--font);
+    background-color: var(--input_focused);
+    color: white;
+}
+
+.fichierSelect label:active {
+    font-family: var(--font);
+    background-color: var(--input_active);
+    color: white;
+}
+
+.fichierSelect label:hover {
+    font-family: var(--font);
+    background-color: var(--input_hover);
+    color: var(--text);
 }
 
 input[type="checkbox"] {
@@ -74,12 +115,15 @@ input[type="checkbox"] {
     cursor: pointer;
     display: block;
     font-size: 16px;
+    user-select: none;
     color: #e7e7e7;
 }
 
 .helper:before {
     content: '';
     position: absolute;
+    /* [disabled]left: 0; */
+    /* [disabled]top: 0; */
     margin: 4px;
     width: 22px;
     height: 22px;
@@ -102,6 +146,15 @@ input[type="checkbox"] {
     position: absolute;
     top: 12px;
     left: 10px;
+}
+
+.rouge {
+    background-color: red;
+}
+
+.sessionSelect{
+    padding-bottom: 2vh;
+    width: 15vw;
 }
 
 input[type="checkbox"]:checked ~ .helper::before {

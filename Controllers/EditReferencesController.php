@@ -30,132 +30,35 @@
             return new View();
         }
     
-        function AfficherSessions()
+        function Afficher()
         {
-            $GLOBALS["titrePage"] = "Affichage des sessions";
+            $strType = post("btnType");
+            $test = post("test");
+            echo "test";
+            $GLOBALS["titrePage"] = "Affichage des " . mb_strtolower($strType) . "s";
+    
+            if (!$strType) {
+                return new View();
+            }
             
             global $bd;
-            $objRetour = $bd->selectionneRow("Session");
-            $tSessions = ModelBinding::bindToClass($objRetour, "Session");
+            $objRetour = $bd->selectionneRow($strType);
+            $tDonnees = ModelBinding::bindToClass($objRetour, $strType);
     
-            return new View(new ReferencesModel($tSessions, EnumEtatsReferences::EDIT));
+            return new View(new ReferencesModel($tDonnees, $strType, EnumEtatsReferences::EDIT));
         }
     
-        function ConfirmerSessions() {
+        function Confirmer() {
             $strDonnees = post("donneesSession");
-            $tSessionsJson = json_decode($strDonnees, true);
-            $tSessionsObj = array();
-            foreach ($tSessionsJson as $sj) {
+            $tDonneesJson = json_decode($strDonnees, true);
+        
+            foreach ($tDonneesJson as $sj) {
                 $so = new Session($sj);
-                $tSessionsObj[] = $so;
                 $so->saveChangesOnObj();
             }
         
-            header('Location: ?controller=EditReferences&action=AfficherSessions');
-            return new View("", 301);
-        }
-    
-        function AfficherCours()
-        {
-            $GLOBALS["titrePage"] = "Affichage des cours";
-    
-            global $bd;
-            $objRetour = $bd->selectionneRow("Cours");
-            $tCours = ModelBinding::bindToClass($objRetour, "Cours");
-    
-            return new View(new ReferencesModel($tCours), EnumEtatsReferences::EDIT);
-        }
-    
-        function ConfirmerCours()
-        {
-            $strDonnees = post("donneesCours");
-            $tCoursJson = json_decode($strDonnees, true);
-            $tCoursObj = array();
-            foreach ($tCoursJson as $cj) {
-                $co = new Cours($cj);
-                $tCoursObj[] = $co;
-                $co->saveChangesOnObj();
-            }
-    
-            header('Location: ?controller=EditReferences&action=AfficherCours');
-            return new View("", 301);
-        }
-    
-        function AfficherCoursSessions()
-        {
-            $GLOBALS["titrePage"] = "Affichage des cours session";
-            
-            global $bd;
-            $objRetour = $bd->selectionneRow("CoursSession");
-            $tCoursSessions = ModelBinding::bindToClass($objRetour, "CoursSession");
-    
-            return new View(new ReferencesModel($tCoursSessions), EnumEtatsReferences::EDIT);
-        }
-    
-        function ConfirmerCoursSessions()
-        {
-            $strDonnees = post("donneesCoursSessions");
-            $tCoursSessionsJson = json_decode($strDonnees, true);
-            $tCoursSessionsObj = array();
-            foreach ($tCoursSessionsJson as $csj) {
-                $cso = new Cours($csj);
-                $tCoursSessionsObj[] = $cso;
-                $cso->saveChangesOnObj();
-            }
-    
-            header('Location: ?controller=EditReferences&action=AfficherCoursSessions');
-            return new View("", 301);
-        }
-    
-        function AfficherCategories()
-        {
-            $GLOBALS["titrePage"] = "Affichage des catégories";
-            
-            global $bd;
-            $objRetour = $bd->selectionneRow("Categorie");
-            $tCategories = ModelBinding::bindToClass($objRetour, "Categorie");
-    
-            return new View(new ReferencesModel($tCategories), EnumEtatsReferences::EDIT);
-        }
-    
-        function ConfirmerCategories()
-        {
-            $strDonnees = post("donneesCategories");
-            $tCategoriesJson = json_decode($strDonnees, true);
-            $tCategoriesObj = array();
-            foreach ($tCategoriesJson as $cj) {
-                $co = new Categorie($cj);
-                $tCategoriesObj[] = $co;
-                $co->getModelState();
-            }
-    
-            header('Location: ?controller=EditReferences&action=AfficherCategories');
-            return new View("", 301);
-        }
-    
-        function AfficherUtilisateurs()
-        {
-            $GLOBALS["titrePage"] = "Affichage des utilisateurs";
-            
-            global $bd;
-            $objRetour = $bd->selectionneRow("Utilisateur");
-            $tUtilisateurs = ModelBinding::bindToClass($objRetour, "Utilisateur");
-    
-            return new View(new ReferencesModel($tUtilisateurs), EnumEtatsReferences::EDIT);
-        }
-    
-        function ConfirmerUtilisateurs()
-        {
-            $strDonnees = post("donneesUtilisateurs");
-            $tUtilisateursJson = json_decode($strDonnees, true);
-            $tUtilisateursObj = array();
-            foreach ($tUtilisateursJson as $uj) {
-                $uo = new Categorie($uj);
-                $tUtilisateursObj[] = $uo;
-                $uo->getModelState();
-            }
-    
-            header('Location: ?controller=EditReferences&action=AfficherUtilisateurs');
+            $_POST["test"];
+            header('Location: ?controller=EditReferences&action=Afficher');
             return new View("", 301);
         }
     }

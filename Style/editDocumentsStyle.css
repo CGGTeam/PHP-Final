@@ -1,7 +1,8 @@
 @charset "UTF-8";
+
 body {
-    background: url(../images/MD-portes-GG.png) round !important;
-    background-size: 100%;
+    background: url(../images/MD-portes-GG.png) no-repeat center center fixed;
+    background-size: cover;
 }
 
 .boutonsConfirm {
@@ -44,15 +45,11 @@ body h2 {
     border: 1px  #000000;
     display: table-cell;
     vertical-align: middle;
+    border-bottom-style: hidden;
 }
 
 .container table tbody tr:nth-child(even) {
     background-color: rgba(213,213,213,0.90);
-}
-
-.divTitre {
-    height: 5%;
-    background-color: var(--quaternary);
 }
 
 th .sousTitre {

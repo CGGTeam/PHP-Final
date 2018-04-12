@@ -15,7 +15,8 @@
 }
 
 body {
-    background-image: url("../images/Books_Blurred.jpg");
+    background: url(../images/Books_Blurred.jpg) no-repeat center center fixed;
+    background-size: cover;
     margin: 0;
     align-items: center;
     display: flex;
