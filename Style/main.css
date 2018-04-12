@@ -9,6 +9,9 @@
     --secondary: #607993;
     --tertiary: #96858F;
     --quaternary: #D5D5D5;
+    --headerVH: 5vh;
+    --footerVH: 5vh;
+    --bodyVH: 90vh;
 }
 
 body {
@@ -30,16 +33,19 @@ body {
     font-family: var(--font);
     font-style: normal;
     font-weight: 200;
-    font-size: 2vmax;
+    font-size: 4vh;
 }
 .headerTable {
     width: 100%;
+    height: 5vh;
 }
 
 .sFooterBas {
     position: fixed;
     left: 0;
     bottom: 0;
+    height: var(--footerVH);
+    font-size: 4vh;
     width: 100vw;
     color: var(--text);
 }
@@ -110,8 +116,8 @@ button:hover {
     overflow: hidden;
     position: fixed; /* Set the navbar to fixed position */
     top: 0; /* Position the navbar at the top of the page */
-    width: 100%; /* Full width */
-    height: 5.5vh;
+    width: 100vw; /* Full width */
+    height: var(--footerVH);
 }
 
 /* Main content */
