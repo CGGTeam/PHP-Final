@@ -11,14 +11,18 @@
         public $etat;
         /** @var array $donnees tableaux des données à afficher */
         public $donnees;
+        /** @var string $type La classe utilisée */
+        public $type;
         
         /**
          * ReferencesModel constructor.
          * @param array $donnees tableaux des données à afficher
+         * @param string $type La classe utilisée
          * @param int $etat nombre correspondant à un état dans enumEtatsReferences.php
          */
-        function __construct($donnees, $etat = 0) {
+        function __construct($donnees, $type, $etat = 0) {
             $this->etat = $etat;
             $this->donnees = $donnees;
+            $this->type = $type;
         }
     }
