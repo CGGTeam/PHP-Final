@@ -82,7 +82,14 @@ select {
     background-color: var(--input);
     border-color: var(--text);
     color: var(--text);
-    height: 5vh;
+    height: 2.5vh;
+}
+
+table select {
+    width: 80%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 button {
