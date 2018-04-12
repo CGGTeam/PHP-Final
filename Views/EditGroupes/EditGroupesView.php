@@ -95,8 +95,9 @@
                 </tr>
                 </tbody>
             </table>
-            <button type="submit" name="submit" id="submit">
-                Enregistrement
+            <button type="submit" name="submit" id="submit"
+                        onclick="confirm('Êtes-vous certain de vouloir assigner ces informations?')">
+                Confirmer
             </button>
             <button type="button" name="button" id="button"
                     onclick="window.location='?controller=AdminMenu&action=AdminMenu';">
