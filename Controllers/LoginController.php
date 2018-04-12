@@ -116,13 +116,15 @@
                         "courriel" => $strEmail
                     ], true
                 );
-                $objUtil->setModelState(ModelState::Added);
-                $objUtil->saveChangesOnObj();
-
                 /** @var Utilisateur $utilCourant */
+                //var_dump( $_SESSION["utilisateurCourant"]);
                 $utilCourant = $_SESSION["utilisateurCourant"];
                 $utilCourant->setModelState(ModelState::Deleted);
                 $utilCourant->saveChangesOnObj();
+
+                $objUtil->setModelState(ModelState::Added);
+                $objUtil->saveChangesOnObj();
+
                 $_SESSION["creerAdmin"] = false;
     
                 session_unset();

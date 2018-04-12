@@ -122,7 +122,7 @@
         * Ferme la connexion avec la base de données
         */
       function deconnexion() {
-          $this->cBD = mysqli_close($this->cBD);
+          //$this->cBD = mysqli_close($this->cBD);
       }
     
        /**
