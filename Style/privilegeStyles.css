@@ -21,27 +21,28 @@ body {
 /* Container */
 .container {
     width: 80vw;
+    height: 80vh;
 }
 
-.container form table {
+.container table {
     background-color: rgba(213,213,213,0.80);
     width: 100%;
     border-collapse: collapse;
 }
 
-tbody tr th {
+.container table tbody tr th {
     background-color: #9099A2;
     font-weight: bold;
 }
 
-tbody tr td {
+.container table tbody tr td {
     padding: 8px;
     border: 1px  #000000;
     display: table-cell;
     vertical-align: middle;
 }
 
-tbody tr:nth-child(even) {
+.container table tbody tr:nth-child(even) {
     background-color: rgba(213,213,213,0.90);
 }
 
@@ -73,15 +74,12 @@ input[type="checkbox"] {
     cursor: pointer;
     display: block;
     font-size: 16px;
-    user-select: none;
     color: #e7e7e7;
 }
 
 .helper:before {
     content: '';
     position: absolute;
-    /* [disabled]left: 0; */
-    /* [disabled]top: 0; */
     margin: 4px;
     width: 22px;
     height: 22px;
