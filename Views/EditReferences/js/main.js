@@ -87,7 +87,7 @@ function construireRangees(){
     let strFlux = "";
 
     strFlux += "<tr>";
-    strFlux += "<td><div class=\"checkbox\">\n" +
+    strFlux += "<td><div id=\"id_cb_nouv\" class=\"checkbox\">\n" +
     "                    <label>\n" +
     "                        <input id=\"cbObjNouv\" type=\"checkbox\" onclick='cbObjNouv();'>\n" +
     "                        <em class=\"helper\"></em> </label>\n" +
@@ -107,7 +107,7 @@ function construireRangees(){
 
     tabDonnees.forEach((x,i) => {
         strFlux += "<tr class='sRangeeDonnee' id='rangee_"+x[tabPropID[type]]+"'>";
-    strFlux += "<td><div class=\"checkbox\">\n" +
+    strFlux += "<td><div id=\"id_cb_" + x[tabPropID[type]] + "\" class=\"checkbox\">\n" +
         "                    <label>\n" +
         "                        <input class='cbObjDef' id=\"cb_"+x[tabPropID[type]] +"\" type=\"checkbox\">\n" +
         "                        <em class=\"helper\"></em> </label>\n" +
@@ -123,7 +123,8 @@ function construireRangees(){
             if(decideInputType(prop, tabDonnees[0][prop]) == 'checkbox'){
                 strFlux += "<td><div class=\"checkbox\">\n" +
                     "                    <label>\n" +
-                    "                        <input id='" + idInput + "' type='" + decideInputType(prop, tabDonnees[0][prop]) + "' value='" + x[prop] + "'>\n" +
+                    "                        <input id='" + idInput + "' type='" + decideInputType(prop, tabDonnees[0][prop]) + "' value='true'"
+                    + ((x[prop]) ? "checked" : "") + ">\n" +
                     "                        <em class=\"helper\"></em> </label>\n" +
                     "                </div></td>";
             }else {
