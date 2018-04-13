@@ -23,17 +23,17 @@
     padding: 4vmin;
 }
 
-.tableauBoutons table {
-    width: 75%;
-    height: 100%;
-}
-
-.tableauBoutons table tr td {
+#tableAffichage table tr td {
     width: 75%;
     padding: 1vh 0;
 }
 
-.tableauBoutons button {
+#tableAffichage table tr td {
+    width: 75%;
+    padding: 1vh 0;
+}
+
+#tableAffichage button {
     width: 100%;
     font-size: 4vh;
 }
@@ -43,5 +43,5 @@ button {
 }
 
 #tableAffichage {
-    height: 90vh;
+    height: auto;
 }
