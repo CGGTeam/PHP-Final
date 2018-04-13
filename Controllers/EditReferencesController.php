@@ -60,6 +60,6 @@
             $_POST["test"];
             header('Location: ?controller=EditReferences&action=Afficher');
             echo $strType;
-            return new View("", 301);
+            return new View($strType, 200);
         }
     }
