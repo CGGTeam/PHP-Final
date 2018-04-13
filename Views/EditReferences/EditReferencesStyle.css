@@ -1,28 +1,3 @@
-@import url("../AdminMenu/AdminMenuStyle.css");
-
-.sTitreMenu{
-    text-align: center;
-    color: #9099A2;
-}
-
-.tableauBoutons{
-    position: absolute;
-    top:0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-
-    margin: auto;
-}
-
-input[type=checkbox]{
-    width: unset !important;;
-    opacity: unset !important;;
-    position: unset !important;;
-    left: unset !important;;
-    margin-left: unset !important;
-}
-
 .btnRef,
 #submit{
     position: relative;
@@ -32,4 +7,28 @@ input[type=checkbox]{
     width: 200px;
     margin-top: 15px;
     margin-right: 15px;
+}
+
+.tableauBoutons {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 70vw;
+    height: auto;
+    background-color: var(--primary);
+    padding: 4vmin;
+}
+
+.tableauBoutons table {
+    width: 75%;
+}
+
+.tableauBoutons table tr td {
+    width: 75%;
+    padding: 1vh 0;
+}
+
+.tableauBoutons button {
+    width: 100%;
+    font-size: 4vh;
 }
