@@ -38,6 +38,7 @@
             $GLOBALS["titrePage"] = "Affichage des " . mb_strtolower($strType) . "s";
     
             if (!$strType) {
+                echo "test2";
                 return new View();
             }
             
