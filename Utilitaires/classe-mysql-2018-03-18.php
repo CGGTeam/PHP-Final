@@ -360,5 +360,29 @@
           if (!$binTablePresente)
               echo "<p $sMessage>Aucune table !</p>";
       }
+    
+       /**
+        * @param $strNomTable
+        * @param $strUpdates
+        * @param $strCondition
+        * @return bool|mysqli_result
+        */
+       function modifieEnregistrements($strNomTable, $strUpdates, $strCondition) {
+           $this->requete = "UPDATE $strNomTable SET $strUpdates WHERE $strCondition";
+           $this->OK = mysqli_query($this->cBD, $this->requete);
+           return $this->OK;
+       }
+    
+       /**
+        * @param $strNomTable
+        * @return bool|mysqli_result
+        */
+       function retourneClesPrimaires($strNomTable) {
+           $this->requete = "SHOW KEYS FROM $strNomTable WHERE Key_name = 'PRIMARY'";
+           $this->OK = mysqli_query($this->cBD, $this->requete);
+           return $this->OK;
+       }
    }
+
+
 ?>
