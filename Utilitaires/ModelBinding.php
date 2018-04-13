@@ -27,6 +27,9 @@
     }
 
     public function saveChangesOnObj(){
+        /**
+         * @var mysql $bd
+         */
         global $bd;
         //TODO saveChanges pour chaque modelState
         if($this->modelState != ModelState::Same && $this->modelState != ModelState::Invalid) {
@@ -46,6 +49,28 @@
                     }
                     $strConditions = substr($strConditions, 0, strlen($strConditions) - 5);
                     $bd->supprimeEnregistrements(get_class($this), $strConditions);
+                    break;
+                case ModelState::Modified :
+                    $tCles = $bd->retourneClesPrimaires(get_class($this))->fetch_array();
+                    $strConditions = "";
+        
+                    foreach ($this->tbValeurs as $nomChamp => $valeur) {
+                        for ($i = 0; $i < sizeof($tCles); $i++) {
+                            if ($nomChamp == $tCles[$i]) {
+                                $strConditions .= "$nomChamp = '$valeur' AND ";
+                            }
+                        }
+                    }
+                    $strConditions = substr($strConditions, 0, strlen($strConditions) - 5);
+        
+                    $strSets = "";
+                    foreach ($this->tbValeurs as $nomChamp => $valeur) {
+                        $strSets .= "$nomChamp=$valeur, ";
+            
+                    }
+                    $strSets = substr($strConditions, 0, strlen($strConditions) - 2);
+        
+                    $bd->modifieEnregistrements(get_class($this), $strSets, $strConditions);
                     break;
                 default:
                     echo "NOT IMPLEMENTED";

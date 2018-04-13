@@ -140,13 +140,30 @@ getModel();
 construireTH();
 construireRangees();
 
-function decortiquerTableauEnJS(){
-    let tbRangees = Array.from(document.getElementsByClassName('sRangeeDonnee'));
+function decortiquerTableauEnJS(state){
+    let tbRangees = [];
+    switch(state){
+        case 0:
+            tbRangees = [document.getElementById('idRangeeNouv')];
+            break;
+        case 2:
+            tbRangees = Array.from(document.getElementsByClassName('sRangeeDonnee'));
+            break;
+        default:
+            tbRangees = Array.from(document.getElementsByClassName('sRangeeDonnee'));
+            break;
+    }
+
     let tbObjets = [];
 
     tbRangees.forEach((x, i) => {
         let obj = {};
-        obj[tabPropID[type]] = x.id.split('_')[1];
+        obj["modelState"]=state;
+        if(state==0){
+            obj[tabPropID[type]] = document.getElementById("tb_"+tabPropID[type]+"_nouv").value;
+        }else{
+            obj[tabPropID[type]] = x.id.split('_')[1];
+        }
         Array.from(x.children).forEach((y,j)=>{
             let input = y.children.item(0);
             if(!input.id.includes('cb')) {
@@ -181,11 +198,11 @@ function DELETE(){
 }
 
 function btnAjouter(){
-    POST(decortiquerTableauEnJS());
+    POST(decortiquerTableauEnJS(0));
 }
 
 function btnSauvgarder(){
-    POST(decortiquerTableauEnJS());
+    POST(decortiquerTableauEnJS(2));
 }
 
 function btnSupprimer(){
