@@ -18,7 +18,7 @@
 
 ?>
 
-<div class="sContReferences">
+<div class="sContReferences container">
     <div class="sContActions">
         <table>
             <tr>
