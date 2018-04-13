@@ -1,16 +1,16 @@
 class Cours{
-    constructor(sigle, titre, nomProf){
+    constructor(obj){
         /**
          * @type {string}
          */
-        this.sigle = sigle;
+        this.sigle = obj.sigle;
         /**
          * @type {string}
          */
-        this.titre = titre;
+        this.titre = obj.titre;
         /**
          * @type {string}
          */
-        this.nomProf = nomProf;
+        this.nomProf = obj.nomProf;
     }
 }

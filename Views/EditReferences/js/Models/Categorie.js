@@ -1,12 +1,12 @@
 class Categorie{
- constructor(id, description){
+ constructor(obj){
      /**
       * @type {number}
       */
-    this.id = id;
+    this.id = obj.id;
      /**
       * @type {string}
       */
-    this.description = description;
+    this.description = obj.description;
  }
 }

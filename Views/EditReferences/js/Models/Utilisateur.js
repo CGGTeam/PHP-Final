@@ -1,30 +1,30 @@
 class Utilisateur{
 
-    constructor(id, nomUtilisateur, motDePasse, statutAdmin, nomComplet, courriel){
+    constructor(obj){
         /**
          * @type {number}
          */
-        this.id = id;
+        this.id = obj.id;
         /**
          * @type {string}
          */
-        this.nomUtilisateur = nomUtilisateur;
+        this.nomUtilisateur = obj.nomUtilisateur;
         /**
          * @type {string}
          */
-        this.motDePasse = motDePasse;
+        this.motDePasse = obj.motDePasse;
         /**
-         * @type {boolean}
+         * @type {number}
          */
-        this.statutAdmin = statutAdmin;
-        /**
-         * @type {string}
-         */
-        this.nomComplet = nomComplet;
+        this.statutAdmin = obj.statutAdmin;
         /**
          * @type {string}
          */
-        this.courriel = courriel;
+        this.nomComplet = obj.nomComplet;
+        /**
+         * @type {string}
+         */
+        this.courriel = obj.courriel;
     }
 
 }

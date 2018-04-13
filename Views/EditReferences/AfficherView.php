@@ -17,19 +17,19 @@
     echo "<script type='text/javascript'>/** @type {string} **/ var type = '$model->type';</script>";
 
 ?>
-<script type="text/javascript" src="Views/EditReferences/js/main.js"></script>
+
 <div class="sContReferences">
     <div class="sContActions">
         <table>
             <tr>
                 <td>
-                    <button>Ajouter</button>
+                    <button onclick="btnAjouter();">Ajouter</button>
                 </td>
                 <td>
-                    <button>Sauvegarder</button>
+                    <button onclick="btnSauvgarder();">Sauvegarder</button>
                 </td>
                 <td>
-                    <button>Supprimer</button>
+                    <button onclick="btnSupprimer();">Supprimer</button>
                 </td>
             </tr>
         </table>
@@ -37,4 +37,4 @@
     <div id="contTable" class="sContTable">
         <table id="tableAffichage"></table>
     </div>
-</div>
+    <script type="text/javascript" src="Views/EditReferences/js/main.js"></script>

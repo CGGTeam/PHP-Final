@@ -13,7 +13,7 @@
         </tr>
         <tr>
             <td>
-                <form method="post" action="?controller=EditReferences&action=AfficherCours">
+                <form method="post" action="?controller=EditReferences&action=Afficher">
                     <button name="btnType" value="Cours" type="submit">
                         2. Cours
                     </button>
@@ -22,7 +22,7 @@
         </tr>
         <tr>
             <td>
-                <form method="post" action="?controller=EditReferences&action=AfficherCoursSessions">
+                <form method="post" action="?controller=EditReferences&action=Afficher">
                     <button name="btnType" value="CoursSession" type="submit">
                         3. Cours-Session
                     </button>
@@ -31,7 +31,7 @@
         </tr>
         <tr>
             <td>
-                <form method="post" action="?controller=EditReferences&action=AfficherCategories">
+                <form method="post" action="?controller=EditReferences&action=Afficher">
                     <button name="btnType" value="Categorie" type="submit">
                         4. Catégories
                     </button>
@@ -42,7 +42,7 @@
         </tr>
         <tr>
             <td>
-                <form method="post" action="?controller=EditReferences&action=AfficherUtilisateurs">
+                <form method="post" action="?controller=EditReferences&action=Afficher">
                     <button name="btnType" value="Utilisateur" type="submit">
                         5. Utilisateurs
                     </button>
