@@ -18,22 +18,7 @@
 
 ?>
 <link href="Views/EditReferences/EditReferencesStyle.css" rel="stylesheet" type="text/css"/>
-<div class="sContReferences">
-    <div class="sContActions">
-        <table>
-            <tr>
-                <td>
-                    <button onclick="btnAjouter();">Ajouter</button>
-                </td>
-                <td>
-                    <button onclick="btnSauvgarder();">Sauvegarder</button>
-                </td>
-                <td>
-                    <button onclick="btnSupprimer();">Supprimer</button>
-                </td>
-            </tr>
-        </table>
-    </div>
+<div class="sContReferences container">
     <div id="contTable" class="sContTable">
         <table id="tableAffichage"></table>
     </div>
@@ -41,3 +26,4 @@
             <button class="btnRef" onclick="btnSauvgarder();">Sauvegarder</button>
             <button class="btnRef" onclick="btnSupprimer();">Supprimer</button>
     <script type="text/javascript" src="Views/EditReferences/js/main.js"></script>
+</div>
