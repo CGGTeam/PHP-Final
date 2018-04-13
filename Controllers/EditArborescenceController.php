@@ -18,7 +18,8 @@
             $GLOBALS["titrePage"] = "Arborescence des documents";
             return new View();
         }
-        function nettoyage()
+    
+        function Confirmer()
         {
             $GLOBALS["titrePage"] = "Nettoyage de l'arborescence";
             return new View();

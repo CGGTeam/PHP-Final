@@ -33,8 +33,6 @@
         function Afficher()
         {
             $strType = post("btnType");
-            //$test = post("test");
-            //echo "test";
             $GLOBALS["titrePage"] = "Affichage des " . mb_strtolower($strType) . "s";
     
             if (!$strType) {
