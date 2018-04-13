@@ -157,6 +157,6 @@
     </button>
     <button type="button" name="button" id="button"
             onclick="window.location='?controller=AdminMenu&action=AdminMenu';">
-        Annuler
+        Retour
     </button>
 </form>

@@ -91,11 +91,19 @@ function construireRangees(){
     "                    <label>\n" +
     "                        <input id=\"cbObjNouv\" type=\"checkbox\" onclick='cbObjNouv();'>\n" +
     "                        <em class=\"helper\"></em> </label>\n" +
-    "                </div></td>"
+    "                </div></td>";
 
     for(let prop in (new tabProto[type].constructor({}))){
-        strFlux += "<td><input id='tb_"+prop+"_nouv' type='"+decideInputType(prop, tabDonnees[0][prop])+"'></td>";
-    }
+        if(decideInputType(prop, tabDonnees[0][prop]) == 'checkbox'){
+            strFlux += "<td><div class=\"checkbox\">\n" +
+                "                    <label>\n" +
+                "                        <input id='tb_" + prop + "_nouv' type='" + decideInputType(prop, tabDonnees[0][prop]) + "'>\n" +
+                "                        <em class=\"helper\"></em> </label>\n" +
+                "                </div></td>";
+        }else {
+            strFlux += "<td><input id='tb_" + prop + "_nouv' type='" + decideInputType(prop, tabDonnees[0][prop]) + "'></td>";
+        }
+        }
 
     tabDonnees.forEach((x,i) => {
         strFlux += "<tr class='sRangeeDonnee' id='rangee_"+x[tabPropID[type]]+"'>";
@@ -112,8 +120,16 @@ function construireRangees(){
             }else{
                 idInput = 'tb_'+prop+'_'+x[tabPropID[type]];
             }
-            strFlux += "<td><input id='" + idInput + "' type='"+decideInputType(prop, tabDonnees[0][prop])+"' value='"+x[prop]+"'></td>";
-        }
+            if(decideInputType(prop, tabDonnees[0][prop]) == 'checkbox'){
+                strFlux += "<td><div class=\"checkbox\">\n" +
+                    "                    <label>\n" +
+                    "                        <input id='" + idInput + "' type='" + decideInputType(prop, tabDonnees[0][prop]) + "' value='" + x[prop] + "'>\n" +
+                    "                        <em class=\"helper\"></em> </label>\n" +
+                    "                </div></td>";
+            }else {
+                strFlux += "<td><input id='" + idInput + "' type='" + decideInputType(prop, tabDonnees[0][prop]) + "' value='" + x[prop] + "'></td>";
+            }
+            }
     });
 
     refTable.innerHTML += strFlux;
@@ -151,7 +167,12 @@ function decortiquerTableauEnJS(state){
         Array.from(x.children).forEach((y,j)=>{
             let input = y.children.item(0);
             if(!input.id.includes('cb')) {
-                obj[input.id.split('_')[1]] = input.value;
+                if(input.className == 'checkbox'){
+                    input = input.children.item(0).children.item(0);
+                    obj[input.id.split('_')[1]] = input.checked ? 1 : 0;
+                }else {
+                    obj[input.id.split('_')[1]] = input.value;
+                }
             }
         });
         tbObjets.push(obj);
