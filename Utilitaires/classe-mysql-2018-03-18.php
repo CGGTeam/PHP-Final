@@ -168,7 +168,7 @@
                $this->requete .= $value . "', '";
            }
            $this->requete = substr($this->requete,0, -3) . ")";
-           echo "<br/>$this->requete";
+           //echo "<br/>$this->requete";
            $this->OK = mysqli_query($this->cBD, $this->requete);
            return $this->OK;
 
@@ -199,7 +199,7 @@
           if($strConditions != ""){
               $this->requete .= " WHERE $strConditions";
           }
-          echo $this->requete;
+          //echo $this->requete;
           $this->OK = mysqli_query($this->cBD, $this->requete);
           return $this->OK;
       }
@@ -224,7 +224,7 @@
           if($strListeConditions != ""){
               $this->requete .= " WHERE $strListeConditions";
           }
-          echo "<br/><br/>$this->requete";
+          //echo "<br/><br/>$this->requete";
           $this->OK = mysqli_query($this->cBD, $this->requete);
     
           return $this->OK;
