@@ -66,13 +66,11 @@
                 unset($sj["modelState"]);//this too
                 unset($sj["undefined"]);
                 //====================================
-//                var_dump($sj);
                 /** @var ModelBinding $so */
                 $so = new $strType($sj);
                 $so->setModelState($etat);
-//                var_dump($so);
                 $so->saveChangesOnObj();
             }
-//            return new View(null, 'Views/EditReferences/AfficherView');
+            return new View(null, "Views/EditReferences/AfficherView.php");
         }
     }
