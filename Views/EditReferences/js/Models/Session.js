@@ -1,18 +1,18 @@
 class Session {
 
- constructor(description, dateDebut, dateFin){
+ constructor(obj){
      /**
       * @type {string}
       */
-    this.description = description;
+    this.description = obj.description;
      /**
       * @type {Date}
       */
-    this.dateDebut = dateDebut;
+    this.dateDebut = obj.dateDebut;
      /**
       * @type {Date}
       */
-    this.dateFin = dateFin;
+    this.dateFin = obj.dateFin;
  }
 
 }

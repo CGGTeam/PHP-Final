@@ -33,11 +33,10 @@
         function Afficher()
         {
             $strType = post("btnType");
-            $test = post("test");
-            echo "test";
             $GLOBALS["titrePage"] = "Affichage des " . mb_strtolower($strType) . "s";
     
             if (!$strType) {
+                //echo "test2";
                 return new View();
             }
             
@@ -49,16 +48,18 @@
         }
     
         function Confirmer() {
-            $strDonnees = post("donneesSession");
+            $strType = post("strType");
+            $strDonnees = file_get_contents('php://input');
             $tDonneesJson = json_decode($strDonnees, true);
         
             foreach ($tDonneesJson as $sj) {
-                $so = new Session($sj);
+                $so = ((new ReflectionClass($strType))->getConstructor())->invoke(null, $sj);
                 $so->saveChangesOnObj();
             }
         
             $_POST["test"];
             header('Location: ?controller=EditReferences&action=Afficher');
-            return new View("", 301);
+            echo $strType;
+            return new View($strType, 200);
         }
     }

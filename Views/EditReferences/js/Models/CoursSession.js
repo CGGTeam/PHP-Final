@@ -1,16 +1,16 @@
 class CoursSession{
-    constructor(session, sigle, utilisateur){
+    constructor(obj){
         /**
          * @type {string}
          */
-        this.session = session;
+        this.session = obj.session;
         /**
          * @type {string}
          */
-        this.sigle = sigle;
+        this.sigle = obj.sigle;
         /**
          * @type {number}
          */
-        this.utilisateur = utilisateur;
+        this.utilisateur = obj.utilisateur;
     }
 }

@@ -1,5 +1,162 @@
-var
+/**
+ * @type {string}
+ */
+var type=type;
 
-function renderTables(){
+var strHTML_TH;
+var strHTML_Rangee;
+
+var refTable = document.getElementById('tableAffichage');
+
+var tabProto = {
+    "Session" : Session.prototype,
+    "Cours" : Cours.prototype,
+    "CoursSession" : CoursSession.prototype,
+    "Categorie" : Categorie.prototype,
+    "Utilisateur" : Utilisateur.prototype
+};
+
+var tabPropID = {
+    "Session" : 'description',
+    "Cours" : 'sigle',
+    "CoursSession" : 'session-sigle',
+    "Categorie" : 'id',
+    "Utilisateur" : 'id'
+};
+
+let tabDonnees = [];
+
+function getModel(){
+    let jsonResult = JSON.parse(document.getElementById('model').innerHTML);
+    jsonResult.forEach((x, i) => {
+        tabDonnees[i] = new tabProto[type].constructor(x);
+    });
+}
+
+function cbSelTout(){
+    console.log("cbSelTout();")
+}
+
+function construireTH(){
+
+    let strDebug = "";
+
+    strDebug += "<tr>";
+    strDebug += "<th><input id=\"cbSelTout\" type=\"checkbox\" onclick='cbSelTout();'></th>";
+
+    for(let prop in (new tabProto[type].constructor({}))){
+        strDebug += "<th>"+prop+"</th>";
+    }
+
+    strDebug += "</tr>";
+
+    refTable.innerHTML += strDebug;
 
 }
+
+/**
+ *
+ * @param name string
+ * @param prop object
+ * @returns {string}
+ */
+function decideInputType(name, prop){
+    switch(typeof prop){
+        case 'string':
+            if(name.includes("date"))
+                return 'date';
+            return 'text';
+        case 'boolean':
+            return 'checkbox';
+        case 'number':
+            return 'number';
+
+    }
+}
+
+function cbObjNouv() {
+    if(document.getElementById('cbObjNouv').checked){
+        Array.from(document.getElementsByClassName("cbObjDef")).forEach(function(item) {
+            item.checked = false;
+        });
+    }
+}
+
+function construireRangees(){
+
+    let strFlux = "";
+
+    strFlux += "<tr>";
+    strFlux += "<td><input id=\"cbObjNouv\" type=\"checkbox\" onclick='cbObjNouv();'></td>";
+
+    for(let prop in (new tabProto[type].constructor({}))){
+        strFlux += "<td><input id='tb_"+prop+"_nouv' type='"+decideInputType(prop, tabDonnees[0][prop])+"'></td>";
+    }
+
+    tabDonnees.forEach((x,i) => {
+        strFlux += "<tr class='sRangeeDonnee' id='rangee_"+x[tabPropID[type]]+"'>";
+        strFlux += "<td><input class='cbObjDef' id=\"cb_"+x[tabPropID[type]] +"\" type=\"checkbox\"></td>";
+        for(let prop in (new tabProto[type].constructor({}))){
+            let idInput = '';
+            if(prop === tabPropID[type]){
+                idInput = 'tb_id_' + x[prop];
+            }else{
+                idInput = 'tb_'+prop+'_'+x[tabPropID[type]];
+            }
+            strFlux += "<td><input id='" + idInput + "' type='"+decideInputType(prop, tabDonnees[0][prop])+"' value='"+x[prop]+"'></td>";
+        }
+    });
+
+    refTable.innerHTML += strFlux;
+
+}
+
+getModel();
+construireTH();
+construireRangees();
+
+function decortiquerTableauEnJS(){
+    let tbRangees = Array.from(document.getElementsByClassName('sRangeeDonnee'));
+    let tbObjets = [];
+
+    tbRangees.forEach((x, i) => {
+        let obj = {};
+        obj[tabPropID[type]] = x.id.split('_')[1];
+        Array.from(x.children).forEach((y,j)=>{
+            let input = y.children.item(0);
+            if(!input.id.includes('cb')) {
+                obj[input.id.split('_')[1]] = input.value;
+            }
+        });
+        tbObjets.push(obj);
+    });
+
+    console.log(tbObjets);
+    return tbObjets;
+}
+
+function POST(obj){
+    let strJSON = JSON.stringify(obj);
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {console.log(this.responseText);};
+    xhttp.open("POST", "index.php?controller=EditReferences&action=Confirmer&strType="+type, true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(strJSON);
+}
+
+function DELETE(){
+
+}
+
+function btnAjouter(){
+    POST(decortiquerTableauEnJS());
+}
+
+function btnSauvgarder(){
+    POST(decortiquerTableauEnJS());
+}
+
+function btnSupprimer(){
+    DELETE()
+}
+
