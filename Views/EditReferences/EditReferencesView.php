@@ -1,6 +1,6 @@
 <link href="Views/EditReferences/EditReferencesStyle.css" rel="stylesheet" type="text/css"/>
-<div class="tableauBoutons">
-    <table>
+<div class="divCentrage">
+    <table class="tableauBoutons">
         <tr>
             <td>
                 <form method="post" action="?controller=EditReferences&action=Afficher">
