@@ -18,18 +18,16 @@
 
 ?>
 <link href="Views/EditReferences/EditReferencesStyle.css" rel="stylesheet" type="text/css"/>
-<div class="sContReferences container">
-    <div id="contTable" class="sContTable">
+<div class="container sContReferences">
         <table id="tableAffichage"></table>
+    <div>
+        <button class="btnRef" onclick="btnAjouter();">Ajouter</button>
+        <button class="btnRef" onclick="btnSauvgarder();">Sauvegarder</button>
+        <button class="btnRef" onclick="btnSupprimer();">Supprimer</button>
+        <button class="btnRef" type="button" name="button" id="button"
+                onclick="window.location='?controller=AdminMenu&action=AdminMenu';">
+            Retour
+        </button>
     </div>
-            <button class="btnRef"  onclick="btnAjouter();">Ajouter</button>
-            <button class="btnRef" onclick="btnSauvgarder();">Sauvegarder</button>
-            <button class="btnRef" onclick="btnSupprimer();">Supprimer</button>
-            <button class="btnRef" type="button" name="button" id="button"
-                    onclick="window.location='?controller=AdminMenu&action=AdminMenu';">
-                Retour
-            </button>
-    <br/>
-    <br/>
     <script type="text/javascript" src="Views/EditReferences/js/main.js"></script>
 </div>

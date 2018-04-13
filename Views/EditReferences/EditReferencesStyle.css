@@ -9,6 +9,10 @@
     margin-right: 15px;
 }
 
+.sContReferences {
+    margin: 0 0 5vh 0;
+}
+
 .tableauBoutons {
     align-items: center;
     display: flex;
@@ -21,6 +25,7 @@
 
 .tableauBoutons table {
     width: 75%;
+    height: 100%;
 }
 
 .tableauBoutons table tr td {
@@ -31,4 +36,12 @@
 .tableauBoutons button {
     width: 100%;
     font-size: 4vh;
+}
+
+button {
+    display: inline-block;
+}
+
+#tableAffichage {
+    height: 90vh;
 }

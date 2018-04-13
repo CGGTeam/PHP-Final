@@ -36,7 +36,6 @@
             $GLOBALS["titrePage"] = "Affichage des " . mb_strtolower($strType) . "s";
     
             if (!$strType) {
-                //echo "test2";
                 return new View();
             }
             
@@ -53,16 +52,27 @@
             $strType = $arSplit[0];
             $strDonnees = $arSplit[1];
             $tDonneesJson = json_decode($strDonnees, true);
-        
+    
             foreach ($tDonneesJson as $sj) {
+                $etat = $sj["modelState"];
+                //TODO: thess unsets shouldn't be here
+                //=======C A N C E R   Z O N E========
+                if ($etat == 0) {
+                    unset($sj["id"]); //This can probably stay
+                } else {
+                    $sj["id"] = intval($sj["id"]);
+                }
+                unset($sj[37]);
+                unset($sj["modelState"]);//this too
+                unset($sj["undefined"]);
+                //====================================
+//                var_dump($sj);
+                /** @var ModelBinding $so */
                 $so = new $strType($sj);
+                $so->setModelState($etat);
+//                var_dump($so);
                 $so->saveChangesOnObj();
             }
-
-            exec("wall " . json_encode($tDonneesJson));
-
-            header('Location: ?controller=EditReferences&action=Afficher');
-
-            return new View('', 301);
+//            return new View(null, 'Views/EditReferences/AfficherView');
         }
     }

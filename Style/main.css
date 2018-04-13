@@ -9,6 +9,7 @@
     --secondary: #607993;
     --tertiary: #96858F;
     --quaternary: #D5D5D5;
+    --erreur: #FF0000;
     --headerVH: 5vh;
     --footerVH: 5vh;
     --bodyVH: 90vh;
@@ -243,3 +244,9 @@ input[type="checkbox"]:focus + label::before {
     height: var(--headerVH);
 }
 /* =========================== */
+
+.sErreur {
+    color: var(--erreur);
+    text-decoration: underline;
+    font-weight: bold;
+}

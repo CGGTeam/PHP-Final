@@ -1,7 +1,6 @@
 <link href="Views/Login/LoginStyle.css" rel="stylesheet" type="text/css">
-<div class="sCreerAdmin">
 <form method="post" action="" class="sForm">
-    <table class="sTableFormulaire">
+    <table>
         <tr>
             <td colspan="2">
                 <h1 class="sTitreFormulaire">
@@ -22,10 +21,20 @@
                 </button>
             </td>
         </tr>
+        <?php
+            if ($model->etat == EnumEtatsLogin::LOGIN_FAILED) {
+                ?>
+                <tr>
+
+                    <td>
+                        <span class="sErreur"><?= "Le combo nom d'utilisateur/mot de passe est invalide" ?></span>
+                    </td>
+                </tr>
+                <?php
+            }
+        ?>
     </table>
-    <h2><?= $model->etat ?></h2>
 </form>
-</div>
 
 <?php
     /** @var LoginModel $model */

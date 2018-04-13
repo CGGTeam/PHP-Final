@@ -51,12 +51,12 @@
                     $bd->supprimeEnregistrements(get_class($this), $strConditions);
                     break;
                 case ModelState::Modified :
-                    $tCles = $bd->retourneClesPrimaires(get_class($this))->fetch_array();
+                    $tCles = $bd->retourneClesPrimaires(get_class($this))->fetch_row();
                     $strConditions = "";
         
                     foreach ($this->tbValeurs as $nomChamp => $valeur) {
-                        for ($i = 0; $i < sizeof($tCles); $i++) {
-                            if ($nomChamp == $tCles[$i]) {
+                        for ($i = 0; $i < sizeof($tCles); $i += 13) {
+                            if ($nomChamp == $tCles[$i + 4]) {
                                 $strConditions .= "$nomChamp = '$valeur' AND ";
                             }
                         }
@@ -65,12 +65,11 @@
         
                     $strSets = "";
                     foreach ($this->tbValeurs as $nomChamp => $valeur) {
-                        $strSets .= "$nomChamp=$valeur, ";
-            
+                        $strSets .= "$nomChamp='$valeur', ";
                     }
-                    $strSets = substr($strConditions, 0, strlen($strConditions) - 2);
-        
+                    $strSets = substr($strSets, 0, strlen($strSets) - 2);
                     $bd->modifieEnregistrements(get_class($this), $strSets, $strConditions);
+                    var_dump($bd->requete);
                     break;
                 default:
                     echo "NOT IMPLEMENTED";
