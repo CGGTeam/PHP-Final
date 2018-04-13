@@ -33,8 +33,6 @@
         function Afficher()
         {
             $strType = post("btnType");
-            $test = post("test");
-            echo "test";
             $GLOBALS["titrePage"] = "Affichage des " . mb_strtolower($strType) . "s";
     
             if (!$strType) {
@@ -50,10 +48,11 @@
     
         function Confirmer() {
             $strDonnees = post("donneesSession");
+            $strType = post("tbType");
             $tDonneesJson = json_decode($strDonnees, true);
         
             foreach ($tDonneesJson as $sj) {
-                $so = new Session($sj);
+                $so = new $strType($sj);
                 $so->saveChangesOnObj();
             }
         
