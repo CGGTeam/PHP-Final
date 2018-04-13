@@ -31,7 +31,7 @@
                             ?>
                             Connexion
                             <?php
-                        } else if (!isset($utilisateur->etatAdmin)) {
+                        } else if (!isset($utilisateur->etatAdmin) && !$_SESSION["creerAdmin"]) {
                             ?>
                             <span class="hDroite">Bienvenue <?=$utilisateur->nomUtilisateur?></span>
                             <?php

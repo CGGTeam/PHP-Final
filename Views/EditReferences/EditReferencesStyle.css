@@ -1,7 +1,7 @@
 .btnRef,
 #submit{
-    width: 25%;
-    font-size: 18px;
+    width: 100%;
+    font-size: 2vh;
 }
 
 .sContReferences {
@@ -32,6 +32,8 @@
 .tableauBoutons button {
     display: inline-block;
     width: 75%;
+    font-size: 2vh;
+    height: 5vh;
 }
 
 #tableAffichage table tr {

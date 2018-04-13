@@ -100,15 +100,15 @@
                 $objResultatCourriel = $bd->selectionneRow("Utilisateur", "Courriel", "Courriel= '" . $strEmail . "'");
     
                 if (!$objResultatNomUtil || !$objResultatCourriel) {
-                    return new View(EnumEtatsUtil::ERREUR_BD);
-                } else if ($objResultatNomUtil->num_rows > 0 && $objResultatCourriel->num_rows > 0) {
-                    return new View(EnumEtatsUtil::SAME_BOTH);
-                } else if ($objResultatNomUtil->num_rows > 0) {
-                    return new View(EnumEtatsUtil::SAME_USER);
-                } else if ($objResultatCourriel->num_rows > 0) {
-                    return new View(EnumEtatsUtil::SAME_EMAIL);
+                    return new View(new LoginModel(EnumEtatsUtil::ERREUR_BD));
                 } else if ($strNomUtil == "admin" && $strMotPasse == "admin") {
-                    return new View(EnumEtatsUtil::ADMIN_ADMIN);
+                    return new View(new LoginModel(EnumEtatsUtil::ADMIN_ADMIN));
+                } else if ($objResultatNomUtil->num_rows > 0 && $objResultatCourriel->num_rows > 0) {
+                    return new View(new LoginModel(EnumEtatsUtil::SAME_BOTH));
+                } else if ($objResultatNomUtil->num_rows > 0) {
+                    return new View(new LoginModel(EnumEtatsUtil::SAME_USER));
+                } else if ($objResultatCourriel->num_rows > 0) {
+                    return new View(new LoginModel(EnumEtatsUtil::SAME_EMAIL));
                 }
 
                 $objUtil = new Utilisateur(
@@ -121,7 +121,6 @@
                     ], true
                 );
                 /** @var Utilisateur $utilCourant */
-                //var_dump( $_SESSION["utilisateurCourant"]);
                 $utilCourant = $_SESSION["utilisateurCourant"];
                 $utilCourant->setModelState(ModelState::Deleted);
                 $utilCourant->saveChangesOnObj();
