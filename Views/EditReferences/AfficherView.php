@@ -31,3 +31,7 @@
     </div>
     <script type="text/javascript" src="Views/EditReferences/js/main.js"></script>
 </div>
+
+<form method="post" action="?controller=EditReferences&action=Afficher" id="frmSecret">
+    <input id="hdType" name="btnType" type="hidden" value="<?=$model->type?>"/>
+</form>

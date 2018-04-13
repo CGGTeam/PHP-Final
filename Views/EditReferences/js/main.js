@@ -147,6 +147,11 @@ function decortiquerTableauEnJS(state){
         case 0:
             tbRangees = [document.getElementById('idRangeeNouv')];
             break;
+        case 1:
+            tbRangees = Array.from(document.getElementsByClassName('sRangeeDonnee')).filter((x,i) => {
+                return x.children.item(0).children.item(0).children.item(0).children.item(0).checked;
+            });
+            break;
         case 2:
             tbRangees = Array.from(document.getElementsByClassName('sRangeeDonnee'));
             break;
@@ -188,7 +193,7 @@ function POST(obj){
     strJSON += (type+'\n');
     strJSON += JSON.stringify(obj);
     let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {console.log(this.responseText);};
+    xhttp.onreadystatechange = function() {document.getElementById("frmSecret").submit();};
     xhttp.open("POST", "index.php?controller=EditReferences&action=Confirmer&strType="+type, true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send(strJSON);
@@ -207,6 +212,6 @@ function btnSauvgarder(){
 }
 
 function btnSupprimer(){
-    DELETE()
+    POST(decortiquerTableauEnJS(1));
 }
 
