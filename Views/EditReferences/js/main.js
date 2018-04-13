@@ -136,7 +136,9 @@ function decortiquerTableauEnJS(){
 }
 
 function POST(obj){
-    let strJSON = JSON.stringify(obj);
+    let strJSON = '';
+    strJSON += (type+'\n');
+    strJSON += JSON.stringify(obj);
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {console.log(this.responseText);};
     xhttp.open("POST", "index.php?controller=EditReferences&action=Confirmer&strType="+type, true);

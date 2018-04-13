@@ -48,18 +48,19 @@
         }
     
         function Confirmer() {
-            $strType = post("strType");
-            $strDonnees = file_get_contents('php://input');
+            $strPOST = file_get_contents('php://input');
+            $arSplit = explode("\n", $strPOST);
+            $strType = $arSplit[0];
+            $strDonnees = $arSplit[1];
             $tDonneesJson = json_decode($strDonnees, true);
         
             foreach ($tDonneesJson as $sj) {
-                $so = ((new ReflectionClass($strType))->getConstructor())->invoke(null, $sj);
+                $so = ((new ReflectionClass($strType))->newInstance($sj));
                 $so->saveChangesOnObj();
             }
-        
-            $_POST["test"];
+
             header('Location: ?controller=EditReferences&action=Afficher');
             echo $strType;
-            return new View($strType, 200);
+            return new View('', 301);
         }
     }

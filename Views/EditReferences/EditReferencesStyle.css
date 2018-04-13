@@ -14,3 +14,11 @@
 
     margin: auto;
 }
+
+input[type=checkbox]{
+    width: unset !important;;
+    opacity: unset !important;;
+    position: unset !important;;
+    left: unset !important;;
+    margin-left: unset !important;
+}

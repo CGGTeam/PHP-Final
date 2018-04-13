@@ -17,7 +17,7 @@
     echo "<script type='text/javascript'>/** @type {string} **/ var type = '$model->type';</script>";
 
 ?>
-
+<link href="Views/EditReferences/EditReferencesStyle.css" rel="stylesheet" type="text/css"/>
 <div class="sContReferences">
     <div class="sContActions">
         <table>
