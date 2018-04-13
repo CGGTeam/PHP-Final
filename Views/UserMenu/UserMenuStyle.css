@@ -1,7 +1,6 @@
 body {
-    background-image: url("../../images/Books_Blurred.jpg");
     margin: 0px;
-    font-family: "acumin-pro", sans-serif;
+    font-family: var(--font);
     font-style: normal;
     font-weight: normal;
     font-size: 18pt;
