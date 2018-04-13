@@ -1,45 +1,46 @@
 .btnRef,
 #submit{
-    position: relative;
-    display: inline-block;
-    padding: 18px 39px;
+    width: 25%;
     font-size: 18px;
-    width: 200px;
-    margin-top: 15px;
-    margin-right: 15px;
 }
 
 .sContReferences {
     margin: 0 0 5vh 0;
 }
 
-.tableauBoutons {
+.divCentrage {
     align-items: center;
     display: flex;
     justify-content: center;
+}
+
+.tableauBoutons {
     width: 70vw;
     height: auto;
     background-color: var(--primary);
     padding: 4vmin;
 }
 
-#tableAffichage table tr td {
-    width: 75%;
-    padding: 1vh 0;
+.tableauBoutons tbody tr td {
+    text-align: center;
 }
 
-#tableAffichage table tr td {
-    width: 75%;
-    padding: 1vh 0;
+.tableauBoutons tbody tr td form {
+    text-align: center;
 }
 
-#tableAffichage button {
-    width: 100%;
-    font-size: 4vh;
-}
-
-button {
+.tableauBoutons button {
     display: inline-block;
+    width: 75%;
+}
+
+#tableAffichage table tr {
+    width: 75%;
+}
+
+#tableAffichage table tr td {
+    width: 100%;
+    padding: 1vh 0;
 }
 
 #tableAffichage {
