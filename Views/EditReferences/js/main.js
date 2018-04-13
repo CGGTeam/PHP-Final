@@ -86,8 +86,12 @@ function construireRangees(){
 
     let strFlux = "";
 
-    strFlux += "<tr id='idRangeeNouv'>";
-    strFlux += "<td><input id=\"cbObjNouv\" type=\"checkbox\" onclick='cbObjNouv();'></td>";
+    strFlux += "<tr>";
+    strFlux += "<td><div class=\"checkbox\">\n" +
+    "                    <label>\n" +
+    "                        <input id=\"cbObjNouv\" type=\"checkbox\" onclick='cbObjNouv();'>\n" +
+    "                        <em class=\"helper\"></em> </label>\n" +
+    "                </div></td>"
 
     for(let prop in (new tabProto[type].constructor({}))){
         strFlux += "<td><input id='tb_"+prop+"_nouv' type='"+decideInputType(prop, tabDonnees[0][prop])+"'></td>";
@@ -95,7 +99,12 @@ function construireRangees(){
 
     tabDonnees.forEach((x,i) => {
         strFlux += "<tr class='sRangeeDonnee' id='rangee_"+x[tabPropID[type]]+"'>";
-        strFlux += "<td><input class='cbObjDef' id=\"cb_"+x[tabPropID[type]] +"\" type=\"checkbox\"></td>";
+    strFlux += "<td><div class=\"checkbox\">\n" +
+        "                    <label>\n" +
+        "                        <input class='cbObjDef' id=\"cb_"+x[tabPropID[type]] +"\" type=\"checkbox\">\n" +
+        "                        <em class=\"helper\"></em> </label>\n" +
+        "                </div></td>"
+
         for(let prop in (new tabProto[type].constructor({}))){
             let idInput = '';
             if(prop === tabPropID[type]){

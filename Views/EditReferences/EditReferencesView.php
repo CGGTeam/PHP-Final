@@ -1,6 +1,5 @@
 <link href="Views/EditReferences/EditReferencesStyle.css" rel="stylesheet" type="text/css"/>
 <div class="tableauBoutons">
-    <h1 class="sTitreMenu">Gestion des Tables de Référence</h1>
     <table>
         <tr>
             <td>
