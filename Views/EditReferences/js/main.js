@@ -86,7 +86,7 @@ function construireRangees(){
 
     let strFlux = "";
 
-    strFlux += "<tr>";
+    strFlux += "<tr id='idRangeeNouv'>";
     strFlux += "<td><div class=\"checkbox\">\n" +
     "                    <label>\n" +
     "                        <input id=\"cbObjNouv\" type=\"checkbox\" onclick='cbObjNouv();'>\n" +
