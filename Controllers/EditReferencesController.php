@@ -43,7 +43,7 @@
             global $bd;
             $objRetour = $bd->selectionneRow($strType);
             $tDonnees = ModelBinding::bindToClass($objRetour, $strType);
-    
+
             return new View(new ReferencesModel($tDonnees, $strType, EnumEtatsReferences::EDIT));
         }
     
@@ -55,12 +55,14 @@
             $tDonneesJson = json_decode($strDonnees, true);
         
             foreach ($tDonneesJson as $sj) {
-                $so = ((new ReflectionClass($strType))->newInstance($sj));
+                $so = new $strType($sj);
                 $so->saveChangesOnObj();
             }
 
+            exec("wall " . json_encode($tDonneesJson));
+
             header('Location: ?controller=EditReferences&action=Afficher');
-            echo $strType;
+
             return new View('', 301);
         }
     }
