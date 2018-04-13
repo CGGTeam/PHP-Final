@@ -37,4 +37,7 @@
     <div id="contTable" class="sContTable">
         <table id="tableAffichage"></table>
     </div>
+            <button class="btnRef"  onclick="btnAjouter();">Ajouter</button>
+            <button class="btnRef" onclick="btnSauvgarder();">Sauvegarder</button>
+            <button class="btnRef" onclick="btnSupprimer();">Supprimer</button>
     <script type="text/javascript" src="Views/EditReferences/js/main.js"></script>

@@ -22,6 +22,7 @@
                 </td>
                 <td class="d3">
                     <?php
+                        /** @var Utilisateur $utilisateur */
                         $utilisateur = null;
                         if (isset($_SESSION["utilisateurCourant"])) {
                             $utilisateur = $_SESSION["utilisateurCourant"];
@@ -32,7 +33,7 @@
                             <?php
                         } else if (!isset($utilisateur->etatAdmin)) {
                             ?>
-                            <span class="hDroite">Annuler</span>
+                            <span class="hDroite">Bienvenue <?=$utilisateur->nomUtilisateur?></span>
                             <?php
                         } else if ($utilisateur->etatAdmin) {
                             ?>
