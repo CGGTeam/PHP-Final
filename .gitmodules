@@ -1,0 +1,3 @@
+[submodule "Utilitaires/anguleux"]
+	path = Utilitaires/anguleux
+	url = git@github.com:Antoine-BL/Anguleux.js.git
