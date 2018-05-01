@@ -20,7 +20,7 @@
 <link href="Views/EditReferences/EditReferencesStyle.css" rel="stylesheet" type="text/css"/>
 <div class="container sContReferences">
         <table id="tableAffichage"></table>
-    <table>
+    <table class="tableauBoutons">
         <tr>
             <td>
                 <button class="btnRef" onclick="btnAjouter();">Ajouter</button>
@@ -45,3 +45,8 @@
 <form method="post" action="?controller=EditReferences&action=Afficher" id="frmSecret">
     <input id="hdType" name="btnType" type="hidden" value="<?=$model->type?>"/>
 </form>
+
+<script>
+    let data = '<?php echo json_encode($model); ?>';
+    $portee.model = JSON.parse(data);
+</script>

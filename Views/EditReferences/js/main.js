@@ -30,6 +30,7 @@ function getModel(){
     let jsonResult = JSON.parse(document.getElementById('model').innerHTML);
     jsonResult.forEach((x, i) => {
         tabDonnees[i] = new tabProto[type].constructor(x);
+        tabDonnees[i]["checked"] = true;
     });
 }
 
@@ -42,7 +43,12 @@ function construireTH(){
     let strDebug = "";
 
     strDebug += "<tr>";
-    strDebug += "<th><input id=\"cbSelTout\" type=\"checkbox\" onclick='cbSelTout();'></th>";
+    strDebug += "<th></th><th>Supprimer/<br/>Sauvegarder</th>";
+    /*strDebug += "<th><div id=\"cbSelTout\" class=\"checkbox\">\n" +
+        "                    <label>\n" +
+        "                        <input id=\"cbObjNouv\" type=\"checkbox\" onclick=\"cbSelTout();\">\n" +
+        "                        <em class=\"helper\"></em> </label>\n" +
+        "                </div></th>"; */
 
     for(let prop in (new tabProto[type].constructor({}))){
         strDebug += "<th>"+prop+"</th>";
@@ -83,13 +89,12 @@ function cbObjNouv() {
 }
 
 function construireRangees(){
-
     let strFlux = "";
 
     strFlux += "<tr id='idRangeeNouv'>";
-    strFlux += "<td><div id=\"cb_nouv\" class=\"checkbox\">\n" +
+    strFlux += "<td name='ignore'>*</td><td><div id=\"cb_nouv\" class=\"checkbox\">\n" +
     "                    <label>\n" +
-    "                        <input id=\"cbObjNouv\" type=\"checkbox\" onclick='cbObjNouv();'>\n" +
+    "                        <input id=\"tb_checked_nouv\" type=\"checkbox\" value=\"true\" onclick='cbObjNouv();'>\n" +
     "                        <em class=\"helper\"></em> </label>\n" +
     "                </div></td>";
 
@@ -107,7 +112,7 @@ function construireRangees(){
 
     tabDonnees.forEach((x,i) => {
         strFlux += "<tr class='sRangeeDonnee' id='rangee_"+x[tabPropID[type]]+"'>";
-    strFlux += "<td><div id=\"id_cb_" + x[tabPropID[type]] + "\" class=\"checkbox\">\n" +
+    strFlux += "<td></td><td><div id=\"tb_checked_" + x[tabPropID[type]] + "\" class=\"checkbox\">\n" +
         "                    <label>\n" +
         "                        <input class='cbObjDef' id=\"cb_"+x[tabPropID[type]] +"\" type=\"checkbox\">\n" +
         "                        <em class=\"helper\"></em> </label>\n" +
@@ -165,19 +170,22 @@ function decortiquerTableauEnJS(state){
     tbRangees.forEach((x, i) => {
         let obj = {};
         obj["modelState"]=state;
+        obj["checked"] = false;
         if(state==0){
             obj[tabPropID[type]] = document.getElementById("tb_"+tabPropID[type]+"_nouv").value;
         }else{
             obj[tabPropID[type]] = x.id.split('_')[1];
         }
         Array.from(x.children).forEach((y,j)=>{
-            let input = y.children.item(0);
-            if(!input.id.includes('cb')) {
-                if(input.className == 'checkbox'){
-                    input = input.children.item(0).children.item(0);
-                    obj[input.id.split('_')[1]] = input.checked ? 1 : 0;
-                }else {
-                    obj[input.id.split('_')[1]] = input.value;
+            if(!y.attributes["name"] || y.attributes["name"].nodeValue !== "ignore") {
+                let input = y.children.item(0);
+                if (!input.id.includes('cb')) {
+                    if (input.className == 'checkbox') {
+                        input = input.children.item(0).children.item(0);
+                        obj[input.id.split('_')[1]] = input.checked ? 1 : 0;
+                    } else {
+                        obj[input.id.split('_')[1]] = input.value;
+                    }
                 }
             }
         });
@@ -189,6 +197,7 @@ function decortiquerTableauEnJS(state){
 }
 
 function POST(obj){
+    delete obj["checked"];
     let strJSON = '';
     strJSON += (type+'\n');
     strJSON += JSON.stringify(obj);
@@ -204,7 +213,11 @@ function DELETE(){
 }
 
 function btnAjouter(){
-    POST(decortiquerTableauEnJS(0));
+    let tempo = new tabProto[type].constructor(decortiquerTableauEnJS(0)[0]);
+    tempo.checked = true;
+    tabDonnees.unshift(tempo);
+    refTable.children[1].remove();
+    construireRangees();
 }
 
 function btnSauvgarder(){

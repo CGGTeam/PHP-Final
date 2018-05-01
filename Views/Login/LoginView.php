@@ -1,5 +1,11 @@
+<?php
+    /** @var LoginModel $model */
+?>
 <link href="Views/Login/LoginStyle.css" rel="stylesheet" type="text/css">
 <form method="post" action="" class="sForm">
+    <h1 data-bind="model.etat">
+
+    </h1>
     <table>
         <tr>
             <td colspan="2">
@@ -36,6 +42,8 @@
     </table>
 </form>
 
-<?php
-    /** @var LoginModel $model */
-?>
+
+<script>
+    let data = '<?php echo json_encode($model); ?>';
+    $portee.model = JSON.parse(data);
+</script>
