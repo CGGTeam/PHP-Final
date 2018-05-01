@@ -27,19 +27,18 @@
     }
 
     public function saveChangesOnObj(){
-        /** @var mysql $bd */
-        global $bd;
+
         //TODO saveChanges pour chaque modelState
         if($this->modelState != ModelState::Same && $this->modelState != ModelState::Invalid) {
             switch ($this->modelState) {
                 case ModelState::Added :
-                    $this->modelState = $bd->insereEnregistrementTb(get_class($this), $this->tbValeurs) ?
+                    $this->modelState = mysql::getBD()->insereEnregistrementTb(get_class($this), $this->tbValeurs) ?
                         ModelState::Same : ModelState::Invalid;
                     break;
                 case ModelState::Same :
                     break;
                 case ModelState::Deleted :
-                    $tCles = $bd->retourneClesPrimaires(get_class($this))->fetch_row();
+                    $tCles = mysql::getBD()->retourneClesPrimaires(get_class($this))->fetch_row();
                     $strConditions = "";
     
                     foreach ($this->tbValeurs as $nomChamp => $valeur) {
@@ -50,10 +49,11 @@
                         }
                     }
                     $strConditions = substr($strConditions, 0, strlen($strConditions) - 5);
-                    $bd->supprimeEnregistrements(get_class($this), $strConditions);
+                    mysql::getBD()->supprimeEnregistrements(get_class($this), $strConditions);
                     break;
                 case ModelState::Modified :
-                    $tCles = $bd->retourneClesPrimaires(get_class($this))->fetch_row();
+
+                    $tCles = mysql::getBD()->retourneClesPrimaires(get_class($this))->fetch_row();
                     $strConditions = "";
         
                     foreach ($this->tbValeurs as $nomChamp => $valeur) {
@@ -69,8 +69,9 @@
                     foreach ($this->tbValeurs as $nomChamp => $valeur) {
                         $strSets .= "$nomChamp='$valeur', ";
                     }
+                    log_fichier($strSets);
                     $strSets = substr($strSets, 0, strlen($strSets) - 2);
-                    $bd->modifieEnregistrements(get_class($this), $strSets, $strConditions);
+                    mysql::getBD()->modifieEnregistrements(get_class($this), $strSets, $strConditions);
                     break;
                 default:
                     echo "NOT IMPLEMENTED";

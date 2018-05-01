@@ -30,7 +30,7 @@ function getModel(){
     let jsonResult = JSON.parse(document.getElementById('model').innerHTML);
     jsonResult.forEach((x, i) => {
         tabDonnees[i] = new tabProto[type].constructor(x);
-        tabDonnees[i]["checked"] = true;
+        tabDonnees[i].checked = false;
     });
 }
 
@@ -112,9 +112,9 @@ function construireRangees(){
 
     tabDonnees.forEach((x,i) => {
         strFlux += "<tr class='sRangeeDonnee' id='rangee_"+x[tabPropID[type]]+"'>";
-    strFlux += "<td></td><td><div id=\"tb_checked_" + x[tabPropID[type]] + "\" class=\"checkbox\">\n" +
+    strFlux += "<td name='ignore'></td><td><div class=\"checkbox\" id='cb_select'>\n" +
         "                    <label>\n" +
-        "                        <input class='cbObjDef' id=\"cb_"+x[tabPropID[type]] +"\" type=\"checkbox\">\n" +
+        "                        <input id=\"tb_checked_" + x[tabPropID[type]] + "\" class=\"checkbox\" value='true' type='checkbox' " + (x.checked ? "checked" : "") + ">\n" +
         "                        <em class=\"helper\"></em> </label>\n" +
         "                </div></td>"
 
@@ -170,7 +170,7 @@ function decortiquerTableauEnJS(state){
     tbRangees.forEach((x, i) => {
         let obj = {};
         obj["modelState"]=state;
-        obj["checked"] = false;
+        obj.checked = false;
         if(state==0){
             obj[tabPropID[type]] = document.getElementById("tb_"+tabPropID[type]+"_nouv").value;
         }else{
@@ -180,12 +180,15 @@ function decortiquerTableauEnJS(state){
             if(!y.attributes["name"] || y.attributes["name"].nodeValue !== "ignore") {
                 let input = y.children.item(0);
                 if (!input.id.includes('cb')) {
-                    if (input.className == 'checkbox') {
+                    if (input.className === 'checkbox') {
                         input = input.children.item(0).children.item(0);
                         obj[input.id.split('_')[1]] = input.checked ? 1 : 0;
                     } else {
                         obj[input.id.split('_')[1]] = input.value;
                     }
+                }else{
+                    input = input.children.item(0).children.item(0);
+                    obj[input.id.split('_')[1]] = input.checked;
                 }
             }
         });
@@ -197,7 +200,9 @@ function decortiquerTableauEnJS(state){
 }
 
 function POST(obj){
-    delete obj["checked"];
+    obj.forEach((x)=>{
+       delete x.checked;
+    });
     let strJSON = '';
     strJSON += (type+'\n');
     strJSON += JSON.stringify(obj);
@@ -205,6 +210,7 @@ function POST(obj){
     xhttp.onreadystatechange = function() {document.getElementById("frmSecret").submit();};
     xhttp.open("POST", "index.php?controller=EditReferences&action=Confirmer&strType="+type, true);
     xhttp.setRequestHeader("Content-type", "application/json");
+    console.log(strJSON);
     xhttp.send(strJSON);
 }
 

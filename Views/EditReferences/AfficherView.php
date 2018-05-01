@@ -46,7 +46,3 @@
     <input id="hdType" name="btnType" type="hidden" value="<?=$model->type?>"/>
 </form>
 
-<script>
-    let data = '<?php echo json_encode($model); ?>';
-    $portee.model = JSON.parse(data);
-</script>

@@ -16,7 +16,7 @@ class Utilisateur{
         /**
          * @type {number}
          */
-        this.statutAdmin = obj.statutAdmin;
+        this.statutAdmin = !!obj.statutAdmin;
         /**
          * @type {string}
          */
@@ -25,6 +25,7 @@ class Utilisateur{
          * @type {string}
          */
         this.courriel = obj.courriel;
+
     }
 
 }

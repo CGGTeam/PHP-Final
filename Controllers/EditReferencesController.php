@@ -38,15 +38,15 @@
             if (!$strType) {
                 return new View();
             }
-            
-            global $bd;
-            $objRetour = $bd->selectionneRow($strType);
+
+            $objRetour = mysql::getBD()->selectionneRow($strType);
             $tDonnees = ModelBinding::bindToClass($objRetour, $strType);
 
             return new View(new ReferencesModel($tDonnees, $strType, EnumEtatsReferences::EDIT));
         }
     
         function Confirmer() {
+            log_fichier("test");
             $strPOST = file_get_contents('php://input');
             $arSplit = explode("\n", $strPOST);
             $strType = $arSplit[0];

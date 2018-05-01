@@ -17,6 +17,7 @@
       public $nomBD = "";                       /* Nom de la base de données */
       public $OK = false;                       /* Opération réussie ou non */
       public $requete = "";                     /* Requête exécutée */
+       /** @var mysql $BD */
       private static $BD = null;
       /*
       |----------------------------------------------------------------------------------|
@@ -127,6 +128,9 @@
           //$this->cBD = mysqli_close($this->cBD);
       }
 
+       /**
+        * @return mysql
+        */
       static function getBD(){
           return mysql::$BD;
       }
@@ -207,6 +211,7 @@
           }
           //echo $this->requete;
           $this->OK = mysqli_query($this->cBD, $this->requete);
+          log_fichier($this->requete);
           return $this->OK;
       }
     
@@ -376,6 +381,7 @@
        function modifieEnregistrements($strNomTable, $strUpdates, $strCondition) {
            $this->requete = "UPDATE $strNomTable SET $strUpdates WHERE $strCondition";
            $this->OK = mysqli_query($this->cBD, $this->requete);
+           log_fichier($this->requete);
            return $this->OK;
        }
     

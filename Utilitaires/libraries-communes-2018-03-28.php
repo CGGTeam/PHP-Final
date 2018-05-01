@@ -688,6 +688,18 @@ function litLigneDansFichier($fp) {
     return str_replace("\n", "", str_replace("\r", "", fgets($fp)));
 }
 
+function log_js($obj){
+    $contenu = is_string($obj) ? $obj : var_export($obj);
+    echo "<script type='text/javascript'>console.log('$contenu');</script>";
+}
+
+function log_fichier($obj){
+    $contenu = "\n\n-------------------------------------------------------\n"
+        . date("Y/m/d h:i:sa") . "\n";
+    $contenu .= is_string($obj) ? $obj : var_export($obj, true);
+    file_put_contents('log.txt', $contenu, FILE_APPEND);
+}
+
 /**
  *
  * @param $strChaine
