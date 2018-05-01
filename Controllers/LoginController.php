@@ -52,9 +52,7 @@
                 } else {
                     $strConditions = "NomUtilisateur = '" . $strNomUtil . "' AND ";
                     $strConditions .= "MotDePasse = '" . $strMotPasse . "'";
-                    /** @var mysql $BD */
-                    global $bd;
-                    $objRetour = $bd->selectionneRow("Utilisateur", "*", $strConditions);
+                    $objRetour = mysql::getBD()->selectionneRow("Utilisateur", "*", $strConditions);
     
                     if ($objRetour && $objRetour->num_rows) {
                         session_start();
@@ -94,10 +92,8 @@
             $strMotPasse = post("tbMotDePasse");
     
             if ($strNomUtil && $strMotPasse && $strNomComplet && $strEmail) {
-                /** @var mysql $bd */
-                global $bd;
-                $objResultatNomUtil = $bd->selectionneRow("Utilisateur", "Courriel", "NomUtilisateur= '" . $strNomUtil . "'");
-                $objResultatCourriel = $bd->selectionneRow("Utilisateur", "Courriel", "Courriel= '" . $strEmail . "'");
+                $objResultatNomUtil = mysql::getBD()->selectionneRow("Utilisateur", "Courriel", "NomUtilisateur= '" . $strNomUtil . "'");
+                $objResultatCourriel = mysql::getBD()->selectionneRow("Utilisateur", "Courriel", "Courriel= '" . $strEmail . "'");
     
                 if (!$objResultatNomUtil || !$objResultatCourriel) {
                     return new View(new LoginModel(EnumEtatsUtil::ERREUR_BD));

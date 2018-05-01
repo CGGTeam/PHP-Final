@@ -8,12 +8,9 @@
 
 class autresController
 {
-    private $bd;
     public function __construct()
     {
         /* @var $bd mysql */
-        global $bd;
-        $this->bd = $bd;
         global $authorized;
         $authorized = true;
     }
@@ -26,7 +23,7 @@ class autresController
      *
      */
     public function test(){
-        $result = $this->bd->selectionneRow("tabletest");
+        $result = mysql::getBD()->selectionneRow("tabletest");
         $categories = ModelBinding::bindToClass($result,'Categorie');
         return new View($categories[0] . "View");
     }

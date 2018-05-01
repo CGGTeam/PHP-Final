@@ -17,6 +17,7 @@
       public $nomBD = "";                       /* Nom de la base de données */
       public $OK = false;                       /* Opération réussie ou non */
       public $requete = "";                     /* Requête exécutée */
+      private static $BD = null;
       /*
       |----------------------------------------------------------------------------------|
       | __construct
@@ -39,6 +40,7 @@
               echo "Problème de connexion... " . "Erreur no " . mysqli_connect_errno() . " (" . mysqli_connect_error() .")";
               die();
           };
+          mysql::$BD = $this;
           return $this->cBD;
       }
     
@@ -124,7 +126,11 @@
       function deconnexion() {
           //$this->cBD = mysqli_close($this->cBD);
       }
-    
+
+      static function getBD(){
+          return mysql::$BD;
+      }
+
        /**
         * Insère une série d'arguments à une table
         * @param string $strNomTable Nom de la table
