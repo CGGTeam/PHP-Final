@@ -7,6 +7,8 @@
     require_once "Utilitaires/ModelBinding.php";
     require_once "Models/Donnees/Utilisateur.php";
     require_once "Utilitaires/ModelState.php";
+    require_once "Controllers/ModuleUtilisateurBase.php";
+    require_once "Controllers/ModuleAdminBase.php";
 
 
 if (isset($_GET['controller']) && isset($_GET['action'])) {

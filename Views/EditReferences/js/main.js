@@ -141,10 +141,11 @@ function construireRangees(){
                 idInput = 'tb_'+prop+'_'+x[tabPropID[type]];
             }
             if(decideInputType(prop, tabDonnees[0][prop]) == 'checkbox'){
+                console.log(x[prop]);
                 strFlux += "<td><div class=\"checkbox\">\n" +
                     "                    <label>\n" +
                     "                        <input id='" + idInput + "' type='" + decideInputType(prop, tabDonnees[0][prop]) + "' value='true'"
-                    + ((x[prop]) ? "checked" : "") + "'>\n" +
+                    + ((x[prop]) ? "checked" : "") + ">\n" +
                     "                        <em class=\"helper\"></em> </label>\n" +
                     "                </div></td>";
             }else {

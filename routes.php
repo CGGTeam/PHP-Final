@@ -2,7 +2,7 @@
 
 function call($action, $controller) {
 
-    $objController = new $controller;
+    $objController = new $controller();
 
     $objController->{ $action }()->afficher();
 }
