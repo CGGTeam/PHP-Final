@@ -225,7 +225,7 @@ function POST(obj){
     strJSON = strJSON.replace(/true/g,'1').replace(/false/g,'0');
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {document.getElementById("frmSecret").submit();};
-    xhttp.open("POST", "index.php?controller=EditReferences&action=Confirmer&strType="+type, true);
+    xhttp.open("POST", "index.php?controller=BD&action=Confirmer&strType=" + type, true);
     xhttp.setRequestHeader("Content-type", "application/json");
     console.log(strJSON);
     xhttp.send(strJSON);
