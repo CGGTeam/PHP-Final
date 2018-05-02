@@ -133,7 +133,6 @@
         * @return mysql
         */
       static function getBD(){
-          if (mysql::BD) ;
           return mysql::$BD;
       }
 
