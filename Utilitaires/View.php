@@ -9,9 +9,9 @@
 class View
 {
     private $strChemin;
-    private $model;
-
-    public function __construct($model=null, $strChemin=null)
+    protected $model;
+    
+    public function __construct($model = null, $strChemin = null, $binIsJson = false)
     {
         $this->model = $model;
         if(!$strChemin){
@@ -59,5 +59,4 @@ class View
     public function getModel() {
         return $this->model;
     }
-    
 }

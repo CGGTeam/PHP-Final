@@ -26,7 +26,7 @@
         }
     
         function EditDocuments() {
-            header('Location: ?controller=EditDocuments&action=EditDocuments');
+            header('Location: ?controller=EditDocuments&action=SelectionSession');
             return new View("", 301);
         }
     
