@@ -171,7 +171,7 @@ function decortiquerTableauEnJS(state){
             break;
         case 1:
             tbRangees = Array.from(document.getElementsByClassName('sRangeeDonnee')).filter((x,i) => {
-                return x.children.item(0).children.item(0).children.item(0).children.item(0).checked;
+                return x.children.item(1).children.item(0).children.item(0).children.item(0).checked;
             });
             break;
         case 2:
@@ -188,6 +188,8 @@ function decortiquerTableauEnJS(state){
         let obj = {};
         if(i === 0 && state === 0) {
             obj.modelState = 0;
+        }else if(state === 1){
+            obj.modelState = 1;
         }
         if(obj.modelState === 0){
             obj[tabPropID[type]] = document.getElementById("tb_"+tabPropID[type]+"_nouv").value;
@@ -225,7 +227,14 @@ function POST(obj){
     strJSON += JSON.stringify(obj);
     strJSON = strJSON.replace(/true/g,'1').replace(/false/g,'0');
     let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {document.getElementById("frmSecret").submit();};
+    xhttp.onreadystatechange = function() {
+        if(xhttp.readyState === XMLHttpRequest.DONE){
+            tabDonnees = [];
+            toTypes(JSON.parse('[' + xhttp.responseText.split('[')[1]));
+            refTable.children[1].remove();
+            construireRangees();
+        }
+    };
     xhttp.open("POST", "index.php?controller=BD&action=Confirmer&strType=" + type, true);
     xhttp.setRequestHeader("Content-type", "application/json");
     console.log(strJSON);
@@ -252,6 +261,7 @@ function btnSauvgarder(){
     console.log(tabDonnees);
     POST(tabDonnees);
 }
+
 
 function btnSupprimer(){
     POST(decortiquerTableauEnJS(1));

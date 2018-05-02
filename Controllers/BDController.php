@@ -58,7 +58,7 @@
             $objBD = mysql::getBD();
             $objBD->selectionneRow($strType);
             if ($objBD->OK)
-                ModelBinding::bindToClass($objBD->OK, $strType);
+                $tDonneesPHP = ModelBinding::bindToClass($objBD->OK, $strType);
             else {
                 //http_response_code(500);
                 return new View(500);
