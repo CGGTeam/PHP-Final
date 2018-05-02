@@ -49,7 +49,7 @@
     </tr>
     <tr>
         <td>
-            <form method="post" action="index.php?controller=Login&action=Login">
+            <form method="post" action="index.php?controller=Login&action=Deconnexion">
                 <button type="submit">
                     6. Terminer l'application
                 </button>

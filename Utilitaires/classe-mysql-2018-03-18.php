@@ -15,6 +15,7 @@
       public $listeEnregistrements = null;      /* Liste des enregistrements retournés */
       public $nomFichierInfosSensibles = "";    /* Nom du fichier 'InfosSensibles' */
       public $nomBD = "";                       /* Nom de la base de données */
+       /** @var mysqli_result | bool $OK */
       public $OK = false;                       /* Opération réussie ou non */
       public $requete = "";                     /* Requête exécutée */
        /** @var mysql $BD */
@@ -132,6 +133,7 @@
         * @return mysql
         */
       static function getBD(){
+          if (mysql::BD) ;
           return mysql::$BD;
       }
 
@@ -214,6 +216,30 @@
           log_fichier($this->requete);
           return $this->OK;
       }
+    
+       /**
+        * selectionne des rangées avec un LEFT OUTER JOIN
+        * @param $strNomTable nom de la table
+        * @param string $strListeRows liste des colonnes (séparées par des virgules)
+        * @param string $strConditions Condition(s) where (mis tel quels dans la requête)
+        * @param array[string]string $tJoins $nomTable => expression ON
+        * @return bool|mysqli_result faux si échec, mysqli_result si succès
+        */
+       function selectionneRowLJ($strNomTable, $strListeRows, $strConditions = "", $tJoins = []) {
+           $this->requete = "SELECT $strListeRows FROM $strNomTable";
+        
+           foreach ($tJoins as $table => $on) {
+               $this->requete .= " LEFT OUTER JOIN $table ON $on";
+           }
+        
+           if ($strConditions != "") {
+               $this->requete .= " WHERE $strConditions";
+           }
+        
+           $this->OK = mysqli_query($this->cBD, $this->requete);
+           log_fichier($this->requete);
+           return $this->OK;
+       }
     
        /**
         * Sélectionne la base de données this->nomBD

@@ -21,7 +21,7 @@
             Soumettre
         </button>
         <button type="button" name="button" id="button" class="boutonSoumettre"
-                onclick="window.location='?controller=Login&action=Login';">
+                onclick="window.location='?controller=Login&action=Deconnexion';">
             Retour
         </button>
     </p>
