@@ -5,8 +5,8 @@
  * Date: 04/04/18
  * Time: 19:09
  */
-
-class View
+    
+    class View implements iRetour
 {
     private $strChemin;
     protected $model;

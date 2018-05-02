@@ -3,7 +3,7 @@
 function call($action, $controller) {
 
     $objController = new $controller;
-
+    var_dump($objController->{$action}());
     $objController->{ $action }()->afficher();
 }
 

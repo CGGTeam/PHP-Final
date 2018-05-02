@@ -6,9 +6,11 @@
      * Time: 10:36 PM
      */
     
-    class JSONView extends View {
+    class JSONView implements iRetour {
+        private $model;
+        
         public function __construct($model = null) {
-            parent::__construct($model);
+            $this->model = $model;
         }
         
         public function afficher() {
