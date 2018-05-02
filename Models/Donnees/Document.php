@@ -42,8 +42,7 @@
         /** @var int $ajoutePar No de l’administrateur ayant effectué l’ajout */
         public $ajoutePar;
     
-        public function __construct(array $properties = array(), $binAjout = false)
-        {
+        public function __construct(array $properties = array(), $binAjout = false) {
             parent::__construct($properties, $binAjout);
         }
     }

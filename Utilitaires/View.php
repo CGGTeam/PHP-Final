@@ -9,10 +9,9 @@
 class View
 {
     private $strChemin;
-    private $model;
-
-    public function __construct($model=null, $strChemin=null)
-    {
+    protected $model;
+    
+    public function __construct($model = null, $strChemin = null, $binIsJson = false) {
         $this->model = $model;
         if(!$strChemin){
             $backtrace = debug_backtrace();
@@ -51,13 +50,11 @@ class View
     /**
      * @param mixed $model
      */
-    public function setModel($model)
-    {
+    public function setModel($model) {
         $this->model = $model;
     }
     
     public function getModel() {
         return $this->model;
     }
-    
 }

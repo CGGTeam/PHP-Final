@@ -6,10 +6,8 @@
      * Time: 3:29 PM
      */
     
-    class LoginController
-    {
-        function __construct()
-        {
+    class LoginController {
+        function __construct() {
             //init
             global $authorized;
             $authorized = true;
@@ -29,14 +27,13 @@
         /**
          * @return null|View
          */
-        function Login()
-        {
+        function Login() {
+            session_start();
             $GLOBALS["titrePage"] = "Connexion";
             $objView = null;
-
-            if (isset($_SESSION["strNomUtil"])) {
-                $strNomUtil = $_SESSION["strNomUtil"]->nomUtilisateur;
-                $strMotPasse = $_COOKIE["strMotDePasse"]->motDePasse;
+            if (isset($_SESSION["utilisateurCourant"])) {
+                $strNomUtil = $_SESSION["utilisateurCourant"]->nomUtilisateur;
+                $strMotPasse = $_SESSION["utilisateurCourant"]->motDePasse;
             } else {
                 $strNomUtil = post("tbNomUtilisateur");
                 $strMotPasse = post("tbMotDePasse");
@@ -77,9 +74,8 @@
             }
             return $objView;
         }
-    
-        function CreerAdmin()
-        {
+        
+        function CreerAdmin() {
             $GLOBALS["titrePage"] = "Première connexion";
     
             session_start();
@@ -126,11 +122,18 @@
 
                 $_SESSION["creerAdmin"] = false;
     
-                session_unset();
+                session_destroy();
                 header('Location: ?controller=Login&action=Login');
                 return new View("", 302);
             } else {
                 return new View(new LoginModel(EnumEtatsLogin::AUCUN_POST));
             }
+        }
+    
+        function Deconnexion() {
+            session_start();
+            session_destroy();
+            header('Location: ?controller=Login&action=Login');
+            return new View("", 302);
         }
     }

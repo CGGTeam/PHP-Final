@@ -8,8 +8,7 @@
 
 class autresController
 {
-    public function __construct()
-    {
+    public function __construct() {
         /* @var $bd mysql */
         global $authorized;
         $authorized = true;

@@ -9,8 +9,7 @@
     /**
      * Class Cours Modèle qui représente un Cours
      */
-    class Cours extends ModelBinding
-    {
+    class Cours extends ModelBinding {
         /** @var string $sigle Sigle du cours (999-ZZZ; ADM-A99) */
         public $sigle;
         /** @var string $titre Titre du cours */

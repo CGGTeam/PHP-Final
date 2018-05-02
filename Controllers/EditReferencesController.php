@@ -8,8 +8,7 @@
     
     require_once("Controllers/ModuleAdminBase.php");
     
-    class EditReferencesController extends ModuleAdminBase
-    {
+    class EditReferencesController extends ModuleAdminBase {
         function __construct() {
             require_once "Models/EditReferences/EnumEtatsReferences.php";
             require_once "Models/EditReferences/ReferencesModel.php";
@@ -23,15 +22,13 @@
             require_once "Models/Donnees/Utilisateur.php";
             parent::__construct();
         }
-    
-        function EditReferences()
-        {
+        
+        function EditReferences() {
             $GLOBALS["titrePage"] = "Modification des tables de référence";
             return new View();
         }
-    
-        function Afficher()
-        {
+        
+        function Afficher() {
             $strType = post("btnType");
             $GLOBALS["titrePage"] = "Affichage des " . mb_strtolower($strType) . "s";
     
@@ -43,34 +40,5 @@
             $tDonnees = ModelBinding::bindToClass($objRetour, $strType);
 
             return new View(new ReferencesModel($tDonnees, $strType, EnumEtatsReferences::EDIT));
-        }
-    
-        function Confirmer() {
-            log_fichier("test");
-            $strPOST = file_get_contents('php://input');
-            $arSplit = explode("\n", $strPOST);
-            $strType = $arSplit[0];
-            $strDonnees = $arSplit[1];
-            $tDonneesJson = json_decode($strDonnees, true);
-    
-            foreach ($tDonneesJson as $sj) {
-                $etat = $sj["modelState"];
-                //TODO: thess unsets shouldn't be here
-                //=======C A N C E R   Z O N E========
-                if ($etat == 0) {
-                    unset($sj["id"]); //This can probably stay
-                } else {
-                    $sj["id"] = intval($sj["id"]);
-                }
-                unset($sj[37]);
-                unset($sj["modelState"]);//this too
-                unset($sj["undefined"]);
-                //====================================
-                /** @var ModelBinding $so */
-                $so = new $strType($sj);
-                $so->setModelState($etat);
-                $so->saveChangesOnObj();
-            }
-            return new View(null, "Views/EditReferences/AfficherView.php");
         }
     }

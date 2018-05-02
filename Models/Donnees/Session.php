@@ -17,9 +17,8 @@
         public $dateDebut;
         /** @var string $dateFin Date de fin de la session */
         public $dateFin;
-
-        public function __construct(array $properties = array(), $binAjout = false)
-        {
+    
+        public function __construct(array $properties = array(), $binAjout = false) {
             parent::__construct($properties, $binAjout);
         }
     }

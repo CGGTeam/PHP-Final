@@ -17,8 +17,7 @@
      * @param array $properties
      * @param bool $binAjout
      */
-    public function __construct(Array $properties=array(), $binAjout=false)
-    {
+        public function __construct(Array $properties = array(), $binAjout = false) {
         $this->modelState = $binAjout ? ModelState::Added : ModelState::Same;
         foreach ($properties as $key => $value) {
             $this->{$key} = $value;

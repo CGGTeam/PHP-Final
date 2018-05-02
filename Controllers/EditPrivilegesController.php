@@ -8,21 +8,24 @@
     
     require_once("Controllers/ModuleAdminBase.php");
     
-    class EditPrivilegesController extends ModuleAdminBase
-    {
+    class EditPrivilegesController extends ModuleAdminBase {
         function __construct() {
             parent::__construct();
         }
-    
-        function EditPrivileges()
-        {
-            $GLOBALS["titrePage"] = "Modification des privilèges";
-            return new View();
-        }
         
-        function enregistrerPrivileges()
-        {
-            header("Location: ?controller=EditPrivileges&action=EditPrivileges");
-            return new View("", 301);
+        function EditPrivileges() {
+            $GLOBALS["titrePage"] = "Modification des privilèges";
+            $objBD = Mysql::getBD();
+            $objBD->selectionneRow("CoursSession");
+            if ($objBD->OK)
+                $tCoursSession = ModelBinding::bindToClass($objBD->OK, "CoursSession");
+            else
+                return new View("500: Erreur Fatale", 500);
+    
+            $objBD->selectionneRow("Utilisateur");
+            if ($objBD->OK)
+                $tUtilisateurs = ModelBinding::bindToClass($objBD->OK, "Utilisateur");
+    
+            return new View(["CoursSession" => $tCoursSession, "Utilisateurs" => $tUtilisateurs]);
         }
     }

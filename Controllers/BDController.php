@@ -14,8 +14,8 @@
             $strType = $arSplit[0];
             $strDonnees = $arSplit[1];
             $tDonneesJson = json_decode($strDonnees, true);
-            $tDonneesPHP = array();
-            
+    
+    
             for ($i = 0; $i < sizeof($tDonneesJson); $i++) {
                 $sj = $tDonneesJson[$i];
                 $etat = $sj["modelState"];
@@ -34,9 +34,19 @@
                 $so = new $strType($sj);
                 $so->setModelState($etat);
                 $so->saveChangesOnObj();
-                $tDonneesPHP[$i] = $so;
             }
-            
-            return json_encode($tDonneesPHP);
+    
+            $tDonneesPHP = array();
+    
+            $objBD = Mysql::getBD();
+            $objBD->selectionneRow($strType);
+            if ($objBD->OK)
+                ModelBinding::bindToClass($objBD->OK, $strType);
+            else {
+                http_response_code(500);
+                return new JSONView();
+            }
+    
+            return new JSONView(json_encode($tDonneesPHP));
         }
     }
