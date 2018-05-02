@@ -5,8 +5,9 @@
  * Date: 04/04/18
  * Time: 19:09
  */
-
-class View
+    require_once "Utilitaires/iRetour.php";
+    
+    class View implements iRetour
 {
     private $strChemin;
     protected $model;

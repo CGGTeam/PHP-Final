@@ -17,6 +17,13 @@
         function EditGroupes()
         {
             $GLOBALS["titrePage"] = "Modification des groupes";
+    
+            if (isset($_FILES["fichierCSV"])) {
+                $tcontenu = preg_split("/\r\n|\r|\n/", file_get_contents($_FILES["fichierCSV"]));
+                foreach ($tcontenu as $ligne) {
+                    $tChamps = $tcontenu;
+                }
+            }
             return new View();
         }
         

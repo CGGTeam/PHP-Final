@@ -5,11 +5,12 @@
      * Date: 2018-05-01
      * Time: 10:36 PM
      */
-    
-    class JSONView extends View {
+    require_once "Utilitaires/iRetour.php";
+    class JSONView implements iRetour {
+        private $model;
+
         public function __construct($model = null) {
-            log_fichier("hello");
-            parent::__construct($model);
+            $this->model = $model;
         }
         
         public function afficher() {
