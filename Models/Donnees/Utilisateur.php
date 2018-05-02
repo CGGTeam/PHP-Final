@@ -26,8 +26,7 @@
          */
         public $courriel;
     
-        public function __construct(array $properties = array(), $binAjout = false)
-        {
+        public function __construct(array $properties = array(), $binAjout = false) {
             parent::__construct($properties, $binAjout);
             $this->statutAdmin = (bool) $this->statutAdmin;
         }

@@ -7,20 +7,17 @@
      */
     require_once("Controllers/ModuleAdminBase.php");
     
-    class EditArborescenceController extends ModuleAdminBase
-    {
+    class EditArborescenceController extends ModuleAdminBase {
         function __construct() {
             parent::__construct();
         }
-    
-        function EditArborescence()
-        {
+        
+        function EditArborescence() {
             $GLOBALS["titrePage"] = "Arborescence des documents";
             return new View();
         }
-    
-        function Confirmer()
-        {
+        
+        function Confirmer() {
             $GLOBALS["titrePage"] = "Nettoyage de l'arborescence";
             return new View();
         }

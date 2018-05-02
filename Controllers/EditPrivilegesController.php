@@ -8,14 +8,12 @@
     
     require_once("Controllers/ModuleAdminBase.php");
     
-    class EditPrivilegesController extends ModuleAdminBase
-    {
+    class EditPrivilegesController extends ModuleAdminBase {
         function __construct() {
             parent::__construct();
         }
-    
-        function EditPrivileges()
-        {
+        
+        function EditPrivileges() {
             $GLOBALS["titrePage"] = "Modification des privilèges";
             $objBD = Mysql::getBD();
             $objBD->selectionneRow("CoursSession");

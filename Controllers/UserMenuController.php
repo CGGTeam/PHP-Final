@@ -8,16 +8,13 @@
     
     require_once "Controllers/ModuleUtilisateurBase.php";
     
-    class UserMenuController extends ModuleUtilisateurBase
-    {
-        function __construct()
-        {
+    class UserMenuController extends ModuleUtilisateurBase {
+        function __construct() {
             parent::__construct();
             require_once "Models/Donnees/Utilisateur.php";
         }
         
-        function ChoixCours()
-        {
+        function ChoixCours() {
             $GLOBALS["titrePage"] = "Choix d'un cours";
             return new View();
         }

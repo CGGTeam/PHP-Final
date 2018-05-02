@@ -15,9 +15,8 @@ class CoursSession extends ModelBinding
     public $sigle;
     /** @var int $utilisateur id de l'utilisateur */
     public $utilisateur;
-
-    public function __construct(array $properties = array(), $binAjout = false)
-    {
+    
+    public function __construct(array $properties = array(), $binAjout = false) {
         parent::__construct($properties, $binAjout);
     }
 }

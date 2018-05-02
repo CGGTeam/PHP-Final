@@ -15,8 +15,7 @@
      * @param int $intAnnee
      * @return string-
      */
-    function AAAAMMJJ($strDateOuIntJour = null, $intMois = null, $intAnnee = null)
-    {
+    function AAAAMMJJ($strDateOuIntJour = null, $intMois = null, $intAnnee = null) {
         if ($strDateOuIntJour == null)
             $strDateOuIntJour = aujourdhui();
         if ($intMois == null) {
@@ -28,9 +27,8 @@
         return sprintf("%s-%s-%s", $intAnneeFinale, ajouteZeros($intMois, 2),
             ajouteZeros($strDateOuIntJour, 2));
     }
-
-    function annee($strDate)
-    {
+    
+    function annee($strDate) {
         $intAnnee = null;
         $intDummy = null;
         extraitJJMMAAAAv2($intDummy, $intDummy, $intAnnee, $strDate);
@@ -42,8 +40,7 @@
      * @param bool $binAAAAMMJJ format AAAA-mm-dd?
      * @return bool
      */
-    function aujourdhui($binAAAAMMJJ = true)
-    {
+    function aujourdhui($binAAAAMMJJ = true) {
         return $binAAAAMMJJ ? date("Y-m-d") : date("d-m-Y");
     }
 
@@ -52,8 +49,7 @@
      * @param int $intLargeur largeur
      * @return string
      */
-    function ajouteZeros($numValeur, $intLargeur)
-    {
+    function ajouteZeros($numValeur, $intLargeur) {
         return sprintf("%'0$intLargeur" . "d", $numValeur);
     }
 
@@ -63,8 +59,7 @@
      * @param int $intAnnee Année
      * @return bool
      */
-    function bissextile($intAnnee)
-    {
+    function bissextile($intAnnee) {
         return date("L", mktime(0, 0, 0, 1, 1, $intAnnee)) == 1;
     }
 
@@ -116,8 +111,7 @@ function compteLignesFichier($strNomFichier) {
  | convertitSousChaineEnEntier (2018-01-29)
  |-----------------------------------------------------------------------------|
  */
-function convertitSousChaineEnEntier($strChaine, $intDepart, $intLongueur)
-{
+    function convertitSousChaineEnEntier($strChaine, $intDepart, $intLongueur) {
     $intEntier = intval(substr($strChaine, $intDepart, $intLongueur));
     return $intEntier;
 }
@@ -134,8 +128,7 @@ function convertitSousChaineEnEntier($strChaine, $intDepart, $intLongueur)
      * @param string $strJourSemaine (optionel) Mettre "C" pour afficher le jour
      * @return string
      */
-    function dateEnLitteral($strDate = null, $strJourSemaine = null)
-    {
+    function dateEnLitteral($strDate = null, $strJourSemaine = null) {
         if ($strDate == null || strtoupper($strDate) == 'C') {
             if ($strDate == null)
                 $strDate = aujourdhui();
@@ -165,8 +158,7 @@ function convertitSousChaineEnEntier($strChaine, $intDepart, $intLongueur)
      * @param string $strDate
      * @return bool
      */
-    function dateValide($strDate)
-    {
+    function dateValide($strDate) {
         if ((preg_match("/\d{2}-\d{2}-\d{4}/", $strDate) == 1) ||
             (preg_match("/\d{4}-\d{2}-\d{2}/", $strDate) == 1)) {
             $intJ = null;
@@ -412,8 +404,7 @@ function ecritLigneDansFichier($fp, $strLigneCourante, $binSaut_intNbLignesSaut 
      * @param $intAnnee
      * @param string $strDate (optional)
      */
-    function extraitJSJJMMAAAAv2(&$intJourSemaine, &$intJour, &$intMois, &$intAnnee, $strDate = null)
-    {
+    function extraitJSJJMMAAAAv2(&$intJourSemaine, &$intJour, &$intMois, &$intAnnee, $strDate = null) {
         if (func_num_args() == 4) {
             $strDate = date("d-m-Y");
             $intJourSemaine = date("N");
@@ -459,8 +450,7 @@ function ecritLigneDansFichier($fp, $strLigneCourante, $binSaut_intNbLignesSaut 
      * @param $intAnnee
      * @param string $strDate (optional)
      */
-    function extraitJJMMAAAAv2(&$intJour, &$intMois, &$intAnnee, $strDate = null)
-    {
+    function extraitJJMMAAAAv2(&$intJour, &$intMois, &$intAnnee, $strDate = null) {
         if (func_num_args() == 3) {
             $strDate = date("d-m-Y");
         } else {
@@ -544,8 +534,7 @@ function fichierExiste($strNomFichier) {
      * @param string $strNomParametre
      * @return null|string
      */
-    function get($strNomParametre)
-    {
+    function get($strNomParametre) {
         return (isset($_GET[$strNomParametre]) ? $_GET[$strNomParametre] : null);
     }
 
@@ -585,8 +574,7 @@ function fichierExiste($strNomFichier) {
      * @param bool $binECHO
      * @return string
      */
-    function input($strID, $strCLASS, $strMAXLENGTH, $strVALUE, $binECHO = false)
-    {
+    function input($strID, $strCLASS, $strMAXLENGTH, $strVALUE, $binECHO = false) {
         $baliseFinal = sprintf('<input id="%1$s" name="%1$s"' .
             'class="%2$s" type="text" maxlength="%3$s" value="%4$s" />',
             $strID, $strCLASS, $strMAXLENGTH, $strVALUE);
@@ -603,15 +591,13 @@ function fichierExiste($strNomFichier) {
      * @param int $intAnnee Annee
      * @return string
      */
-    function JJMMAAAA($intJour, $intMois, $intAnnee)
-    {
+    function JJMMAAAA($intJour, $intMois, $intAnnee) {
         $intAnneeFinale = ($intAnnee > 999) ? $intAnnee
             : (($intAnnee > 20) ? 1900 + $intAnnee : 2000 + $intAnnee);
         return ajouteZeros($intJour, 2) . "-" . ajouteZeros($intMois, 2) . "-" . $intAnneeFinale;
     }
-
-    function jour($strDate)
-    {
+    
+    function jour($strDate) {
         $intJour = null;
         $intDummy = null;
         extraitJJMMAAAAv2($intJour, $intDummy, $intDummy, $strDate);
@@ -625,8 +611,7 @@ function fichierExiste($strNomFichier) {
      |            jourSemaineEnLitteral($intMois, $binMajuscule)   <= En fonction de $binMajuscule
      |-----------------------------------------------------------------------------|
      */
-    function jourSemaineEnLitteral($intNoJour, $binMajuscule = false)
-    {
+    function jourSemaineEnLitteral($intNoJour, $binMajuscule = false) {
         $strJour = "N/A";
         switch ($intNoJour) {
             case 1 :
@@ -666,8 +651,7 @@ function fichierExiste($strNomFichier) {
      * @param null|string $selected (facultatif) Element selectionne
      * @return string
      */
-    function listeDeroulante($strID, $strAutreParams, $tContenu, $strReloadOnChange = null, $selected = null)
-    {
+    function listeDeroulante($strID, $strAutreParams, $tContenu, $strReloadOnChange = null, $selected = null) {
         $baliseFinal = sprintf('<select id="%1$s" name="%1$s" %2$s
         %3$s>', $strID, $strAutreParams,
             ($strReloadOnChange === null ? '' :
@@ -728,8 +712,7 @@ function log_fichier($obj){
     |            moisEnLitteral($intMois, $binMajuscule)   <= En fonction de $binMajuscule
     |-----------------------------------------------------------------------------|
     */
-    function moisEnLitteral($intMois, $binMajuscule = false, $strDefaut = "N/A", $strMotApostrophe = null, $strLettreApostrophe = null)
-    {
+    function moisEnLitteral($intMois, $binMajuscule = false, $strDefaut = "N/A", $strMotApostrophe = null, $strLettreApostrophe = null) {
         $strMois = $strDefaut;
         $binVoyelle = false;
         switch ($intMois) {
@@ -784,8 +767,7 @@ function log_fichier($obj){
      * @param int $intAnnee Année
      * @return int
      */
-    function nombreJoursAnnee($intAnnee)
-    {
+    function nombreJoursAnnee($intAnnee) {
         return bissextile($intAnnee) ? 366 : 365;
     }
 
@@ -797,15 +779,13 @@ function log_fichier($obj){
      * @param string $strDate2
      * @return int
      */
-    function nombreJoursEntreDeuxDates($strDate1, $strDate2)
-    {
+    function nombreJoursEntreDeuxDates($strDate1, $strDate2) {
 
         return (strtotime($strDate2) - strtotime($strDate1)) / 60 / 60 / 24;
 
     }
-
-    function nombreJoursMois($intMois, $intAnnee)
-    {
+    
+    function nombreJoursMois($intMois, $intAnnee) {
         return date("t", mktime(0, 0, 0, $intMois, 1, $intAnnee));
 
     }
@@ -844,8 +824,7 @@ function ouvreFichier($strNomFichier, $strMode="L") {
      * @param string $strNomParametre
      * @return null|string
      */
-    function post($strNomParametre)
-    {
+    function post($strNomParametre) {
         return (isset($_POST[$strNomParametre]) ? $_POST[$strNomParametre] : null);
     }
 
@@ -869,8 +848,7 @@ function ouvreFichier($strNomFichier, $strMode="L") {
      * @param bool $binECHO
      * @return string
      */
-    function submitBalise($strID, $strCLASS, $strVALUE, $binECHO = false)
-    {
+    function submitBalise($strID, $strCLASS, $strVALUE, $binECHO = false) {
         $baliseFinal = sprintf('<input id="%1$s" name="%1$s"' .
             'class="%2$s" type="submit" value="%3$s" />',
             $strID, $strCLASS, $strVALUE);

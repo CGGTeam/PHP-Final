@@ -8,8 +8,7 @@
     
     require_once("Controllers/ModuleAdminBase.php");
     
-    class EditReferencesController extends ModuleAdminBase
-    {
+    class EditReferencesController extends ModuleAdminBase {
         function __construct() {
             require_once "Models/EditReferences/EnumEtatsReferences.php";
             require_once "Models/EditReferences/ReferencesModel.php";
@@ -23,15 +22,13 @@
             require_once "Models/Donnees/Utilisateur.php";
             parent::__construct();
         }
-    
-        function EditReferences()
-        {
+        
+        function EditReferences() {
             $GLOBALS["titrePage"] = "Modification des tables de référence";
             return new View();
         }
-    
-        function Afficher()
-        {
+        
+        function Afficher() {
             $strType = post("btnType");
             $GLOBALS["titrePage"] = "Affichage des " . mb_strtolower($strType) . "s";
     

@@ -11,14 +11,12 @@
     require_once("Models/EditDocuments/DocumentsCoursSession.php");
     
     
-    class EditDocumentsController extends ModuleAdminBase
-    {
+    class EditDocumentsController extends ModuleAdminBase {
         function __construct() {
             parent::__construct();
         }
-    
-        function EditDocuments()
-        {
+        
+        function EditDocuments() {
             $intIDSession = post("ddlSession");
             $GLOBALS["titrePage"] = "Modification des documents de la session [...]";
             $model = null;
@@ -36,9 +34,8 @@
     
             return new View($model);
         }
-    
-        function SelectionSession()
-        {
+        
+        function SelectionSession() {
             $GLOBALS["titrePage"] = "Sélection d'un cours-session";
             $objBD = MYSQL::getBD();
             $objBD->selectionneRow("CoursSession");

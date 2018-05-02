@@ -50,8 +50,7 @@
             return new View("", 301);
         }
     
-        function Quitter()
-        {
+        function Quitter() {
             session_abort();
             header('Location: ?controller=Login&action=Login');
             return new View("", 301);
