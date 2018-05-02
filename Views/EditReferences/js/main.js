@@ -28,14 +28,23 @@ let tabDonnees = [];
 
 function getModel(){
     let jsonResult = JSON.parse(document.getElementById('model').innerHTML);
-    jsonResult.forEach((x, i) => {
+    toTypes(jsonResult);
+}
+
+function toTypes(tabObjets){
+    tabObjets.forEach((x, i) => {
         tabDonnees[i] = new tabProto[type].constructor(x);
-        tabDonnees[i].checked = false;
+        tabDonnees[i].checked = x.checked ? x.checked : false;
     });
 }
 
 function cbSelTout(){
     console.log("cbSelTout();")
+}
+
+function check(toCheck) {
+    let id = 'tb_checked_' + toCheck.id.split('_')[2];
+    document.getElementById(id).checked = true;
 }
 
 function construireTH(){
@@ -129,11 +138,11 @@ function construireRangees(){
                 strFlux += "<td><div class=\"checkbox\">\n" +
                     "                    <label>\n" +
                     "                        <input id='" + idInput + "' type='" + decideInputType(prop, tabDonnees[0][prop]) + "' value='true'"
-                    + ((x[prop]) ? "checked" : "") + ">\n" +
+                    + ((x[prop]) ? "checked" : "") + "'>\n" +
                     "                        <em class=\"helper\"></em> </label>\n" +
                     "                </div></td>";
             }else {
-                strFlux += "<td><input id='" + idInput + "' type='" + decideInputType(prop, tabDonnees[0][prop]) + "' value='" + x[prop] + "'></td>";
+                strFlux += "<td><input id='" + idInput + "' type='" + decideInputType(prop, tabDonnees[0][prop]) + "' value='" + x[prop] + "' onchange='check(this)'></td>";
             }
             }
     });
@@ -151,6 +160,7 @@ function decortiquerTableauEnJS(state){
     switch(state){
         case 0:
             tbRangees = [document.getElementById('idRangeeNouv')];
+            tbRangees = tbRangees.concat(Array.from(document.getElementsByClassName('sRangeeDonnee')));
             break;
         case 1:
             tbRangees = Array.from(document.getElementsByClassName('sRangeeDonnee')).filter((x,i) => {
@@ -169,9 +179,12 @@ function decortiquerTableauEnJS(state){
 
     tbRangees.forEach((x, i) => {
         let obj = {};
-        obj["modelState"]=state;
-        obj.checked = false;
-        if(state==0){
+        if(i === 0 && state === 0) {
+            obj["modelState"] = state;
+        }else if(state === 0){
+            obj["modelState"] = 2;
+        }
+        if(obj.modelState === 0){
             obj[tabPropID[type]] = document.getElementById("tb_"+tabPropID[type]+"_nouv").value;
         }else{
             obj[tabPropID[type]] = x.id.split('_')[1];
@@ -219,9 +232,9 @@ function DELETE(){
 }
 
 function btnAjouter(){
-    let tempo = new tabProto[type].constructor(decortiquerTableauEnJS(0)[0]);
-    tempo.checked = true;
-    tabDonnees.unshift(tempo);
+    let tabTempo = decortiquerTableauEnJS(0);
+    toTypes(tabTempo);
+    tabDonnees[0].checked = true;
     refTable.children[1].remove();
     construireRangees();
 }
