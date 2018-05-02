@@ -26,6 +26,7 @@ class Utilisateur{
          */
         this.courriel = obj.courriel;
 
+
     }
 
 }

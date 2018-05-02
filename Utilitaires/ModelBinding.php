@@ -34,6 +34,7 @@
                 case ModelState::Added :
                     $this->modelState = mysql::getBD()->insereEnregistrementTb(get_class($this), $this->tbValeurs) ?
                         ModelState::Same : ModelState::Invalid;
+                    log_fichier( var_export(mysql::getBD()->OK) . '     ' . mysql::getBD()->requete);
                     break;
                 case ModelState::Same :
                     break;

@@ -33,8 +33,14 @@ function getModel(){
 
 function toTypes(tabObjets){
     tabObjets.forEach((x, i) => {
-        tabDonnees[i] = new tabProto[type].constructor(x);
-        tabDonnees[i].checked = x.checked ? x.checked : false;
+        let tempo = new tabProto[type].constructor(x);
+        tempo.checked = x.checked ? x.checked : false;
+        if(tempo.checked){
+            tempo.modelState = (x.modelState === 0 || tabDonnees[i].modelState === 0) ? 0 : 2;
+        }else{
+            tempo.modelState = 3;
+        }
+        tabDonnees[i] = tempo;
     });
 }
 
@@ -179,10 +185,8 @@ function decortiquerTableauEnJS(state){
 
     tbRangees.forEach((x, i) => {
         let obj = {};
-        if(i !== 0 && state === 0) {
-            obj["modelState"] = 2;
-        }else{
-            obj["modelState"] = state;
+        if(i === 0 && state === 0) {
+            obj.modelState = 0;
         }
         if(obj.modelState === 0){
             obj[tabPropID[type]] = document.getElementById("tb_"+tabPropID[type]+"_nouv").value;
@@ -208,7 +212,6 @@ function decortiquerTableauEnJS(state){
         tbObjets.push(obj);
     });
 
-    console.log(tbObjets);
     return tbObjets;
 }
 
@@ -219,6 +222,7 @@ function POST(obj){
     let strJSON = '';
     strJSON += (type+'\n');
     strJSON += JSON.stringify(obj);
+    strJSON = strJSON.replace(/true/g,'1').replace(/false/g,'0');
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {document.getElementById("frmSecret").submit();};
     xhttp.open("POST", "index.php?controller=EditReferences&action=Confirmer&strType="+type, true);
@@ -233,8 +237,8 @@ function DELETE(){
 
 function btnAjouter(){
     let tabTempo = decortiquerTableauEnJS(0);
+    tabTempo[0].checked = true;
     toTypes(tabTempo);
-    tabDonnees[0].checked = true;
     refTable.children[1].remove();
     construireRangees();
 }
@@ -244,7 +248,8 @@ function btnSauvgarder(){
     toTypes(tabTempo);
     refTable.children[1].remove();
     construireRangees();
-    POST(tabTempo);
+    console.log(tabDonnees);
+    POST(tabDonnees);
 }
 
 function btnSupprimer(){
