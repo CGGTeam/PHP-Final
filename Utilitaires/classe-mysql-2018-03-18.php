@@ -133,7 +133,6 @@
         * @return mysql
         */
       static function getBD(){
-          if (mysql::BD) ;
           return mysql::$BD;
       }
 
@@ -213,7 +212,7 @@
           }
           //echo $this->requete;
           $this->OK = mysqli_query($this->cBD, $this->requete);
-          log_fichier($this->requete);
+//          log_fichier($this->requete);
           return $this->OK;
       }
     
@@ -237,7 +236,7 @@
            }
         
            $this->OK = mysqli_query($this->cBD, $this->requete);
-           log_fichier($this->requete);
+//           log_fichier($this->requete);
            return $this->OK;
        }
     
@@ -407,7 +406,7 @@
        function modifieEnregistrements($strNomTable, $strUpdates, $strCondition) {
            $this->requete = "UPDATE $strNomTable SET $strUpdates WHERE $strCondition";
            $this->OK = mysqli_query($this->cBD, $this->requete);
-           log_fichier($this->requete);
+//           log_fichier($this->requete);
            return $this->OK;
        }
     

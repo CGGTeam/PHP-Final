@@ -12,6 +12,8 @@
         }
         
         public function afficher() {
-            return $this->getModel();
+            header('Content-Type: application/json');
+            ob_end_clean();
+            echo $this->model;
         }
     }

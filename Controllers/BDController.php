@@ -8,7 +8,7 @@
      */
     class BDController extends ModuleAdminBase {
         function Confirmer() {
-            log_fichier("test");
+//            log_fichier("test");
             $strPOST = file_get_contents('php://input');
             $arSplit = explode("\n", $strPOST);
             $strType = $arSplit[0];
