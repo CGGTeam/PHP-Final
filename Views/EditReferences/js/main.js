@@ -179,10 +179,10 @@ function decortiquerTableauEnJS(state){
 
     tbRangees.forEach((x, i) => {
         let obj = {};
-        if(i === 0 && state === 0) {
-            obj["modelState"] = state;
-        }else if(state === 0){
+        if(i !== 0 && state === 0) {
             obj["modelState"] = 2;
+        }else{
+            obj["modelState"] = state;
         }
         if(obj.modelState === 0){
             obj[tabPropID[type]] = document.getElementById("tb_"+tabPropID[type]+"_nouv").value;
@@ -240,7 +240,11 @@ function btnAjouter(){
 }
 
 function btnSauvgarder(){
-    POST(decortiquerTableauEnJS(2));
+    let tabTempo = decortiquerTableauEnJS(2);
+    toTypes(tabTempo);
+    refTable.children[1].remove();
+    construireRangees();
+    POST(tabTempo);
 }
 
 function btnSupprimer(){
