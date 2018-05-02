@@ -1,4 +1,5 @@
 <?php
+    ob_start();
     require_once "Utilitaires/libraries-communes-2018-03-28.php";
     require_once "Utilitaires/classe-mysql-2018-03-18.php";
     require_once "sqlConnection.php";
