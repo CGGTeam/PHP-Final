@@ -3,8 +3,6 @@
 ?>
 
 <script>
-    let data = '<?php echo json_encode($model); ?>';
-    $scope.model = JSON.parse(data);
     $scope.coursSession = [];
     $scope.utilisateurs = [];
     $scope.tbCours = [];

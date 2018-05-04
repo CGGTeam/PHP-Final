@@ -5,6 +5,7 @@
         <link rel="stylesheet" href="https://use.typekit.net/gij1vpi.css">
         <link href="Style/main.css" rel="stylesheet" type="text/css">
         <script src="Utilitaires/anguleux/Anguleux.js"></script>
+        <script src="View/Model.php"></script>
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
         <!-- Adobe TypeKit fonts -->
         <link rel="stylesheet" href="https://use.typekit.net/gij1vpi.css">
