@@ -8,11 +8,13 @@
     echo json_encode($model->donnees);
     echo "</script>";
 
+    /*
     $initrep = scandir('Views/EditReferences/js/Models');
     $rep = array_splice($initrep,2, count($initrep));
     foreach($rep as $js) {
         echo "<script src=\"Views/EditReferences/js/Models/$js\"></script>";
     }
+    */
 
     echo "<script type='text/javascript'>/** @type {string} **/ var type = '$model->type';</script>";
 

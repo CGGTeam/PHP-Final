@@ -8,6 +8,14 @@
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
         <!-- Adobe TypeKit fonts -->
         <link rel="stylesheet" href="https://use.typekit.net/gij1vpi.css">
+        <script src="Utilitaires/Utils.js"></script>
+        <?php
+            $initrep = scandir('Views/EditReferences/js/Models');
+            $rep = array_splice($initrep,2, count($initrep));
+            foreach($rep as $js) {
+                echo "<script src=\"Views/EditReferences/js/Models/$js\"></script>";
+            }
+        ?>
     </head>
     <body class="">
     <div class="sHeader sHeaderLogin">
