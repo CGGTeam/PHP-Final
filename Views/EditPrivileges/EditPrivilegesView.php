@@ -29,35 +29,22 @@
         }
     });
 
-    console.log($scope);
-    
-    function enregistrer() {
+    configPost(Utilisateur,["id","tbCours"],{tbCours: postTbCours});
 
-    }
-
-    function modifier(id) {
-        for(session in $scope.tbCours) {
-            $scope.tbCours[session].forEach(sigle => {
-                let coursSessionEtat = document.getElementById(session + '_' + sigle + '_' + id).checked;
-                let objCoursSession = new CoursSession({
-                    session: session,
-                    utilisateur: id,
-                    sigle: sigle
-                });
-                objCoursSession.modelState = 3;
-                if(coursSessionEtat && $scope.coursSession.indexOf(objCoursSession) < 0){
-                    objCoursSession.modelState = 0;
-                    $scope.coursSession.push(objCoursSession);
-                }else if($scope.coursSession.indexOf(objCoursSession) > -1){
-                    $scope.coursSession[$scope.coursSession.indexOf(objCoursSession)].modelState = 1;
-                }
-            });
+    function postTbCours(objPost, objCourant) {
+        objPost.tbCours = [];
+        for(let i = 0; i < objCourant.tbCours.length; i++){
+            if(objCourant.tbCours[i]){
+                objPost.tbCours.push($scope.tbCours[i]);
+            }
         }
     }
+
 
 </script>
 
 <link href="Style/privilegeStyles.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="Utilitaires/anguleux/AnguleuxStyle.css"/>
 
 
 <form class="container">
@@ -66,372 +53,24 @@
             <tr>
                 <th>Utilisateurs</th>
                 <th ag-for="cours in tbCours">
-                    {{cours.sigle}}
+                    <div>{{cours.sigle}}</div>
                     <div class="sousTitre">{{cours.session}}</div>
                 </th>
             </tr>
-        <!--
-        <tr ag-for="util in utilisateurs" id="tr_{{util.id}}">
-            <td>{{util.nomComplet}}</td>
-            <td ag-for="cours in util.tbCours">
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" data-bind="{{cours}}">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-        </tr>
-        -->
+            <tr ag-for="util in utilisateurs">
+                <td>{{util.nomComplet}}</td>
+                <td ag-for="wack in util.tbCours">
+                    <div class="checkbox">
+                        <label>
+                            <input name="checkbox" type="checkbox" for-bind="true">
+                            <em class="helper"></em>
+                        </label>
+                    </div>
+                </td>
+            </tr>
         </tbody>
     </table>
-</form>
-
-
-
-<form class="container">
-    <table border="1" cellspacing="5" cellpadding="5">
-        <tbody>
-        <tr>
-            <th scope="col">Nom d'utilisateur / Cours-Session</th>
-            <th scope="col">ZZZ-ZZZ
-                <div class="sousTitre">A-2099</div>
-            </th>
-            <th scope="col">ZZZ-ZZZ
-                <div class="sousTitre">A-2099</div>
-            </th>
-            <th scope="col">...</th>
-            <th scope="col">ZZZ-ZZZ
-                <div class="sousTitre">A-2099</div>
-            </th>
-        </tr>
-        <tr>
-            <td> Nom, Prenom</td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-            <td>&nbsp;</td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>Nom, Prenom</td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-            <td>&nbsp;</td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td> Nom, Prenom</td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-            <td>&nbsp;</td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>Nom, Prenom</td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-            <td>&nbsp;</td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td> Nom, Prenom</td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-            <td>&nbsp;</td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td> Nom, Prenom</td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-            <td>&nbsp;</td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td> Nom, Prenom</td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-            <td>&nbsp;</td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td> Nom, Prenom</td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-            <td>&nbsp;</td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td> Nom, Prenom</td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-            <td>&nbsp;</td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td> Nom, Prenom</td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-            <td>&nbsp;</td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td> Nom, Prenom</td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-            <td>&nbsp;</td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td> Nom, Prenom</td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-            <td>&nbsp;</td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td> Nom, Prenom</td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-            <td>&nbsp;</td>
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" id="checkbox">
-                        <em class="helper"></em> </label>
-                </div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <button type="submit" name="submit" id="submit">
+    <button type="button" name="submit" id="submit" onclick="postChanges('Utilisateur')">
         Enregistrement
     </button>
     <button type="button" name="button" id="button"

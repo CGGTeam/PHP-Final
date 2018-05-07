@@ -14,7 +14,13 @@
         
         function EditArborescence() {
             $GLOBALS["titrePage"] = "Arborescence des documents";
-            return new View();
+            $objBD = Mysql::getBD();
+            $objBD->selectionneRow("Document");
+            if ($objBD->OK)
+                $tCoursSession = ModelBinding::bindToClass($objBD->OK, "Document");
+            else
+                return new View("500: Erreur Fatale", 500);
+            return new View($tCoursSession);
         }
         
         function Confirmer() {

@@ -6,8 +6,8 @@
      * Time: 12:45 AM
      */
     require_once("Controllers/ModuleAdminBase.php");
-    require_once("Models/EditDocuments/SelectionDocuments.php");
-    require_once("Models/EditDocuments/EnumEtatsDocument.php");
+    require_once("Models/EditDocuments/SelectionDocumentModel.php");
+    require_once("Models/EditDocuments/EnumEtatsDocuments.php");
     require_once("Models/EditDocuments/DocumentsCoursSession.php");
     
     
@@ -17,20 +17,20 @@
         }
         
         function EditDocuments() {
-            $intIDSession = post("ddlSession");
+            /*$intIDSession = post("ddlSession");*/
             $GLOBALS["titrePage"] = "Modification des documents de la session [...]";
             $model = null;
     
-            if ($intIDSession) {
+            //if ($intIDSession) {
                 $objBD = Mysql::getBD();
-                $objBD->selectionneRow("Document", "*", "session='$intIDSession'");
+                $objBD->selectionneRow("Document"/*, "*", "session='H-2018'"*/);
                 if ($objBD->OK) {
                     $tListeDocuments = ModelBinding::bindToClass($objBD->OK, "Document");
                     $model = new DocumentsCoursSession($tListeDocuments, EnumEtatsDocuments::SUCCES, sizeof($tListeDocuments));
                 } else
                     return new View ("500: Erreur Fatale", 500);
-            } else
-                $model = new DocumentsCoursSession(null, EnumEtatsDocuments::AUCUN_POST);
+            //} else
+            //    $model = new DocumentsCoursSession(null, EnumEtatsDocuments::AUCUN_POST);
     
             return new View($model);
         }
