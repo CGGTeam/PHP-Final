@@ -40,7 +40,3 @@
 </form>
 
 
-<script>
-    let data = '<?php echo json_encode($model); ?>';
-    $portee.model = JSON.parse(data);
-</script>

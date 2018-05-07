@@ -1,4 +1,5 @@
 <link href="Views/EditArborescence/EditArborescenceStyle.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="Utilitaires/anguleux/AnguleuxStyle.css"/>
 <form class="container" method="post" action="?controller=EditArborescence&action=Confirmer">
     <table border="1" cellspacing="5" cellpadding="5">
         <tbody>
@@ -11,13 +12,13 @@
             <th scope="col">Titre</th>
             <th scope="col">Supprimer?</th>
         </tr>
-        <tr>
-            <td>###</td>
-            <td>H-AAAA</td>
-            <td>###-#L#</td>
-            <td>D'info, Professeur</td>
-            <td>AAAA-MM-JJ</td>
-            <td><a>TITRE.ext</a></td>
+        <tr ag-for="doc in model">
+            <td>{{doc.id}}</td>
+            <td>{{doc.session}}</td>
+            <td>{{doc.sigle}}</td>
+            <td>{{doc.ajoutePar}}</td>
+            <td>{{doc.dateCours}}</td>
+            <td><a href="{{doc.hyperLien}}">{{doc.titre}}</a></td>
             <td>
                 <div class="checkbox">
                     <input name="checkbox" type="checkbox" id="checkbox">
@@ -26,131 +27,6 @@
             </td>
         </tr>
         <tr>
-            <td>###</td>
-            <td>H-AAAA</td>
-            <td>###-#L#</td>
-            <td>D'info, Professeur</td>
-            <td>AAAA-MM-JJ</td>
-            <td><a>TITRE.ext</a></td>
-            <td>
-                <div class="checkbox">
-                    <input name="checkbox" type="checkbox" id="checkbox">
-                    <em class="helper"></em>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>###</td>
-            <td>H-AAAA</td>
-            <td>###-#L#</td>
-            <td>D'info, Professeur</td>
-            <td>AAAA-MM-JJ</td>
-            <td><a>TITRE.ext</a></td>
-            <td>
-                <div class="checkbox">
-                    <input name="checkbox" type="checkbox" id="checkbox">
-                    <em class="helper"></em>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>###</td>
-            <td>H-AAAA</td>
-            <td>###-#L#</td>
-            <td>D'info, Professeur</td>
-            <td>AAAA-MM-JJ</td>
-            <td><a>TITRE.ext</a></td>
-            <td>
-                <div class="checkbox">
-                    <input name="checkbox" type="checkbox" id="checkbox">
-                    <em class="helper"></em>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>###</td>
-            <td>H-AAAA</td>
-            <td>###-#L#</td>
-            <td>D'info, Professeur</td>
-            <td>AAAA-MM-JJ</td>
-            <td><a>TITRE.ext</a></td>
-            <td>
-                <div class="checkbox">
-                    <input name="checkbox" type="checkbox" id="checkbox">
-                    <em class="helper"></em>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>###</td>
-            <td>H-AAAA</td>
-            <td>###-#L#</td>
-            <td>D'info, Professeur</td>
-            <td>AAAA-MM-JJ</td>
-            <td><a>TITRE.ext</a></td>
-            <td>
-                <div class="checkbox">
-                    <input name="checkbox" type="checkbox" id="checkbox">
-                    <em class="helper"></em>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>###</td>
-            <td>H-AAAA</td>
-            <td>###-#L#</td>
-            <td>D'info, Professeur</td>
-            <td>AAAA-MM-JJ</td>
-            <td><a>TITRE.ext</a></td>
-            <td>
-                <div class="checkbox">
-                    <input name="checkbox" type="checkbox" id="checkbox">
-                    <em class="helper"></em>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>###</td>
-            <td>H-AAAA</td>
-            <td>###-#L#</td>
-            <td>D'info, Professeur</td>
-            <td>AAAA-MM-JJ</td>
-            <td><a>TITRE.ext</a></td>
-            <td>
-                <div class="checkbox">
-                    <input name="checkbox" type="checkbox" id="checkbox">
-                    <em class="helper"></em>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>###</td>
-            <td>H-AAAA</td>
-            <td>###-#L#</td>
-            <td>D'info, Professeur</td>
-            <td>AAAA-MM-JJ</td>
-            <td><a>TITRE.ext</a></td>
-            <td>
-                <div class="checkbox">
-                    <input name="checkbox" type="checkbox" id="checkbox">
-                    <em class="helper"></em>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>###</td>
-            <td>H-AAAA</td>
-            <td>###-#L#</td>
-            <td>D'info, Professeur</td>
-            <td>AAAA-MM-JJ</td>
-            <td><a>TITRE.ext</a></td>
-            <td>
-                <div class="checkbox">
-                    <input name="checkbox" type="checkbox" id="checkbox">
-                    <em class="helper"></em>
-                </div>
-            </td>
-        </tr>
     </table>
     <button type="submit" name="button" id="button">
         Supprimer
