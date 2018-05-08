@@ -1,23 +1,5 @@
 <script>
-    $scope.model.tDocuments.unshift({
-        ajoutePar: "",
-        categorie: "",
-        dateAccesDebut: "",
-        dateAccesFin: "",
-        dateAccessDebut: "",
-        dateAccessFin: "",
-        dateCours: "",
-        dateVersion: "",
-        description: "",
-        hyperLien: "",
-        id: "",
-        nbPages: "",
-        noSequence: "",
-        noVersion: "",
-        session: "",
-        sigle: "",
-        titre: ""
-    });
+    $scope.model.tDocuments.unshift(emptyObject($scope.model.tDocuments[0]));
 </script>
 
 <link rel="stylesheet" href="Utilitaires/anguleux/AnguleuxStyle.css"/>
