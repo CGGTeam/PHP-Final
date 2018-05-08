@@ -100,3 +100,11 @@ function postChanges(type, toDoBefore=null){
     console.log(strJSON);
     xhttp.send(strJSON);
 }
+
+function emptyObject(obj) {
+    let newObj = {};
+    for(let prop in obj){
+        newObj[prop] = "";
+    }
+    return newObj;
+}
