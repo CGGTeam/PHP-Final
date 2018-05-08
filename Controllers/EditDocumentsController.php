@@ -26,7 +26,9 @@
                 $objBD->selectionneRow("Document"/*, "*", "session='H-2018'"*/);
                 if ($objBD->OK) {
                     $tListeDocuments = ModelBinding::bindToClass($objBD->OK, "Document");
-                    $model = new DocumentsCoursSession($tListeDocuments, EnumEtatsDocuments::SUCCES, sizeof($tListeDocuments));
+                    $objBD->selectionneRow("Categorie");
+                    $tListeCategories = ModelBinding::bindToClass($objBD->OK, "Categorie");
+                    $model = new DocumentsCoursSession($tListeDocuments, $tListeCategories, EnumEtatsDocuments::SUCCES, sizeof($tListeDocuments));
                 } else
                     return new View ("500: Erreur Fatale", 500);
             //} else

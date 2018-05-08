@@ -1,5 +1,6 @@
 <script>
-    $scope.model.tDocuments.unshift(emptyObject($scope.model.tDocuments[0]));
+    $scope.model.tDocuments.forEach((x,i) => $scope.model.tDocuments[i] = new DocumentBD(x));
+    $scope.model.tDocuments.unshift(new DocumentBD());
 </script>
 
 <link rel="stylesheet" href="Utilitaires/anguleux/AnguleuxStyle.css"/>
@@ -50,11 +51,8 @@
             <td><input type="text" name="textfield3" id="textfield7" placeholder="Entrez un titre" for-bind="true" for-bind-path="titre"></td>
             <td><input type="text" name="textfield3" id="textfield8" placeholder="Entrez une description" for-bind="true" for-bind-path="description"></td>
             <td><input type="number" name="number2" id="number4" for-bind="true" for-bind-path="nbPages"></td>
-            <td><select name="select4" id="select11">
-                    <option>Categorie 1</option>
-                    <option>Categorie 2</option>
-                    <option>Categorie 3</option>
-                    <option>Categorie 4</option>
+            <td><select name="select4" id="select11" for-bind="true">
+                    <option ag-for="cat in model.tCategories" selected>{{cat.description}}</option>
                 </select>
             </td>
             <td><select name="select4" id="select12">
