@@ -13,11 +13,34 @@
         //TODO reconstruire tableau + configPost
         reconstruirePost($scope.model.tDocuments);
     }
+
+    function postDocuments() {
+        let tabFichiers = document.getElementsByName("fichierInput");
+        let formData = new FormData();
+        tabFichiers.forEach(input => {
+            if(input.value !== ""){
+                formData.append(input.getAttribute("noFichier"),input.files[0]);
+            }
+        });
+        console.log(formData);
+        if(!formData.values().next().done) {
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', '?controller=EditDocuments&action=UploadDocuments, true', true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    postChanges('Document', removeFirst)
+                }
+            };
+            xhr.send(formData);
+        }else {
+            postChanges('Document', removeFirst);
+        }
+    }
 </script>
 
 <link rel="stylesheet" href="Utilitaires/anguleux/AnguleuxStyle.css"/>
 <link href="Style/editDocumentsStyle.css" rel="stylesheet" type="text/css">
-<form class="container">
+<div class="container">
     <table border="1" cellspacing="5" cellpadding="5">
         <tbody>
         <tr>
@@ -31,7 +54,7 @@
             <th scope="col">Categorie</th>
             <th scope="col">No version</th>
             <th scope="col">Date version</th>
-            <th scope="col">Hyperlien</th>
+            <th scope="col">Fichier</th>
         </tr>
         <tr ag-for="doc in model.tDocuments">
             <td><input type="date" name="date5" id="date13" for-bind="true" for-bind-path="dateCours"></td>
@@ -75,11 +98,14 @@
                 </select>
             </td>
             <td><input type="date" name="date5" id="date16" for-bind="true" for-bind-path="dateVersion"></td>
-            <td><a>{{doc.hyperLien}}</a></td>
+            <td><form method="post" action="?controller=EditDocuments&action=UploadDocuments&idDoc={{doc.id}}" onsubmit="return false" enctype="multipart/form-data">
+                    <label for="fichierInput">Changer le document</label>
+                    <input type="file" name="fichierInput" noFichier="{{doc.id}}">
+                </form></td>
         </tr>
         </tbody>
     </table>
-    <button type="button" name="submit" id="submit" class="boutonsConfirm" onclick="postChanges('Document', removeFirst)">
+    <button type="button" name="submit" id="submit" class="boutonsConfirm" onclick="postDocuments()">
         Enregistrement
     </button>
     <button type="button" name="submit" id="submit" class="boutonsConfirm" onclick="nouvObj()">
@@ -89,4 +115,4 @@
             onclick="window.location='?controller=AdminMenu&action=AdminMenu';">
         Retour
     </button>
-</form>
+</div>

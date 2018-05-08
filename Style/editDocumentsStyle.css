@@ -15,6 +15,47 @@ body {
     margin-right: 15px;
 }
 
+
+.fichierSelect input{
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+
+.fichierSelect label {
+    font-family: var(--font);
+    display: inline-block;
+    border-color: var(--text);
+    text-align: center;
+    background-color: var(--input);
+    color: var(--text);
+    padding-left: 2vh;
+    padding-right: 2vh;
+
+}
+
+.fichierSelect label:focus {
+    font-family: var(--font);
+    background-color: var(--input_focused);
+    color: white;
+}
+
+.fichierSelect label:active {
+    font-family: var(--font);
+    background-color: var(--input_active);
+    color: white;
+}
+
+.fichierSelect label:hover {
+    font-family: var(--font);
+    background-color: var(--input_hover);
+    color: var(--text);
+}
+
 body h2 {
     color: #FFFFFF;
     text-align: left;
