@@ -9,9 +9,9 @@
 
     function nouvObj() {
         $scope.model.tDocuments[0].modelState = 0;
-        //TODO faire bien peut faire des erreurs
-        $_postObj.tabObjToPost.push($scope.model.tDocuments[0]);
         $scope.model.tDocuments.unshift(new DocumentBD());
+        //TODO reconstruire tableau + configPost
+        reconstruirePost($scope.model.tDocuments);
     }
 </script>
 

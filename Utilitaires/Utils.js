@@ -56,12 +56,19 @@ function getAllParents(a) {
     return els;
 }
 
+/**
+ *
+ * @param objClass Class a post
+ * @param tabProto array (optionnel) proprietes a envoyer, null si tout
+ * @param fctOnParam Object avec des fonctions a faire sur les proprietes precises ({prop1: func1, prop2: func2...})
+ */
 function configPost(objClass, tabProto, fctOnParam){
     $_postObj.classToPost = objClass;
     if(tabProto)
         $_postObj.protoToPost = tabProto;
     else
         $_postObj.protoToPost = Object.keys(new objClass());
+    $_postObj.protoToPost.push("modelState");
     $_postObj.tabObjToPost = [];
     $_anguleuxInterne.customEventListeners.push( function (e) {
         let parents = getAllParents(e.target);
@@ -69,7 +76,8 @@ function configPost(objClass, tabProto, fctOnParam){
         if (nodeTr && nodeTr.$_objRef[nodeTr.$_objIndex]) {
             let objCourant = nodeTr.$_objRef[nodeTr.$_objIndex];
             if (objCourant instanceof $_postObj.classToPost) {
-                let objPost = {modelState: 2};
+                let objPost = {};
+                objCourant.modelState = 2;
                 $_postObj.protoToPost.forEach(param => {
                     if(fctOnParam && fctOnParam[param]){
                         fctOnParam[param](objPost, objCourant);
@@ -83,6 +91,11 @@ function configPost(objClass, tabProto, fctOnParam){
     });
 }
 
+/**
+ * Post les changements
+ * @param type
+ * @param toDoBefore
+ */
 function postChanges(type, toDoBefore=null){
     if(toDoBefore){
         toDoBefore();
@@ -110,4 +123,17 @@ function emptyObject(obj) {
         newObj[prop] = "";
     }
     return newObj;
+}
+
+function reconstruirePost(tableau) {
+    $_postObj.tabObjToPost = [];
+    tableau.forEach((obj,i) => {
+       let nouvObj = {};
+       $_postObj.protoToPost.forEach(prop => {
+           (typeof obj[prop] !== "undefined") && (nouvObj[prop] = obj[prop]);
+       });
+       if((typeof nouvObj.modelState !== "undefined") && nouvObj.modelState !== 3){
+           $_postObj.tabObjToPost[i] = nouvObj;
+       }
+    });
 }
