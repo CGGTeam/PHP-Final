@@ -1,6 +1,18 @@
 <script>
     $scope.model.tDocuments.forEach((x,i) => $scope.model.tDocuments[i] = new DocumentBD(x));
     $scope.model.tDocuments.unshift(new DocumentBD());
+    configPost(DocumentBD);
+
+    function removeFirst(){
+        delete $_postObj.tabObjToPost[0];
+    }
+
+    function nouvObj() {
+        $scope.model.tDocuments[0].modelState = 0;
+        //TODO faire bien peut faire des erreurs
+        $_postObj.tabObjToPost.push($scope.model.tDocuments[0]);
+        $scope.model.tDocuments.unshift(new DocumentBD());
+    }
 </script>
 
 <link rel="stylesheet" href="Utilitaires/anguleux/AnguleuxStyle.css"/>
@@ -67,8 +79,11 @@
         </tr>
         </tbody>
     </table>
-    <button type="submit" name="submit" id="submit" class="boutonsConfirm">
+    <button type="button" name="submit" id="submit" class="boutonsConfirm" onclick="postChanges('Document', removeFirst)">
         Enregistrement
+    </button>
+    <button type="button" name="submit" id="submit" class="boutonsConfirm" onclick="nouvObj()">
+        Ajouter
     </button>
     <button type="button" name="button" id="button" class="boutonsConfirm"
             onclick="window.location='?controller=AdminMenu&action=AdminMenu';">

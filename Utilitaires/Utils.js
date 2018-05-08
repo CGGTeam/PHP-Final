@@ -58,7 +58,10 @@ function getAllParents(a) {
 
 function configPost(objClass, tabProto, fctOnParam){
     $_postObj.classToPost = objClass;
-    $_postObj.protoToPost = tabProto;
+    if(tabProto)
+        $_postObj.protoToPost = tabProto;
+    else
+        $_postObj.protoToPost = Object.keys(new objClass());
     $_postObj.tabObjToPost = [];
     $_anguleuxInterne.customEventListeners.push( function (e) {
         let parents = getAllParents(e.target);
