@@ -17,32 +17,45 @@
         }
         
         function EditDocuments() {
-            /*$intIDSession = post("ddlSession");*/
+            $session =  post("session");
+            $cours =  post("cours");
             $GLOBALS["titrePage"] = "Modification des documents de la session [...]";
             $model = null;
     
-            //if ($intIDSession) {
+            if ($session && $cours) {
                 $objBD = Mysql::getBD();
-                $objBD->selectionneRow("Document"/*, "*", "session='H-2018'"*/);
+                $objBD->selectionneRow("Document", "*", "session='" . $session . "' AND sigle='" . $cours . "'");
                 if ($objBD->OK) {
                     $tListeDocuments = ModelBinding::bindToClass($objBD->OK, "Document");
                     $objBD->selectionneRow("Categorie");
                     $tListeCategories = ModelBinding::bindToClass($objBD->OK, "Categorie");
-                    $model = new DocumentsCoursSession($tListeDocuments, $tListeCategories, EnumEtatsDocuments::SUCCES, sizeof($tListeDocuments));
+                    $objBD->selectionneRow("Session");
+                    $tListeSessions = ModelBinding::bindToClass($objBD->OK, "Session");
+                    $objBD->selectionneRow("Cours");
+                    $tListeCours = ModelBinding::bindToClass($objBD->OK, "Cours");
+                    $model = new DocumentsCoursSession($tListeDocuments, $tListeCategories, $tListeSessions, $tListeCours, EnumEtatsDocuments::SUCCES, sizeof($tListeDocuments));
                 } else
-                    return new View ("500: Erreur Fatale", 500);
-            //} else
-            //    $model = new DocumentsCoursSession(null, EnumEtatsDocuments::AUCUN_POST);
-    
+                   return new View ("500: Erreur Fatale", 500);
+            }
+
             return new View($model);
+
         }
         
         function SelectionSession() {
             $GLOBALS["titrePage"] = "Sélection d'un cours-session";
             $objBD = MYSQL::getBD();
             $objBD->selectionneRow("CoursSession");
-            if ($objBD->OK)
+            if ($objBD->OK) {
                 $tCoursSession = ModelBinding::bindToClass($objBD->OK, "CoursSession");
+                $tListeDocuments = ModelBinding::bindToClass($objBD->OK, "Document");
+                $objBD->selectionneRow("Categorie");
+                $tListeCategories = ModelBinding::bindToClass($objBD->OK, "Categorie");
+                $objBD->selectionneRow("Session");
+                $tListeSessions = ModelBinding::bindToClass($objBD->OK, "Session");
+                $objBD->selectionneRow("Cours");
+                $tListeCours = ModelBinding::bindToClass($objBD->OK, "Cours");
+            }
             else
                 return new View("500: Erreur Fatale", 500);
     
@@ -52,6 +65,6 @@
             else
                 return new View("500: Erreur Fatale", 500);
     
-            return new View(new SelectionDocumentModel($intNbDocuments, $tCoursSession));
+            return new View(new DocumentsCoursSession($tListeDocuments, $tListeCategories, $tListeSessions, $tListeCours, EnumEtatsDocuments::SUCCES, sizeof($tListeDocuments)));
         }
     }

@@ -14,4 +14,6 @@
             global $authorized;
             $authorized = isset($_SESSION["utilisateurCourant"]);
         }
+
+
     }

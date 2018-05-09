@@ -1,18 +1,13 @@
+<link rel="stylesheet" href="Utilitaires/anguleux/AnguleuxStyle.css"/>
 <link href="Views/UserMenu/UserMenuStyle.css" rel="stylesheet" type="text/css"/>
 <form method="post" action="?controller=UserMenu&action=AfficherCours" class="divChoix">
     <p>
-        <label for="ddlCoursChoisi">
+        <label for="coursChoisi">
             Cours à visionner:
         </label>
-        <select id="ddlCoursChoisi">
-            <option>
-                Cours 1
-            </option>
-            <option>
-                Cours 2
-            </option>
-            <option>
-                Cours 3
+        <select name="coursChoisi" id="coursChoisi">
+            <option ag-for="x in model" selected>
+                {{x.session}}_{{x.sigle}}
             </option>
         </select>
     </p>

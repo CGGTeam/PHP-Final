@@ -94,9 +94,10 @@ function configPost(objClass, tabProto, fctOnParam){
 /**
  * Post les changements
  * @param type
+ * @param lien
  * @param toDoBefore
  */
-function postChanges(type, toDoBefore=null){
+function postChanges(type,lien = "index.php?controller=BD&action=Confirmer", toDoBefore=null){
     if(toDoBefore){
         toDoBefore();
     }
@@ -111,7 +112,7 @@ function postChanges(type, toDoBefore=null){
             tabDonnees = [];
         }
     };
-    xhttp.open("POST", "index.php?controller=BD&action=Confirmer&strType=" + type, true);
+    xhttp.open("POST", lien + "&strType=" + type, true);
     xhttp.setRequestHeader("Content-type", "application/json");
     console.log(strJSON);
     xhttp.send(strJSON);
