@@ -35,6 +35,8 @@
         * @return mysqli|null retourne le link si succès ou null autrement
         */
       function connexion() {
+          $strNomAdmin = "";
+          $strMotPasseAdmin = "";
           require($this->nomFichierInfosSensibles);
           $this->cBD = mysqli_connect("p:localhost", $strNomAdmin, $strMotPasseAdmin, $this->nomBD);
           if (mysqli_connect_errno()) {
@@ -198,47 +200,77 @@
           return $this->OK;
       }
     
-    
        /**
         * @param string $strNomTable nom de la table
         * @param string $strListeRows liste de colonnes à afficher
         * @param string $strConditions liste de conditions pour la clause WHERE
         * @return bool|mysqli_result faux si échec, mysqli_result si succès
         */
-      function selectionneRow($strNomTable, $strListeRows="*", $strConditions=""){
-          $this->requete = "SELECT $strListeRows FROM $strNomTable";
-          if($strConditions != ""){
-              $this->requete .= " WHERE $strConditions";
-          }
-          //echo $this->requete;
-          $this->OK = mysqli_query($this->cBD, $this->requete);
-//          log_fichier($this->requete);
-          return $this->OK;
-      }
+       function selectionneRow($strNomTable, $strListeRows = "*", $strConditions = "") {
+           $this->requete = "SELECT $strListeRows FROM $strNomTable";
+           if ($strConditions != "") {
+               $this->requete .= " WHERE $strConditions";
+           }
+           $this->OK = mysqli_query($this->cBD, $this->requete);
+           return $this->OK;
+       }
     
        /**
-        * selectionne des rangées avec un LEFT OUTER JOIN
-        * @param $strNomTable nom de la table
-        * @param string $strListeRows liste des colonnes (séparées par des virgules)
-        * @param string $strConditions Condition(s) where (mis tel quels dans la requête)
-        * @param array[string]string $tJoins $nomTable => expression ON
+        * @param string $strNomTable nom de la table
+        * @param string $strListeRows liste de colonnes à afficher
+        * @param string $strConditions liste de conditions pour la clause WHERE
+        * @param string $strTableJoin Table de jointure
+        * @param string $strON clause ON
         * @return bool|mysqli_result faux si échec, mysqli_result si succès
         */
-       function selectionneRowLJ($strNomTable, $strListeRows, $strConditions = "", $tJoins = []) {
-           $this->requete = "SELECT $strListeRows FROM $strNomTable";
+       function selectionneRowLJ($strNomTable, $strListeRows, $strTableJoin, $strON, $strConditions = null) {
+           $this->requete = "SELECT $strListeRows FROM $strNomTable LEFT JOIN $strTableJoin ON $strON";
         
-           foreach ($tJoins as $table => $on) {
-               $this->requete .= " LEFT OUTER JOIN $table ON $on";
-           }
-        
-           if ($strConditions != "") {
+           if ($strConditions) {
                $this->requete .= " WHERE $strConditions";
            }
         
            $this->OK = mysqli_query($this->cBD, $this->requete);
-//           log_fichier($this->requete);
            return $this->OK;
        }
+    
+       /**
+        * @param string $strNomTable nom de la table
+        * @param string $strListeRows liste de colonnes à afficher
+        * @param string $strConditions liste de conditions pour la clause WHERE
+        * @param string $strTableJoin Table de jointure
+        * @param string $strON clause ON
+        * @return bool|mysqli_result faux si échec, mysqli_result si succès
+        */
+       function selectionneRowRJ($strNomTable, $strListeRows, $strTableJoin, $strON, $strConditions = null) {
+           $this->requete = "SELECT $strListeRows FROM $strNomTable RIGHT JOIN $strTableJoin ON $strON";
+        
+           if ($strConditions) {
+               $this->requete .= " WHERE $strConditions";
+           }
+        
+           $this->OK = mysqli_query($this->cBD, $this->requete);
+           return $this->OK;
+       }
+       
+       /**
+        * @param string $strNomTable nom de la table
+        * @param string $strListeRows liste de colonnes à afficher
+        * @param string $strConditions liste de conditions pour la clause WHERE
+        * @param string $strTableJoin Table de jointure
+        * @param string $strON clause ON
+        * @return bool|mysqli_result faux si échec, mysqli_result si succès
+        */
+       function selectionneRowIJ($strNomTable, $strListeRows, $strTableJoin, $strON, $strConditions = null) {
+           $this->requete = "SELECT $strListeRows FROM $strNomTable INNER JOIN $strTableJoin ON $strON";
+        
+           if ($strConditions) {
+              $this->requete .= " WHERE $strConditions";
+          }
+        
+           $this->OK = mysqli_query($this->cBD, $this->requete);
+          return $this->OK;
+      }
     
        /**
         * Sélectionne la base de données this->nomBD
