@@ -93,7 +93,7 @@
      */
     function validerDateSession($date) {
         if ($date) {
-            if (preg_match("/\d{2}-\d{2}-\d{4}/", $date) && dateValide($date)) {
+            if (preg_match("/^\d{2}-\d{2}-\d{4}$/", $date) && dateValide($date)) {
                 $annee = annee($date);
                 return $annee >= 2018 && $annee <= 2021;
             } else
@@ -103,11 +103,30 @@
     }
     
     /**
-     * @param $titre 5 à 50 caractère
+     * @param string $titre 5 à 50 caractère
      * @return bool
      */
     function validerTitreCours($titre) {
         return $titre && strlen($titre) > 5 && strlen($titre);
+    }
+    
+    /**
+     * @param string $sigle
+     * @return bool
+     */
+    function validerSigle($sigle) {
+        if ($sigle) {
+            $rexpSigle = "/^\d{1,3}-[A-Z0-9]$/";
+            $rexpAdmin = "/^ADM-[AHE]\d{2}$/";
+            if (preg_match($rexpSigle, $sigle))
+                return true;
+            else if (preg_match($rexpAdmin, $sigle)) {
+                $annee = intval(substr($sigle, 5));
+                return $annee >= 18 && $annee <= 21;
+            } else
+                return false;
+        } else
+            return false;
     }
     
     
