@@ -77,7 +77,7 @@ function configPost(objClass, tabProto, fctOnParam){
             let objCourant = nodeTr.$_objRef[nodeTr.$_objIndex];
             if (objCourant instanceof $_postObj.classToPost) {
                 let objPost = {};
-                objCourant.modelState = 2;
+                objCourant.modelState = (objCourant.modelState === 0) ? 0 : 2;
                 $_postObj.protoToPost.forEach(param => {
                     if(fctOnParam && fctOnParam[param]){
                         fctOnParam[param](objPost, objCourant);

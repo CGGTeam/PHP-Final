@@ -1,14 +1,57 @@
 <script>
     $scope.model.tDocuments.forEach((x,i) => $scope.model.tDocuments[i] = new DocumentBD(x));
+    $scope.backup = JSON.parse(JSON.stringify($scope.model.tDocuments));
     $scope.model.tDocuments.unshift(new DocumentBD());
+    $scope.model.tDocuments[0].modelState = 0;
+    $scope.fichierAttrib = {
+        noFichier: "{{doc.id}}"
+    };
+    $scope.trAttrib = {
+        id: "tr_{{doc.id}}"
+    };
+    $scope.annuleAttrib = {
+        onclick: "annuler('{{doc.id}}')"
+    };
+    $scope.noCatAttrib = {
+        value: "{{cat.id}}"
+    };
+    $scope.docCatAttrib = {
+        value: "{{doc.categorie}}"
+    };
     configPost(DocumentBD);
+
+    $_anguleuxInterne.customEventListeners.push( function (e) {
+        console.log(e.type);
+        if((e.type === "keydown" || e.type === "change") && !e.$_init) {
+            let parents = getAllParents(e.target);
+            let nodeTr = parents.find(obj => obj.tagName === "TR");
+            if (nodeTr && nodeTr.$_objRef[nodeTr.$_objIndex]) {
+                if (nodeTr.$_objRef[nodeTr.$_objIndex].modelState === 2) {
+                    //nodeTr.style.backgroundColor = '#8cff1a';
+                    nodeTr.style.backgroundColor = '#ffff33';
+                }
+            }
+        }
+    });
+
+    function annuler(id) {
+        let aAnnuler = $scope.model.tDocuments.find(obj => obj.id === id);
+        let aRetrouver = $scope.backup.find(obj => obj.id === id);
+        if(aAnnuler){
+            Object.assign(aAnnuler,aRetrouver);
+            let trObj = document.getElementById("tr_" + id);
+            trObj.style.backgroundColor = null;
+            let event = new Event("change");
+            event.$_init = true;
+            Array.from(trObj.getElementsByTagName("input")).forEach(x => x.dispatchEvent(event));
+        }
+    }
 
     function removeFirst(){
         delete $_postObj.tabObjToPost[0];
     }
 
     function nouvObj() {
-        $scope.model.tDocuments[0].modelState = 0;
         $scope.model.tDocuments.unshift(new DocumentBD());
         //TODO reconstruire tableau + configPost
         reconstruirePost($scope.model.tDocuments);
@@ -33,7 +76,7 @@
             };
             xhr.send(formData);
         }else {
-            postChanges('Document', removeFirst);
+            postChanges('Document', "index.php?controller=BD&action=Confirmer", removeFirst);
         }
     }
 </script>
@@ -44,6 +87,14 @@
     <table border="1" cellspacing="5" cellpadding="5">
         <tbody>
         <tr>
+            <th>
+                <div class="checkbox">
+                    <label>
+                        <input name="checkbox" type="checkbox">
+                        <em class="helper"></em>
+                    </label>
+                </div>
+            </th>
             <th scope="col">Date cours</th>
             <th scope="col">No Sequence</th>
             <th scope="col">Date acces debut</th>
@@ -55,8 +106,17 @@
             <th scope="col">No version</th>
             <th scope="col">Date version</th>
             <th scope="col">Fichier</th>
+            <th scope="col">Annuler</th>
         </tr>
-        <tr ag-for="doc in model.tDocuments">
+        <tr ag-for="doc in model.tDocuments" attrib-bind-obj="trAttrib">
+            <td>
+                <div class="checkbox">
+                    <label>
+                        <input name="checkbox" type="checkbox">
+                        <em class="helper"></em>
+                    </label>
+                </div>
+            </td>
             <td><input type="date" name="date5" id="date13" for-bind="true" for-bind-path="dateCours"></td>
             <td><select name="select4" id="select10">
                     <option>1</option>
@@ -81,13 +141,18 @@
                     <option>20</option>
                 </select>
             </td>
-            <td><input type="date" name="date5" id="date14" for-bind="true" for-bind-path="dateAccessDebut"></td>
-            <td><input type="date" name="date5" id="date15" for-bind="true" for-bind-path="dateAccessFin"></td>
+            <td><input type="date" name="date5" id="date14" for-bind="true" for-bind-path="dateAccesDebut"></td>
+            <td><input type="date" name="date5" id="date15" for-bind="true" for-bind-path="dateAccesFin"></td>
             <td><input type="text" name="textfield3" id="textfield7" placeholder="Entrez un titre" for-bind="true" for-bind-path="titre"></td>
             <td><input type="text" name="textfield3" id="textfield8" placeholder="Entrez une description" for-bind="true" for-bind-path="description"></td>
             <td><input type="number" name="number2" id="number4" for-bind="true" for-bind-path="nbPages"></td>
-            <td><select name="select4" id="select11" for-bind="true">
-                    <option ag-for="cat in model.tCategories" selected>{{cat.description}}</option>
+            <td>
+                <select attrib-bind-obj="docCatAttrib" for-bind="true" for-bind-path="categorie">
+                    <?php
+                        foreach ($model->tCategories as $cat){
+                    ?>
+                    <option value="<?=$cat->id?>"><?=$cat->description?></option>
+                    <?php } ?>
                 </select>
             </td>
             <td><select name="select4" id="select12">
@@ -98,10 +163,14 @@
                 </select>
             </td>
             <td><input type="date" name="date5" id="date16" for-bind="true" for-bind-path="dateVersion"></td>
-            <td><form method="post" action="?controller=EditDocuments&action=UploadDocuments&idDoc={{doc.id}}" onsubmit="return false" enctype="multipart/form-data">
+            <td><form method="post" action="?controller=EditDocuments&action=UploadDocuments" onsubmit="return false" enctype="multipart/form-data">
                     <label for="fichierInput">Changer le document</label>
-                    <input type="file" name="fichierInput" noFichier="{{doc.id}}">
-                </form></td>
+                    <input type="file" name="fichierInput" attrib-bind-obj="fichierAttrib">
+                </form>
+            </td>
+            <td>
+                <button type="button" attrib-bind-obj="annuleAttrib">&nbsp;X&nbsp</button>
+            </td>
         </tr>
         </tbody>
     </table>

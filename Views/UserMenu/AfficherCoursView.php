@@ -2,9 +2,21 @@
     $scope.model.forEach(doc => {
         doc.joursRestants = Math.ceil((new Date(doc.dateAccesFin) - (new Date())) / (1000*60*60*24));
     });
-    $scope.forDocAttrib = {
-        href: "{{doc.hyperLien}}"
+    $scope.titreAttrib = {
+        href: "{{doc.hyperLien}}",
     };
+    $scope.descriptionAttrib = {
+        onclick: "afficherDescription('{{doc.id}}')"
+    };
+    $scope.titreDescriptionAttrib = {
+        id: "titre_{{doc.id}}"
+    };
+    function afficherDescription(id){
+        id = "titre_" + id;
+        document.getElementById(id).hidden = !document.getElementById(id).hidden;
+    }
+
+
 </script>
 
 <link href="Views/UserMenu/AfficherCoursStyle.css" rel="stylesheet" type="text/css">
@@ -29,13 +41,13 @@
             <td>{{doc.noSequence}}</td>
             <td>{{doc.categorie}}</td>
             <td>
-                <a attrib-bind-obj="forDocAttrib">{{doc.titre}}</a>
-                <div hidden>
+                <a attrib-bind-obj="titreAttrib">{{doc.titre}}</a>
+                <div attrib-bind-obj="titreDescriptionAttrib" hidden>
                     {{doc.description}}
                 </div>
             </td>
             <td>
-                <button>DESCRIPTION</button>
+                <button type="button" attrib-bind-obj="descriptionAttrib">DESCRIPTION</button>
             </td>
             <td>{{doc.nbPages}} p.</td>
             <td>{{doc.dateVersion}}</td>
