@@ -28,6 +28,10 @@
             ajouteZeros($strDateOuIntJour, 2));
     }
     
+    /**
+     * @param $strDate
+     * @return int annee
+     */
     function annee($strDate) {
         $intAnnee = null;
         $intDummy = null;
