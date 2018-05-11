@@ -5,26 +5,20 @@
    |----------------------------------------------------------------------------------------|
    */
    class mysql {
-      /*
-      |----------------------------------------------------------------------------------|
-      | Attributs
-      |----------------------------------------------------------------------------------|
-      */
        /** @var mysqli $cBD */
-      public $cBD = null;                       /* Identifiant de connexion */
-      public $listeEnregistrements = null;      /* Liste des enregistrements retournés */
-      public $nomFichierInfosSensibles = "";    /* Nom du fichier 'InfosSensibles' */
-      public $nomBD = "";                       /* Nom de la base de données */
+       public $cBD = null;
+       /** @var array $listeEnregistrements */
+       public $listeEnregistrements = null;
+       /** @var string $nomFichierInfosSensibles */
+       public $nomFichierInfosSensibles = "";
+       /**@var string $nomBD */
+       public $nomBD = "";
        /** @var mysqli_result | bool $OK */
-      public $OK = false;                       /* Opération réussie ou non */
-      public $requete = "";                     /* Requête exécutée */
+       public $OK = false;
+       /**@var string $requete dernière requête executée */
+       public $requete = "";
        /** @var mysql $BD */
       private static $BD = null;
-      /*
-      |----------------------------------------------------------------------------------|
-      | __construct
-      |----------------------------------------------------------------------------------|
-      */
       function __construct($strNomBD, $strNomFichierInfosSensibles) {
           $this->nomBD = $strNomBD;
           $this->nomFichierInfosSensibles = $strNomFichierInfosSensibles;
@@ -204,12 +198,22 @@
         * @param string $strNomTable nom de la table
         * @param string $strListeRows liste de colonnes à afficher
         * @param string $strConditions liste de conditions pour la clause WHERE
+        * @param string $strORDERBY conditions de la clause ORDER BY
+        * @param string $strORDERBY conditions de la clause GROUP BY
         * @return bool|mysqli_result faux si échec, mysqli_result si succès
         */
-       function selectionneRow($strNomTable, $strListeRows = "*", $strConditions = "") {
+       function selectionneRow($strNomTable, $strListeRows = "*", $strConditions = "", $strORDERBY = null, $strGROUPBY = null) {
            $this->requete = "SELECT $strListeRows FROM $strNomTable";
            if ($strConditions != "") {
                $this->requete .= " WHERE $strConditions";
+           }
+        
+           if ($strORDERBY) {
+               $this->requete .= " ORDER BY $strORDERBY";
+           }
+        
+           if ($strGROUPBY) {
+               $this->requete .= " GROUP BY $strGROUPBY";
            }
            $this->OK = mysqli_query($this->cBD, $this->requete);
            return $this->OK;
