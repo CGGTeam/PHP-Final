@@ -39,8 +39,8 @@
             $binOK = true;
         
             if (isset($_FILES["fichierCSV"])) {
-                session_start();
-                move_uploaded_file($_FILES["fichierCSV"]["tmp_name"], "./temp_upload/permissions.csv");
+                enregistrerDocument("fichierCSV", "./temp", "permissions.csv",
+                    PHP_INT_MAX, ["csv", "tsv"]);
                 $tcontenu = preg_split("/\r\n|\r|\n/", file_get_contents($_FILES["fichierCSV"]["tmp_name"]));
                 for ($i = 1; $i < sizeof($tcontenu); $i++) {
                     $tRetour[] = array();
@@ -191,7 +191,7 @@
                     }
                 }
             }
-            header('Location: ?controller=Login&action=Login');
+            header('Location: ?controller=EditPrivileges&action=EditPrivileges');
             return new View("", 302);
         }
     }
