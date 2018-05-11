@@ -49,7 +49,19 @@
                 //====================================
                 /** @var ModelBinding $so */
                 $so = new $strType($sj);
-                $so->setModelState($etat);
+                if ($strType == "Document") {
+                    /**@var Document $so */
+                    if ($etat == ModelState::Deleted) {
+                        $so->setModelState(ModelState::Same);
+                        $objBD = MySql::getBD();
+                        $objBD->modifieEnregistrements("Document", "supprimer=1", "id='$so->id'");
+                    } else if ($etat == ModelState::Added) {
+                        //TODO: const for upload dir
+                        enregistrerDocument($sj->id, "./televersements", $sj->hyperLien, PHP_INT_MAX,
+                            ["txt", "doc", "docx", "pdf", "zip", "rtf", "odt", "tex", "wks", "wps", "wpd"]);
+                    }
+                } else
+                    $so->setModelState($etat);
                 $so->saveChangesOnObj();
             }
     
@@ -64,7 +76,6 @@
                 return new View(500);
             }
 
-            log_fichier("allo");
             return new JSONView(json_encode($tDonneesPHP));
         }
     }

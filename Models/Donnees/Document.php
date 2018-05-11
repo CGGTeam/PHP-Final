@@ -41,6 +41,8 @@
         public $hyperLien;
         /** @var int $ajoutePar No de l’administrateur ayant effectué l’ajout */
         public $ajoutePar;
+        /** @var bool $supprimer */
+        public $supprimer;
     
         public function __construct(array $properties = array(), $binAjout = false) {
             parent::__construct($properties, $binAjout);
