@@ -15,4 +15,5 @@
         const SAME_BOTH = 3;
         const ERREUR_BD = 4;
         const ADMIN_ADMIN = 5;
+        const INVALID = 6;
     }

@@ -9,8 +9,7 @@
     /**
      * Class Utilisateur modèle qui représente l'utilisateur
      */
-    class Utilisateur extends ModelBinding
-    {
+    class Utilisateur extends ModelBinding {
         /** @var int $id */
         public $id;
         /** @var string $nomUtilisateur Identifiant pour connexion */
@@ -29,5 +28,13 @@
         public function __construct(array $properties = array(), $binAjout = false) {
             parent::__construct($properties, $binAjout);
             $this->statutAdmin = (bool) $this->statutAdmin;
+        }
+        
+        public function valider() {
+            $binValide = validerNomUtilisateur($this->nomUtilisateur) && validerMotPasse($this->motDePasse)
+                && is_bool($this->statutAdmin) && validerNomComplet($this->nomComplet);
+            if (!$binValide)
+                $this->setModelState(ModelState::Invalid);
+            return $binValide;
         }
     }

@@ -23,6 +23,7 @@
             $this->{$key} = $value;
             $this->tbValeurs[$key] = $value;
         }
+            $this->valider();
     }
 
     public function saveChangesOnObj(){
@@ -97,4 +98,10 @@
     public function setModelState($modelState) {
         $this->modelState = $modelState;
     }
+    
+        /**
+         * Vérifie si les propriétés de l'objet sont valides. Mets le model state à ModelState::INVALID si elles ne le sont pas.
+         * @return bool si l'objet contient des données valides.
+         */
+        abstract function valider();
 }

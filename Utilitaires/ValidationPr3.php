@@ -129,4 +129,31 @@
             return false;
     }
     
+    /**
+     * Vérifie si une variable est un string et si sa longueur est incluse dans l'intervalle spécifiée
+     * @param string $string valeur string à valider
+     * @param int $intMin longueur minimale du string (inclus)
+     * @param int $intMax longueur maximale du string (inclus)
+     * @return bool valide ou non
+     */
+    function validerString($string, $intMin, $intMax) {
+        if (is_string($string)) {
+            $long = strlen($string);
+            return $long >= $intMin && $long <= $intMax;
+        } else
+            return false;
+    }
     
+    /**
+     * Vérifie si une variable est un int si elle est inclus dans l'intervalle spécifiée
+     * @param int $int valeur int à valider
+     * @param int $intMin valeur minimale du int (inclus)
+     * @param int $intMax valeur maximale du int (inclus)
+     * @return bool valide ou non
+     */
+    function validerInt($int, $intMin = PHP_INT_MIN, $intMax = PHP_INT_MAX) {
+        if (is_int($int)) {
+            return $int >= $intMin && $int <= $intMax;
+        } else
+            return false;
+    }

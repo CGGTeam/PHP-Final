@@ -9,8 +9,7 @@
     /**
      * Class Document - Modèle qui représente un document
      */
-    class Document extends ModelBinding
-    {
+    class Document extends ModelBinding {
         /** @var int $id */
         public $id;
         /** @var string $session No de la session (A-2099; H-2018 à A-2021) */
@@ -46,5 +45,28 @@
     
         public function __construct(array $properties = array(), $binAjout = false) {
             parent::__construct($properties, $binAjout);
+        }
+        
+        public function valider() {
+            //TODO: valider si entre début et fin de session
+            try {
+                $binValide = validerSession($this->session) && validerSigle($this->sigle)
+                    && validerDateSession($this->dateCours)
+                    && validerInt(intval($this->noSequence), 1, 20)
+                    && validerDateSession($this->dateAccesDebut) && validerDateSession($this->dateAccesFin)
+                    && validerString($this->titre, 5, 100)
+                    && validerString($this->description, 5, 255)
+                    && validerInt(intval($this->nbPages), 1, 999)
+                    && validerString(strval($this->categorie), 3, 15)
+                    && validerInt(intval($this->noVersion), 1, 99)
+                    && dateValide($this->dateVersion)
+                    && validerInt(intval($this->ajoutePar), 1)
+                    && (is_null($this->supprimer) || is_bool($this->supprimer));
+            } catch (Exception $e) {
+                $binValide = false;
+            }
+            if (!$binValide)
+                $this->setModelState(ModelState::Invalid);
+            return $binValide;
         }
     }

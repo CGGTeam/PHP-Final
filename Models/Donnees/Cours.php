@@ -20,4 +20,12 @@
         function __construct(array $properties = array(), $binAjout = false) {
             parent::__construct($properties, $binAjout);
         }
+    
+        public function valider() {
+            $binValide = validerSigle($this->sigle) && validerTitreCours($this->titre) && validerNomComplet($this->nomProf);
+            if (!$binValide) {
+                $this->setModelState(ModelState::Invalid);
+            }
+            return $binValide;
+        }
     }

@@ -47,6 +47,10 @@
                 if ($strNomUtil == "make" && $strMotPasse == "coffee") {
                     $objView = new View("418: I'm a teapot", 418);
                 } else {
+                    if (!validerNomUtilisateur($strNomUtil) || !validerMotPasse($strMotPasse)) {
+                        return new View(EnumEtatsLogin::LOGIN_FAILED);
+                    }
+                    
                     $strConditions = "NomUtilisateur = '" . $strNomUtil . "' AND ";
                     $strConditions .= "MotDePasse = '" . $strMotPasse . "'";
                     $objRetour = mysql::getBD()->selectionneRow("Utilisateur", "*", $strConditions);
@@ -88,6 +92,11 @@
             $strMotPasse = post("tbMotDePasse");
     
             if ($strNomUtil && $strMotPasse && $strNomComplet && $strEmail) {
+                if (!validerNomComplet($strNomComplet) || !validerNomUtilisateur($strNomUtil) ||
+                    !validerAdresseCourriel($strEmail) || !validerMotPasse($strMotPasse)) {
+                    return new View(new LoginModel(EnumEtatsUtil::INVALID));
+                }
+                
                 $objResultatNomUtil = mysql::getBD()->selectionneRow("Utilisateur", "Courriel", "NomUtilisateur= '" . $strNomUtil . "'");
                 $objResultatCourriel = mysql::getBD()->selectionneRow("Utilisateur", "Courriel", "Courriel= '" . $strEmail . "'");
     
