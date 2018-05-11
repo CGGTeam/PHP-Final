@@ -11,9 +11,10 @@
     require_once "Controllers/ModuleUtilisateurBase.php";
     require_once "Controllers/ModuleAdminBase.php";
     require_once "Utilitaires/ValidationPr3.php";
-
-
-if (isset($_GET['controller']) && isset($_GET['action'])) {
+    require_once "Utilitaires/Utilitaires-ProjetFinal.php";
+    
+    
+    if (isset($_GET['controller']) && isset($_GET['action'])) {
     $controller = $_GET['controller'];
     $action     = $_GET['action'];
     
