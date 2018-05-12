@@ -4,7 +4,6 @@ function call($action, $controller) {
 
     $objController = new $controller;
     global $authorized;
-    echo $action;
     if ($authorized) {
         $objController->{$action}()->afficher();
     } else {
