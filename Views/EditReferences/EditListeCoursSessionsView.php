@@ -85,8 +85,7 @@
             <td><input type="text" for-bind="true" for-bind-path="session"></td>
             <td><input type="text" for-bind="true" for-bind-path="sigle"></td>
             <td>
-                <!-- TODO la valeur selectionne doit apparaitre -->
-                <select attrib-bind-obj="utilAttrib" for-bind="true" for-bind-path="categorie">
+                <select attrib-bind-obj="utilAttrib" for-bind="true" for-bind-path="id">
                     <?php
                     foreach ($model->tAdmin as $util){
                         ?>
