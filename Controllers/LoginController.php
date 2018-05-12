@@ -94,6 +94,7 @@
             $strMotPasse = post("tbMotDePasse");
     
             if ($strNomUtil && $strMotPasse && $strNomComplet && $strEmail) {
+    
                 if (!validerNomComplet($strNomComplet) || !validerNomUtilisateur($strNomUtil) ||
                     !validerAdresseCourriel($strEmail) || !validerMotPasse($strMotPasse)) {
                     return new View(new LoginModel(EnumEtatsUtil::INVALID));

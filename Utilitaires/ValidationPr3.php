@@ -10,13 +10,17 @@
      * @param string $nomUtil nom d'utilisateur forme: pr.nom (en minuscules) 3 à 25 caractères
      * @return bool
      */
-    function validerNomUtilisateur($nomUtil) {
+    function validerNomUtilisateur($nomUtil, $binCheckBD = false) {
         if ($nomUtil) {
-            $rexp = "/^[a-z]{1-2}.[a-z]{1,13}$/";
+            $rexp = "/^[a-z]{1,2}.[a-z]{1,13}$/";
             if (strlen($nomUtil) >= 3 && strlen($nomUtil) <= 25 && preg_match($rexp, $nomUtil) && strtolower($nomUtil) == $nomUtil) {
-                $objBd = Mysql::getBD();
-                $objBd->selectionneRow("Utilisateurs", "*", "nomUtilisateur='$nomUtil");
-                return ($objBd->OK && $objBd->OK->num_rows > 0);
+                if ($binCheckBD) {
+                    $objBd = Mysql::getBD();
+                    $objBd->selectionneRow("Utilisateurs", "*", "nomUtilisateur='$nomUtil");
+                    return $objBd->OK && $objBd->OK->num_rows > 0;
+                } else {
+                    return true;
+                }
             } else
                 return false;
         } else
@@ -53,7 +57,7 @@
      */
     function validerAdresseCourriel($courriel) {
         if ($courriel) {
-            $rexp = "/\w+\@\w+\.\w+/i";
+            $rexp = "/^[a-z0-9.\-_]+\@\w+\.\w+$/i";
             return (preg_match($rexp, $courriel) && strlen($courriel) >= 10 && strlen($courriel) <= 50);
         } else
             return false;
