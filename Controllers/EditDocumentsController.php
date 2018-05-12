@@ -19,7 +19,7 @@
         function EditDocuments() {
             $session =  post("session");
             $cours =  post("cours");
-            $GLOBALS["titrePage"] = "Modification des documents de la session [...]";
+            $GLOBALS["titrePage"] = "Modification des documents de la session $session";
             $model = null;
     
             if ($session && $cours) {
@@ -66,5 +66,20 @@
                 return new View("500: Erreur Fatale", 500);
     
             return new View(new DocumentsCoursSession($tListeDocuments, $tListeCategories, $tListeSessions, $tListeCours, EnumEtatsDocuments::SUCCES, sizeof($tListeDocuments)));
+        }
+    
+        function SauvegardeFichier() {
+            $objBD = mysql::getBD();
+            $objBD->selectionneRow("document", "id");
+            if ($objBD->OK) {
+                //TODO: const for upload dir
+                $tIds = $objBD->OK->fetch_all();
+                for ($i = 0; $i < $tIds; $i++) {
+                    enregistrerDocument($tIds[$i][0], "./televersements", null, PHP_INT_MAX,
+                        ["txt", "doc", "docx", "pdf", "zip", "rtf", "odt", "tex", "wks", "wps", "wpd"]);
+                    $objBD->modifieEnregistrements("document",
+                        "hyperLien='" . $_FILES[$tIds[$i][0]] . "'", "id='" . $tIds[$i][0] . "'");
+                }
+            }
         }
     }

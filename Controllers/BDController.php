@@ -51,10 +51,6 @@
                         $so->setModelState(ModelState::Same);
                         $objBD = MySql::getBD();
                         $objBD->modifieEnregistrements("Document", "supprimer=1", "id='$so->id'");
-                    } else if ($etat == ModelState::Added) {
-                        //TODO: const for upload dir
-                        enregistrerDocument($sj->id, "./televersements", $sj->hyperLien, PHP_INT_MAX,
-                            ["txt", "doc", "docx", "pdf", "zip", "rtf", "odt", "tex", "wks", "wps", "wpd"]);
                     }
                 } else
                     $so->setModelState($etat);
@@ -76,7 +72,7 @@
          * @return View
          */
         function Reset() {
-            echo set_time_limit(60);
+            set_time_limit(60);
             
             //TODO: enable for prod
 //            if (!post("binConfirmation"))
@@ -102,7 +98,7 @@
             //Reconstruction des structures de tables
             //categorie
             $objBD->creeTableGenerique("categorie",
-                "V15,description", "description", true);
+                "I,id,V15,description", "description", true);
             //utilisateur
             $objBD->creeTableGenerique("utilisateur",
                 "I,id;V25,nomUtilisateur;V15,motDePasse;B,statutAdmin;V30,nomComplet;V50,courriel",
@@ -159,12 +155,10 @@
     
             foreach ($classes as $c) {
                 loadDonneesCSV($c);
-                echo "<br/>";
-                echo $objBD->requete;
             }
     
-            die();
             session_destroy();
-            return new View();
+            header("Location: ?controller=Login&action=Login");
+            return new View("", 302);
         }
     }
