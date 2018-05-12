@@ -3,7 +3,13 @@
 function call($action, $controller) {
 
     $objController = new $controller;
-    $objController->{ $action }()->afficher();
+    global $authorized;
+    if ($authorized) {
+        $objController->{$action}()->afficher();
+    } else {
+        http_response_code(401);
+        echo "<h1>401: Not Authorized</h1>";
+    }
 }
 
 $controllers = glob("Controllers/*.php");

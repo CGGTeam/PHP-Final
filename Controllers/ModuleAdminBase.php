@@ -24,6 +24,8 @@
                 session_start();
             }
             global $authorized;
-            $authorized = $_SESSION["utilisateurCourant"] && $_SESSION["utilisateurCourant"]->statutAdmin;
+    
+            $authorized = isset($_SESSION["utilisateurCourant"]) &&
+                $_SESSION["utilisateurCourant"] && $_SESSION["utilisateurCourant"]->statutAdmin;
         }
     }
