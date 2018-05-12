@@ -56,6 +56,28 @@ function getAllParents(a) {
     return els;
 }
 
+function configCouleurs() {
+    $_anguleuxInterne.customEventListeners.push( function (e) {
+        console.log(e.type);
+        if((e.type === "keydown" || e.type === "change") && !e.target.$_init) {
+            let parents = getAllParents(e.target);
+            let nodeTr = parents.find(obj => obj.tagName === "TR");
+            if (nodeTr && nodeTr.$_objRef[nodeTr.$_objIndex]) {
+                if (nodeTr.$_objRef[nodeTr.$_objIndex].modelState === 2) {
+                    nodeTr.style.backgroundColor = '#ffff33';
+                }
+            }
+        }
+        if(e.target.name === "main_id"){
+            //let btn = document.getElementsByName(e.target.id.replace("tr","annuler"));
+            e.target.id = "tr_" + e.target.value;
+            //btn.name = "annuler_" + e.target.value;
+            //btn.onclick = "annuler('" + e.target.value + "')";
+        }
+    });
+}
+
+
 /**
  *
  * @param objClass Class a post

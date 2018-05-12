@@ -3,14 +3,22 @@ class CoursSession{
         /**
          * @type {string}
          */
-        this.session = obj.session;
+        this.session = "";
         /**
          * @type {string}
          */
-        this.sigle = obj.sigle;
+        this.sigle = "";
         /**
          * @type {number}
          */
-        this.utilisateur = obj.utilisateur;
+        this.id = "";
+
+        this.nomComplet = "";
+
+        this.nomUtilisateur = "";
+
+        this.statutAdmin = false;
+
+        obj && Object.assign(this, obj);
     }
 }
