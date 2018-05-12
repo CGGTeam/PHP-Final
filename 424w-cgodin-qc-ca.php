@@ -1,6 +1,6 @@
 <?php
    // --- Établissement de la connexion avec mySQL
-    $strNomAdmin = "a.brassard-lahey";
-    $strMotPasseAdmin = "Secret92039";
+    $strNomAdmin = "papersensation";
+    $strMotPasseAdmin = "Secret16034";
 ?>
 
