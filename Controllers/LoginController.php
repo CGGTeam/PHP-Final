@@ -29,6 +29,8 @@
          */
         function Login() {
             session_start();
+            global $authorized;
+            $authorized = true;
             $GLOBALS["titrePage"] = "Connexion";
             $objView = null;
             if (isset($_SESSION["utilisateurCourant"])) {
@@ -140,6 +142,8 @@
         }
     
         function Deconnexion() {
+            global $authorized;
+            $authorized = true;
             session_start();
             session_destroy();
             header('Location: ?controller=Login&action=Login');

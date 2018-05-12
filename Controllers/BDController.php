@@ -36,20 +36,16 @@
             for ($i = 0; $i < sizeof($tDonneesJson); $i++) {
                 $sj = $tDonneesJson[$i];
                 $etat = $sj["modelState"];
-                //TODO: these unsets shouldn't be here
-                //=======C A N C E R   Z O N E========
                 if ($etat == ModelState::Added) {
                     unset($sj["id"]); //This can probably stay
                 } else {
                     $sj["id"] = intval($sj["id"]);
                 }
-                unset($sj[37]);
                 unset($sj["modelState"]);//this too
-                unset($sj["undefined"]);
-                //====================================
+    
                 /** @var ModelBinding $so */
                 $so = new $strType($sj);
-                if ($strType == "Document") {
+                if (strtolower($strType) == "document") {
                     /**@var Document $so */
                     if ($etat == ModelState::Deleted) {
                         $so->setModelState(ModelState::Same);
@@ -65,17 +61,112 @@
                 $so->saveChangesOnObj();
             }
     
-            $tDonneesPHP = array();
-    
             $objBD = mysql::getBD();
             $objBD->selectionneRow($strType);
             if ($objBD->OK)
                 $tDonneesPHP = ModelBinding::bindToClass($objBD->OK, $strType);
             else {
-                //http_response_code(500);
                 return new View(500);
             }
 
             return new JSONView(json_encode($tDonneesPHP));
+        }
+    
+        /**
+         * @return View
+         */
+        function Reset() {
+            //TODO: enable for prod
+//            if (!post("binConfirmation"))
+//                return new View("403: Forbidden", 403);
+            //TODO: add const for document directory
+            if (file_exists("./televersements")) {
+                $tDocuments = scandir("./televersements");
+                $rexp = "/^..?$/";
+                foreach ($tDocuments as $doc) {
+                    if (!preg_match($rexp, $doc)) {
+                        unlink("./televersements/$doc");
+                    }
+                }
+                rmdir("./televersements");
+            }
+        
+            $objBD = Mysql::getBD();
+            //Nuke les tables
+            $tNomsTables = ["courssession", "document", "cours", "session", "utilisateur", "categorie"];
+            foreach ($tNomsTables as $table)
+                $objBD->supprimeTable($table);
+        
+            //Reconstruction des structures de tables
+            //categorie
+            $objBD->creeTableGenerique("categorie",
+                "I,id;V15,description", "id", true);
+            //utilisateur
+            $objBD->creeTableGenerique("utilisateur",
+                "I,id;V25,nomUtilisateur;V15,motDePasse;B,statutAdmin;V30,nomComplet;V50,courriel",
+                "id", true);
+            //session
+            $objBD->creeTableGenerique("session",
+                "V6,description;D,dateDebut;D,dateFin", "description", true);
+            //cours
+            $objBD->creeTableGenerique("cours",
+                "V7,sigle;V50,titre", "sigle", true);
+            //document
+            $objBD->creeTableGenerique("document",
+                "I,id;V6,session;V7,sigle;D,dateCours;J,noSequence;D,dateAccesDebut;" .
+                "D,dateAccesFin;V100,titre;V255,description;J,nbPages;J,categorie;J,noVersion;" .
+                "D,dateVersion;V255,hyperLien;J,ajoutePar;B,supprimer", "id", true);
+        
+            $objBD->ajouteFK("document", "session",
+                "session", "description", true);
+            $objBD->ajouteFK("document", "sigle",
+                "cours", "sigle", true);
+            $objBD->ajouteFK("document", "categorie",
+                "categorie", "id", true);
+            $objBD->ajouteFK("document", "ajoutePar",
+                "utilisateur", "id", true);
+            //courssession
+            $objBD->creeTableGenerique("courssession", "V6,session;V7,sigle;J,utilisateur",
+                "session, sigle, utilisateur", true);
+            $objBD->ajouteFK("courssession", "sigle",
+                "cours", "sigle", true);
+            $objBD->ajouteFK("courssession", "session",
+                "session", "description", true);
+            $objBD->ajouteFK("courssession", "utilisateur",
+                "utilisateur", "id", true);
+            $objBD->requete = substr($objBD->requete, 0, strlen($objBD->requete) - 1);
+            $objBD->cBD->multi_query($objBD->requete);
+        
+            echo $objBD->requete;
+            header('Location: ?controller=BD&action=Init');
+            return new View("", 302);
+        }
+    
+        function Init() {
+            $objBD = mysql::getBD();
+            $objBD->insereEnregistrement("utilisateur", "1", "admin", "admin", "1", "admin, admin", "admin@admin.com");
+            $objBD->requete = "";
+            //TODO: add const for document directory
+            if (!file_exists("./televersements"))
+                mkdir("./televersements");
+            $tDocuments = scandir("./reset/televersements");
+            $rexp = "/^..?$/";
+            foreach ($tDocuments as $doc) {
+                if (!preg_match($rexp, $doc)) {
+                    copy("./reset/televersements/$doc", "./televersements/$doc");
+                }
+            }
+        
+            $classes = ["categorie", "cours", "session", "utilisateur", "document", "courssession"];
+        
+            foreach ($classes as $c)
+                loadDonneesCSV($c);
+        
+            $objBD->cBD->multi_query($objBD->requete);
+            echo $objBD->requete;
+            var_dump($objBD->cBD->error_list);
+            die();
+            session_destroy();
+            return new View();
         }
     }

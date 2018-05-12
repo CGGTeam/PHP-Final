@@ -82,25 +82,29 @@
     
        /**
         * Créé une table avec des colonnes.
-        * @param $strNomTable Nom de la table
-        * @param $strDefinitions Liste de colonnes avec des types
-        * @param $strCles Colonne(s) qui servira de clé primaire
+        * @param string $strNomTable Nom de la table
+        * @param string $strDefinitions Liste de colonnes avec des types
+        * @param string $strCles Colonne(s) qui servira de clé primaire
         * @return bool succès ou non de la requête
         */
-      function creeTableGenerique($strNomTable, $strDefinitions, $strCles) {
-
+       function creeTableGenerique($strNomTable, $strDefinitions, $strCles, $binAccumuler = false) {
+           if (!$binAccumuler) {
+               $this->requete = "";
+           }
           $tType = [
               "B" => "BOOL",
               "C" => "DECIMAL(%s,%s)",
               "D" => "DATE",
               "E" => "INT",
+              "I" => "INT(11) AUTO_INCREMENT",
+              "J" => "INT(11)",
               "F" => "CHAR(%s)",
               "M" => "DECIMAL(10,2)",
               "N" => "INT NOT NULL",
               "V" => "VARCHAR(%s)"
           ];
-
-          $this->requete = "CREATE TABLE $strNomTable (";
+        
+           $this->requete .= "CREATE TABLE $strNomTable (";
 
           $tDefinitions = explode(';',$strDefinitions);
           foreach ($tDefinitions as $strDefinition){
@@ -114,7 +118,11 @@
               }
           }
           $this->requete .= "PRIMARY KEY($strCles)) ENGINE=InnoDB";
-          $this->OK = mysqli_query($this->cBD, $this->requete);
+           if ($binAccumuler) {
+               $this->requete .= ";";
+           } else {
+               $this->OK = mysqli_query($this->cBD, $this->requete);
+           }
           return $this->OK;
       }
     
@@ -455,7 +463,57 @@
            $this->OK = mysqli_query($this->cBD, $this->requete);
            return $this->OK;
        }
+    
+       function ajouteFK($strNomTablePrimaire, $strColonnePrimaire, $strNomTableRef, $strColonneRef, $binAccumuler = false) {
+           if (!$binAccumuler) {
+               $this->requete = "";
+           }
+           $this->requete .= "ALTER TABLE $strNomTablePrimaire " .
+               "ADD CONSTRAINT FK_$strNomTablePrimaire" . "_" . "$strNomTableRef " .
+               "FOREIGN KEY($strColonnePrimaire) " .
+               "REFERENCES $strNomTableRef($strColonneRef)";
+           if ($binAccumuler) {
+               $this->requete .= ";";
+           } else {
+               $this->OK = $this->cBD->query($this->requete);
+           }
+        
+           return $this->OK;
+       }
+    
+       function insereEnregistrementsTableau($strNomTable, $tenregistrements, $binAccumuler = false) {
+           if (!$binAccumuler) {
+               $this->requete = "";
+           }
+        
+           $this->requete .= "INSERT INTO $strNomTable VALUES ";
+           for ($i = 0; $i < sizeof($tenregistrements); $i++) {
+               $this->requete .= "(";
+               if (in_array($strNomTable, ["document", "categorie", "utilisateur"]))
+                   $this->requete .= "DEFAULT, ";
+               for ($j = 0; $j < sizeof($tenregistrements[$i]); $j++) {
+                   $tempo = $tenregistrements[$i][$j];
+                   if (is_bool($tempo) || $tempo == "true" || $tempo == "false") {
+                       $this->requete .= $tempo ? 1 : 0;
+                   } elseif (!estNumerique($tempo) && $tempo != "") {
+                       $tempo = str_replace("'", "''", $tempo);
+                       $this->requete .= "'$tempo'";
+                   } elseif ($tempo != "") {
+                       $this->requete .= $tempo;
+                   } else {
+                       $this->requete .= '1';
+                   }
+                   $this->requete .= ",";
+               }
+               $this->requete = substr($this->requete, 0, strlen($this->requete) - 1);
+               $this->requete .= "),";
+           }
+           $this->requete = substr($this->requete, 0, strlen($this->requete) - 1);
+           if ($binAccumuler)
+               $this->requete .= ";";
+           else
+               $this->OK = mysqli_query($this->cBD, $this->requete);
+           return $this->OK;
+       }
    }
-
-
 ?>

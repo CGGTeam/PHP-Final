@@ -35,3 +35,23 @@
             ($strNouveauNom ? $strNomFichier : $strNomFichier)))
             exit("Impossible de copier le fichier '$strNomFichier' dans le dossier '$strNomDossier'");
     }
+    
+    function loadDonneesCSV($classe) {
+        $objBD = mysql::getBD();
+        $contenu = explode(";", file_get_contents("./reset/$classe.csv"));
+        
+        for ($i = 0; $i < sizeof($contenu); $i++) {
+            if ($contenu[$i] == "") {
+                unset($contenu[$i]);
+            }
+        }
+        
+        for ($i = 0; $i < sizeof($contenu); $i++) {
+            $contenu[$i] = explode(",", trim($contenu[$i]));
+            for ($j = 0; $j < sizeof($contenu[$i]); $j++) {
+                $contenu[$i][$j] = trim($contenu[$i][$j]);
+            }
+        }
+        
+        $objBD->insereEnregistrementsTableau($classe, $contenu, true);
+    }
