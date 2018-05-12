@@ -38,20 +38,24 @@
     
     function loadDonneesCSV($classe) {
         $objBD = mysql::getBD();
-        $contenu = explode(";", file_get_contents("./reset/$classe.csv"));
-        
-        for ($i = 0; $i < sizeof($contenu); $i++) {
-            if ($contenu[$i] == "") {
-                unset($contenu[$i]);
-            }
+    
+        $fp = fopen("./reset/$classe.csv", "r");
+        $contenu = array();
+    
+        if (!feof($fp)) {
+            fgetcsv($fp, 0, ";");
         }
-        
-        for ($i = 0; $i < sizeof($contenu); $i++) {
-            $contenu[$i] = explode(",", trim($contenu[$i]));
-            for ($j = 0; $j < sizeof($contenu[$i]); $j++) {
-                $contenu[$i][$j] = trim($contenu[$i][$j]);
+    
+    
+        while (!feof($fp)) {
+            $tChamps = fgetcsv($fp, 0, ";");
+            var_dump(sizeof($tChamps));
+            if (sizeof($tChamps) > 15) {
+                var_dump($tChamps);
             }
+            $contenu[] = $tChamps;
         }
-        
-        $objBD->insereEnregistrementsTableau($classe, $contenu, true);
+    
+        $objBD->insereEnregistrementsTableau($classe, $contenu);
+        var_dump($objBD->cBD->error_list);
     }
