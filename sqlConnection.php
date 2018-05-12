@@ -3,7 +3,7 @@ $strMonIP = "";
 $strIPServeur = "";
 $strNomServeur = "";
 $strInfosSensibles = "";
-$strNomBD="pjf_papersensation";
+    $strNomBD = "pjf_papersensation";
 $strLocalHost = "localhost";
 
     detecteServeur($strMonIP, $strIPServeur, $strNomServeur, $strInfosSensibles);

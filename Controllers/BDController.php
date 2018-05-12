@@ -51,10 +51,6 @@
                         $so->setModelState(ModelState::Same);
                         $objBD = MySql::getBD();
                         $objBD->modifieEnregistrements("Document", "supprimer=1", "id='$so->id'");
-                    } else if ($etat == ModelState::Added) {
-                        //TODO: const for upload dir
-                        enregistrerDocument($sj->id, "./televersements", $sj->hyperLien, PHP_INT_MAX,
-                            ["txt", "doc", "docx", "pdf", "zip", "rtf", "odt", "tex", "wks", "wps", "wpd"]);
                     }
                 } else
                     $so->setModelState($etat);
@@ -76,6 +72,8 @@
          * @return View
          */
         function Reset() {
+            set_time_limit(60);
+            
             //TODO: enable for prod
 //            if (!post("binConfirmation"))
 //                return new View("403: Forbidden", 403);
@@ -100,7 +98,7 @@
             //Reconstruction des structures de tables
             //categorie
             $objBD->creeTableGenerique("categorie",
-                "I,id;V15,description", "id", true);
+                "I,id,V15,description", "description", true);
             //utilisateur
             $objBD->creeTableGenerique("utilisateur",
                 "I,id;V25,nomUtilisateur;V15,motDePasse;B,statutAdmin;V30,nomComplet;V50,courriel",
@@ -111,21 +109,20 @@
             //cours
             $objBD->creeTableGenerique("cours",
                 "V7,sigle;V50,titre", "sigle", true);
+    
             //document
             $objBD->creeTableGenerique("document",
                 "I,id;V6,session;V7,sigle;D,dateCours;J,noSequence;D,dateAccesDebut;" .
-                "D,dateAccesFin;V100,titre;V255,description;J,nbPages;J,categorie;J,noVersion;" .
+                "D,dateAccesFin;V100,titre;V255,description;J,nbPages;V15,categorie;J,noVersion;" .
                 "D,dateVersion;V255,hyperLien;J,ajoutePar;B,supprimer", "id", true);
-        
             $objBD->ajouteFK("document", "session",
                 "session", "description", true);
             $objBD->ajouteFK("document", "sigle",
                 "cours", "sigle", true);
             $objBD->ajouteFK("document", "categorie",
-                "categorie", "id", true);
+                "categorie", "description", true);
             $objBD->ajouteFK("document", "ajoutePar",
                 "utilisateur", "id", true);
-            //courssession
             $objBD->creeTableGenerique("courssession", "V6,session;V7,sigle;J,utilisateur",
                 "session, sigle, utilisateur", true);
             $objBD->ajouteFK("courssession", "sigle",
@@ -134,16 +131,13 @@
                 "session", "description", true);
             $objBD->ajouteFK("courssession", "utilisateur",
                 "utilisateur", "id", true);
+    
             $objBD->requete = substr($objBD->requete, 0, strlen($objBD->requete) - 1);
             $objBD->cBD->multi_query($objBD->requete);
-        
-            echo $objBD->requete;
-            header('Location: ?controller=BD&action=Init');
-            return new View("", 302);
-        }
     
-        function Init() {
-            $objBD = mysql::getBD();
+            while ($objBD->cBD->more_results())
+                $objBD->cBD->next_result();
+    
             $objBD->insereEnregistrement("utilisateur", "1", "admin", "admin", "1", "admin, admin", "admin@admin.com");
             $objBD->requete = "";
             //TODO: add const for document directory
@@ -156,17 +150,15 @@
                     copy("./reset/televersements/$doc", "./televersements/$doc");
                 }
             }
-        
+    
             $classes = ["categorie", "cours", "session", "utilisateur", "document", "courssession"];
-        
-            foreach ($classes as $c)
+    
+            foreach ($classes as $c) {
                 loadDonneesCSV($c);
-        
-            $objBD->cBD->multi_query($objBD->requete);
-            echo $objBD->requete;
-            var_dump($objBD->cBD->error_list);
-            die();
+            }
+    
             session_destroy();
-            return new View();
+            header("Location: ?controller=Login&action=Login");
+            return new View("", 302);
         }
     }

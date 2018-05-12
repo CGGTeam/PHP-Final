@@ -49,7 +49,7 @@
                     $tChamps = preg_split('/[\t;,\|\^]/g', $tcontenu[$i]);
                 
                     if ($tChamps[0]) { //NomUtilisateur
-                        if (validerNomUtilisateur($tChamps[0]))
+                        if (validerNomUtilisateur($tChamps[0], true))
                             $tRetour[$i][] = new Champ($tChamps[0], true);
                         else {
                             $binVerdict = false;
@@ -178,22 +178,27 @@
             unset($_SESSION["sessionSelec"]);
         
             if (file_exists("./temp_upload/permissions.csv")) {
-                $contenu = file_get_contents("./temp_upload/permissions.csv");
-                $tcontenu = preg_split("/\r\n|\r|\n/", $contenu);
-                $objBD = Mysql::getBD();
-                for ($i = 1; $i < sizeof($tcontenu); $i++) {
-                    $tChamps = preg_split('/[\t;,\|\^]/g', $tcontenu[$i]);
-                    $objBD->selectionneRow("Utilisateur", "id", "nomUtilisateur=$tChamps[0]");
-                    $intId = intval($objBD->OK->fetch_row()[0]);
-                
+                $fp = fopen("./temp_upload/permissions.csv", "r");
+                while (!feof($fp)) {
+                    $tChamps = fgetcsv($fp, 0, ";");
+                    $objUtil = new Utilisateur([
+                        "nomUtilisateur" => $tChamps[0],
+                        "motDePasse" => $tChamps[1],
+                        "statutAdmin" => $tChamps[2] == "U" ? 0 : 1,
+                        "nomComplet" => $tChamps[3],
+                        "courriel" => $tChamps[4]
+                    ]);
+                    $objUtil->setModelState(ModelState::Added);
+                    $objUtil->saveChangesOnObj();
+    
                     for ($j = 4; $j < sizeof($tChamps); $j++) {
                         if ($tChamps[$j]) {
                             $objCoursSession = new CoursSession([
                                 "session" => $strSession,
                                 "sigle" => $tChamps[$j],
-                                "utilisateur" => $intId
+                                "utilisateur" => $objUtil->id
                             ]);
-                        
+    
                             $objCoursSession->setModelState(ModelState::Added);
                             $objCoursSession->saveChangesOnObj();
                         }

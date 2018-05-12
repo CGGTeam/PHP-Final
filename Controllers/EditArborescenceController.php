@@ -17,10 +17,10 @@
             $objBD = Mysql::getBD();
             $objBD->selectionneRow("Document", "*", "supprimer=1", "session, sigle, titre ASC");
             if ($objBD->OK)
-                $tCoursSession = ModelBinding::bindToClass($objBD->OK, "Document");
+                $tDocuments = ModelBinding::bindToClass($objBD->OK, "Document");
             else
                 return new View("500: Erreur Fatale", 500);
-            return new View($tCoursSession);
+            return new View($tDocuments);
         }
     
         function ConfirmerSuppressionBD() {
@@ -39,9 +39,9 @@
             } catch (Exception $e) {
                 $verdict = $e;
             }
-        
-            return new View([
-                "Verdict" => $verdict,
+    
+            return new JSONView([
+                "verdict" => $verdict,
                 "lastIndex" => $lastIndex
             ]);
         }

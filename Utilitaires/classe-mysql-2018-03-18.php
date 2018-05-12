@@ -39,6 +39,7 @@
               die();
           };
           mysql::$BD = $this;
+          $this->cBD->set_charset("utf8");
           return $this->cBD;
       }
     
@@ -92,7 +93,7 @@
                $this->requete = "";
            }
           $tType = [
-              "B" => "BOOL",
+              "B" => "Bit(1)",
               "C" => "DECIMAL(%s,%s)",
               "D" => "DATE",
               "E" => "INT",
@@ -489,7 +490,7 @@
            $this->requete .= "INSERT INTO $strNomTable VALUES ";
            for ($i = 0; $i < sizeof($tenregistrements); $i++) {
                $this->requete .= "(";
-               if (in_array($strNomTable, ["document", "categorie", "utilisateur"]))
+               if (in_array($strNomTable, ["document", "utilisateur"]))
                    $this->requete .= "DEFAULT, ";
                for ($j = 0; $j < sizeof($tenregistrements[$i]); $j++) {
                    $tempo = $tenregistrements[$i][$j];

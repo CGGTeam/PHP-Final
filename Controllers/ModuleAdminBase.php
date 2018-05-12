@@ -28,8 +28,5 @@
     
             $authorized = isset($_SESSION["utilisateurCourant"]) &&
                 $_SESSION["utilisateurCourant"] && $_SESSION["utilisateurCourant"]->statutAdmin;
-    
-            //TODO: God help you if it's may 25th and this comment is still here
-            $authorized = true;
         }
     }
