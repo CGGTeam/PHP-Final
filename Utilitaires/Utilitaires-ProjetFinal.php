@@ -49,13 +49,8 @@
     
         while (!feof($fp)) {
             $tChamps = fgetcsv($fp, 0, ";");
-            var_dump(sizeof($tChamps));
-            if (sizeof($tChamps) > 15) {
-                var_dump($tChamps);
-            }
             $contenu[] = $tChamps;
         }
     
         $objBD->insereEnregistrementsTableau($classe, $contenu);
-        var_dump($objBD->cBD->error_list);
     }
