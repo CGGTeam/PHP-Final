@@ -36,6 +36,7 @@
         function ValidationCSV() {
             $GLOBALS["titrePage"] = "Validation des données";
             $tRetour = array();
+            $tSessions = array();
             $binOK = true;
         
             if (isset($_FILES["fichierCSV"])) {
@@ -111,23 +112,31 @@
                     $binOK = $binVerdict ? $binVerdict : false;
                     $tRetour[$i][] = new Champ($binVerdict ? "OK" : "PAS OK", true);
                 }
+    
+                $objBD = mysql::getBD();
+                $objBD->selectionneRow("session");
+                if ($objBD->OK)
+                    $tSessions = ModelBinding::bindToClass($objBD->OK, "Session");
+                else
+                    $binOK = false;
             }
-        
+    
             return new View([
                 "tDonnees" => $tRetour,
+                "tSessions" => $tSessions,
                 "binOK" => $binOK
             ]);
         }
     
         /**
-         * retourn la même chose que ValidationCSV sauf que les rangées de tRetour ne contiennent que les informations
+         * retourne la même chose que ValidationCSV sauf que les rangées de tRetour ne contiennent que les informations
          * des sigles.
          * @return JSONView
          */
         function validerSession() {
             $GLOBALS["titrePage"] = "Validation des Cours-Sessions";
-        
-            $strSession = post("ddlSession");
+    
+            $strSession = get("ddlSession");
             session_start();
             $_SESSION["sessionSelec"] = $strSession;
             $binOK = false;
