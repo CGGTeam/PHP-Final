@@ -6,6 +6,10 @@
      * Time: 11:05 AM
      */
     
+    //        $intDepth1 = sizeof(preg_split("/(C:\\\\)|\\\\/", getcwd()));
+//        $intDepth2 = sizeof(preg_split("/(C:\\\\)|\\\\/", $tempfolder));
+//        $strNomFichierTempCopy = str_repeat("../", $intDepth1 - $intDepth2) . basename($strNomFichierTemp);
+    //TODO: refaire: ;
     /**
      * Gère le téléversement d'un fichier donné
      * @param string $strNomPost Nom du fichier dans le tableau $_FILES[]
@@ -17,13 +21,11 @@
      */
     function enregistrerDocument($strNomPost, $strNomDossier, $strNouveauNom = null, $grandeurMax = PHP_INT_MAX, $tTypesFichiers = []) {
         $strNomFichier = $_FILES[$strNomPost]["name"];
+        $strTypeFichier = substr($strNomFichier, strrpos($strNomFichier, ".") + 1); //extension plutôt que MIME
+        $tempfolder = "C:\\wamp64\\tmp";
         $strNomFichierTemp = $_FILES[$strNomPost]["tmp_name"];
-        $strTypeFichier = explode('.',$strNomFichier)[sizeof(explode('.',$strNomFichier))-1];
         $binTypeValide = sizeof($tTypesFichiers) == 0 || in_array($strTypeFichier, $tTypesFichiers);
         $intTaille = intval($_FILES[$strNomPost]["size"]);
-
-        var_dump($_FILES);
-        var_dump($tTypesFichiers);
         
         if (!$binTypeValide)
             exit ("Le fichier n'est pas d'un type valide");
