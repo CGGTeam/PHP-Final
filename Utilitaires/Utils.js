@@ -65,6 +65,8 @@ function configCouleurs() {
             if (nodeTr && nodeTr.$_objRef[nodeTr.$_objIndex]) {
                 if (nodeTr.$_objRef[nodeTr.$_objIndex].modelState === 2) {
                     nodeTr.style.backgroundColor = '#ffff33';
+                }else if(nodeTr.$_objRef[nodeTr.$_objIndex].modelState === 1){
+                    nodeTr.style.backgroundColor = 'red';
                 }
             }
         }
@@ -99,7 +101,8 @@ function configPost(objClass, tabProto, fctOnParam){
             let objCourant = nodeTr.$_objRef[nodeTr.$_objIndex];
             if (objCourant instanceof $_postObj.classToPost) {
                 let objPost = {};
-                objCourant.modelState = (objCourant.modelState === 0) ? 0 : 2;
+                console.log(objCourant.modelState);
+                objCourant.modelState = (objCourant.modelState === 0 || objCourant.modelState === 1) ? objCourant.modelState : 2;
                 $_postObj.protoToPost.forEach(param => {
                     if(fctOnParam && fctOnParam[param]){
                         fctOnParam[param](objPost, objCourant);
@@ -162,11 +165,12 @@ function reconstruirePost(tableau) {
     });
 }
 
-function deleteSelected(tab, indexName){
+function deleteSelected(tab){
     tab.forEach((obj, i) =>{
         if(obj.toDelete){
             obj.modelState = 1;
             $_postObj.tabObjToPost[i] = obj;
+            $_anguleuxInterne.agForElements[0].$_createdElementsTable[i].style.backgroundColor = 'red';
         }
-    })
+    });
 }

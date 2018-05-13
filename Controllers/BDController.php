@@ -138,7 +138,6 @@
     
             while ($objBD->cBD->more_results())
                 $objBD->cBD->next_result();
-            die();
             $objBD->insereEnregistrement("utilisateur", "1", "admin", "admin", "1", "admin, admin", "admin@admin.com");
             $objBD->requete = "";
             //TODO: add const for document directory
