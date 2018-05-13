@@ -93,7 +93,7 @@
             $strEmail = post("tbCourriel");
             $strMotPasse = post("tbMotDePasse");
     
-            if ($strNomUtil && $strMotPasse && $strNomComplet && $strEmail) {
+            if ($strNomUtil && $strMotPasse && $strNomComplet) {
     
                 if (!validerNomComplet($strNomComplet) || !validerNomUtilisateur($strNomUtil) ||
                     !validerAdresseCourriel($strEmail) || !validerMotPasse($strMotPasse)) {

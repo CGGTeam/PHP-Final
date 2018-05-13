@@ -52,6 +52,7 @@
      * @return bool
      */
     function validerNomComplet($nomComplet, &$raison = null) {
+        //TODO: valider longueur
         if ($nomComplet) {
             $rexp = "/^[\\pL\- ]+, [\\pL\- ]+$/ui";
             $raison = preg_match($rexp, $nomComplet) != false ? EnumRaisons::VALIDE : EnumRaisons::INVALIDE;
@@ -63,7 +64,7 @@
     }
     
     /**
-     * @param string $courriel thing[atsing]thing.thing
+     * @param string $courriel thing[atsign]thing.thing
      * @return bool
      */
     function validerAdresseCourriel($courriel, &$raison = null) {
@@ -72,8 +73,8 @@
             $raison = preg_match($rexp, $nomComplet) != false ? EnumRaisons::VALIDE : EnumRaisons::INVALIDE;
             return (preg_match($rexp, $courriel) && strlen($courriel) >= 10 && strlen($courriel) <= 50);
         } else {
-            $raison = EnumRaisons::ABSENT;
-            return false;
+            $raison = EnumRaisons::VALIDE;
+            return true;
         }
     }
     

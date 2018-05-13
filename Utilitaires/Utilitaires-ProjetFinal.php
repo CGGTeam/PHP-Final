@@ -50,8 +50,6 @@
             if ($classe == "document") {
                 $lastIndex = sizeof($tChamps) - 1;
                 $objBD->selectionneRow("utilisateur", "id", "nomComplet='$tChamps[$lastIndex]'");
-                var_dump($objBD->OK);
-                var_dump($objBD->cBD->error_list);
                 $tChamps[$lastIndex] = $objBD->OK->fetch_row()[0];
                 $tChamps[] = 0;
             }

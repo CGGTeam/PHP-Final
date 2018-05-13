@@ -8,19 +8,34 @@
                 </td>
             </tr>
             <tr>
-                <td><input class="sTb" id="tbNomUtilisateur" name="tbNomUtilisateur" type="text"
-                           placeholder="Nom D'Utilisateur"/></td>
-            </tr>
-            <tr>
-                <td><input class="sTb" id="tbNomComplet" name="tbNomComplet" type="text" placeholder="Nom Complet"/>
+                <td>
+                    <input class="sTb" id="tbNomUtilisateur" name="tbNomUtilisateur" type="text" required
+                           placeholder="Nom D'Utilisateur" pattern="([A-Za-z]{1,2}\.[A-Za-z]{1,23})"
+                           title="Nom d'utilisateur de la forme 'pr.nomfamille'. Insensible à la casse.
+                           pr: la première lettre de vo.tre.s prénom.s nomfamille: Vo.tre.s nom de famille (en un mot)"/>
                 </td>
             </tr>
             <tr>
-                <td><input class="sTb" id="tbCourriel" name="tbCourriel" type="text" placeholder="Courriel"/></td>
+                <td>
+                    <input class="sTb" id="tbMotDePasse" name="tbMotDePasse" type="password" required
+                           placeholder="Mot de passe" pattern="([A-Za-z0-9]{3,15})"
+                           title="3 à 15 caractères alphanumériques." maxlength="15"/>
+                </td>
             </tr>
             <tr>
-                <td><input class="sTb" id="tbMotDePasse" name="tbMotDePasse" type="password"
-                           placeholder="Mot de passe"/></td>
+                <td>
+                    <input class="sTb" id="tbNomComplet" name="tbNomComplet" type="text" required
+                           placeholder="Nom Complet" pattern="[\\pL\-\ ]+, [\\pL\-\ ]+" minlength="5" maxlength="30"
+                           title="Forme: 'Nom.s de famille, Prénom.s'. 5 à 30 caractères"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input class="sTb" id="tbCourriel" name="tbCourriel" type="text" placeholder="Courriel"
+                           title="adresse@domaine.tld. 10 à 50 caractères. Facultatif."
+                           pattern="[a-z0-9.\-_]+\@\w+\.\w+"
+                           minlength="10" maxlength="50"/>
+                </td>
             </tr>
             <tr>
                 <td>
