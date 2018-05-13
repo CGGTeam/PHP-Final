@@ -14,6 +14,7 @@
     require_once "Utilitaires/Utilitaires-ProjetFinal.php";
     require_once "Models/EditReferences/CoursSessionIJModel.php";
     
+    require_once "Models/Donnees/Session.php";
     
     if (isset($_GET['controller']) && isset($_GET['action'])) {
         $controller = $_GET['controller'];

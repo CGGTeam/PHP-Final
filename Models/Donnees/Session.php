@@ -22,10 +22,17 @@
         }
         
         public function valider() {
-            $binValider = validerDateSession($this->dateDebut) && validerDateSession($this->dateFin)
-                && validerSession($this->description);
-            if (!$binValider)
+            if (!validerSession($this->description) || !dateValide($this->dateDebut) || !dateValide($this->dateFin)) {
                 $this->setModelState(ModelState::Invalid);
-            return $binValider;
+                return false;
+            }
+    
+            if (!validerDateSession($this->dateDebut, "2018-01-01", $this->dateFin) ||
+                !validerDateSession($this->dateFin, $this->dateDebut)) {
+                $this->setModelState(ModelState::Invalid);
+                return false;
+            }
+    
+            return true;
         }
     }
