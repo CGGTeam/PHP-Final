@@ -32,9 +32,9 @@
 
 .tableauBoutons button {
     display: inline-block;
-    width: 75%;
+    width: 85%;
     font-size: 2vh;
-    height: 5vh;
+    height: 6vh;
     border-left-width: 0;
 }
 
