@@ -20,7 +20,7 @@
         }
     
         public function valider() {
-            $binValide = validerSigle($this->sigle) && validerTitreCours($this->titre) && validerNomComplet($this->nomProf);
+            $binValide = validerSigle($this->sigle) && validerTitreCours($this->titre);
             if (!$binValide) {
                 $this->setModelState(ModelState::Invalid);
             }

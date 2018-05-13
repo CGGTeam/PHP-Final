@@ -24,7 +24,7 @@
         public function valider() {
             $binValider = validerDateSession($this->dateDebut) && validerDateSession($this->dateFin)
                 && validerSession($this->description);
-            if ($binValider)
+            if (!$binValider)
                 $this->setModelState(ModelState::Invalid);
             return $binValider;
         }

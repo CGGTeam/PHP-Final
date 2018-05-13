@@ -12,7 +12,7 @@
      */
     function validerNomUtilisateur($nomUtil, $binCheckBD = false, &$raison=null) {
         if ($nomUtil) {
-            $rexp = "/^[a-z]{1,2}.[a-z]{1,13}$/";
+            $rexp = "/^[a-z]{1,2}.[a-z]{1,23}$/";
             if (strlen($nomUtil) >= 3 && strlen($nomUtil) <= 25 && preg_match($rexp, $nomUtil) && strtolower($nomUtil) == $nomUtil) {
                 if ($binCheckBD) {
                     $objBd = Mysql::getBD();
@@ -53,7 +53,7 @@
      */
     function validerNomComplet($nomComplet, &$raison = null) {
         if ($nomComplet) {
-            $rexp = "/^[a-z\- ]+, [a-z\- ]+$/i";
+            $rexp = "/^[\\pL\- ]+, [\\pL\- ]+$/ui";
             $raison = preg_match($rexp, $nomComplet) != false ? EnumRaisons::VALIDE : EnumRaisons::INVALIDE;
             return preg_match($rexp, $nomComplet) != false;
         } else {
@@ -94,7 +94,7 @@
      */
     function validerSession($session) {
         if ($session) {
-            $rexp = "/[AHE]-\d{4}/";
+            $rexp = "/[AHE]-\\d{4}/";
             if (preg_match($rexp, $session)) {
                 $annee = intval(substr($session, 2));
                 return $annee >= 2018 && $annee <= 2021;
@@ -111,11 +111,12 @@
      */
     function validerDateSession($date) {
         if ($date) {
-            if (preg_match("/^\d{2}-\d{2}-\d{4}$/", $date) && dateValide($date)) {
+            if (preg_match("/^\\d{4}-\\d{2}-\\d{2}$/", $date) && dateValide($date)) {
                 $annee = annee($date);
                 return $annee >= 2018 && $annee <= 2021;
-            } else
+            } else {
                 return false;
+            }
         } else
             return false;
     }
@@ -134,7 +135,7 @@
      */
     function validerSigle($sigle, &$raison = null) {
         if ($sigle) {
-            $rexpSigle = "/^\d{1,3}-[A-Z0-9]$/";
+            $rexpSigle = "/^\d{3}-[A-Z0-9]{3}$/";
             $rexpAdmin = "/^ADM-[AHE]\d{2}$/";
             if (preg_match($rexpSigle, $sigle)) {
                 $raison = EnumRaisons::VALIDE;
@@ -145,7 +146,7 @@
                 $raison = $annee >= 18 && $annee <= 21 ? EnumRaisons::VALIDE : EnumRaisons::INVALIDE;
                 return $annee >= 18 && $annee <= 21;
             } else {
-                EnumRaisons::INVALIDE;
+                $raison = EnumRaisons::INVALIDE;
                 return false;
             }
         } else {
@@ -164,9 +165,13 @@
     function validerString($string, $intMin, $intMax) {
         if (is_string($string)) {
             $long = strlen($string);
+            if ($long <= $intMin && $long >= $intMax)
+                var_dump("LENGTH IS WRONG");
             return $long >= $intMin && $long <= $intMax;
-        } else
+        } else {
+            var_dump("IS NOT A STRING");
             return false;
+        }
     }
     
     /**

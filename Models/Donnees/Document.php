@@ -50,6 +50,7 @@
         public function valider() {
             //TODO: valider si entre début et fin de session
             try {
+                $this->supprimer = is_null($this->supprimer) ? false : boolval($this->supprimer);
                 $binValide = validerSession($this->session) && validerSigle($this->sigle)
                     && validerDateSession($this->dateCours)
                     && validerInt(intval($this->noSequence), 1, 20)
@@ -57,7 +58,7 @@
                     && validerString($this->titre, 5, 100)
                     && validerString($this->description, 5, 255)
                     && validerInt(intval($this->nbPages), 1, 999)
-                    && validerString(strval($this->categorie), 3, 15)
+                    && validerInt(intval($this->categorie), 3, 15)
                     && validerInt(intval($this->noVersion), 1, 99)
                     && dateValide($this->dateVersion)
                     && validerInt(intval($this->ajoutePar), 1)
