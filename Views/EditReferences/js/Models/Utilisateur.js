@@ -4,28 +4,31 @@ class Utilisateur{
         /**
          * @type {number}
          */
-        this.id = obj.id;
+        this.id = "";
         /**
          * @type {string}
          */
-        this.nomUtilisateur = obj.nomUtilisateur;
+        this.nomUtilisateur = "";
         /**
          * @type {string}
          */
-        this.motDePasse = obj.motDePasse;
+        this.motDePasse = "";
         /**
          * @type {number}
          */
-        this.statutAdmin = !!obj.statutAdmin;
+        this.statutAdmin = false;
         /**
          * @type {string}
          */
-        this.nomComplet = obj.nomComplet;
+        this.nomComplet = "";
         /**
          * @type {string}
          */
-        this.courriel = obj.courriel;
+        this.courriel = "";
 
+        obj && Object.assign(this, obj);
+
+        this.statutAdmin = !!this.statutAdmin;
 
     }
 

@@ -13,7 +13,7 @@
         onclick: "annuler('{{doc.id}}')"
     };
     $scope.noCatAttrib = {
-        value: "{{cat.id}}"
+        value: "{{cat.descrption}}"
     };
     $scope.docCatAttrib = {
         value: "{{doc.categorie}}"
@@ -151,7 +151,7 @@
                     <?php
                         foreach ($model->tCategories as $cat){
                     ?>
-                    <option value="<?=$cat->id?>"><?=$cat->description?></option>
+                    <option value="<?=$cat->description?>"><?=$cat->description?></option>
                     <?php } ?>
                 </select>
             </td>
