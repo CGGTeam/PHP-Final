@@ -24,7 +24,7 @@
     
             if ($session && $cours) {
                 $objBD = Mysql::getBD();
-                $objBD->selectionneRow("Document", "*", "session='" . $session . "' AND sigle='" . $cours . "'");
+                $objBD->selectionneRow("Document", "*", "session='" . $session . "' AND sigle='" . $cours . "' AND supprimer = 0");
                 if ($objBD->OK) {
                     $tListeDocuments = ModelBinding::bindToClass($objBD->OK, "Document");
                     $objBD->selectionneRow("Categorie");

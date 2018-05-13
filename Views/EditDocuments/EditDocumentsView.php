@@ -90,7 +90,7 @@
             <th>
                 <div class="checkbox">
                     <label>
-                        <input name="checkbox" type="checkbox">
+                        <input name="checkbox" type="checkbox" onchange="document.querySelectorAll('[col1]').forEach(x => x.checked = event.target.checked)">
                         <em class="helper"></em>
                     </label>
                 </div>
@@ -112,7 +112,7 @@
             <td>
                 <div class="checkbox">
                     <label>
-                        <input name="checkbox" type="checkbox">
+                        <input name="checkbox" type="checkbox" col1 for-bind="true" for-bind-path="toDelete">
                         <em class="helper"></em>
                     </label>
                 </div>
@@ -179,6 +179,9 @@
     </button>
     <button type="button" name="submit" id="submit" class="boutonsConfirm" onclick="nouvObj()">
         Ajouter
+    </button>
+    <button type="button" name="submit" id="submit" class="boutonsConfirm" onclick="deleteSelected($scope.model.tDocuments, 'id')">
+        Supprimer
     </button>
     <button type="button" name="button" id="button" class="boutonsConfirm"
             onclick="window.location='?controller=AdminMenu&action=AdminMenu';">
