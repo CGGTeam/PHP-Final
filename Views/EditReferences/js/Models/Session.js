@@ -1,18 +1,21 @@
 class Session {
 
  constructor(obj){
+
+     obj && Object.assign(this, obj);
+
      /**
       * @type {string}
       */
-    this.description = obj.description;
+     (typeof this.description === "undefined") && (this.description = "");
      /**
       * @type {Date}
       */
-    this.dateDebut = obj.dateDebut;
+     (typeof this.dateDebut === "undefined") && (this.dateDebut = "");
      /**
       * @type {Date}
       */
-    this.dateFin = obj.dateFin;
+     (typeof this.dateFin === "undefined") && (this.dateDebut = "");
  }
 
 }

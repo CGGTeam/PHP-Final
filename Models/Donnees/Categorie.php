@@ -10,8 +10,6 @@
      * Class Categorie modèle qui représente une catégorie
      */
     class Categorie extends ModelBinding {
-        /** @var int $id */
-        public $id;
         /** @var string $description nom de la catégorie */
         public $description;
         

@@ -269,9 +269,9 @@
        /**
         * @param string $strNomTable nom de la table
         * @param string $strListeRows liste de colonnes à afficher
-        * @param string $strConditions liste de conditions pour la clause WHERE
         * @param string $strTableJoin Table de jointure
         * @param string $strON clause ON
+        * @param string $strConditions liste de conditions pour la clause WHERE
         * @return bool|mysqli_result faux si échec, mysqli_result si succès
         */
        function selectionneRowIJ($strNomTable, $strListeRows, $strTableJoin, $strON, $strConditions = null) {

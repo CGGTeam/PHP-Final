@@ -12,6 +12,7 @@
     require_once "Controllers/ModuleAdminBase.php";
     require_once "Utilitaires/ValidationPr3.php";
     require_once "Utilitaires/Utilitaires-ProjetFinal.php";
+    require_once "Models/EditReferences/CoursSessionIJModel.php";
     
     
     if (isset($_GET['controller']) && isset($_GET['action'])) {

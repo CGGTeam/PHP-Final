@@ -75,10 +75,12 @@
                 //TODO: const for upload dir
                 $tIds = $objBD->OK->fetch_all();
                 for ($i = 0; $i < $tIds; $i++) {
-                    enregistrerDocument($tIds[$i][0], "./televersements", null, PHP_INT_MAX,
-                        ["txt", "doc", "docx", "pdf", "zip", "rtf", "odt", "tex", "wks", "wps", "wpd"]);
-                    $objBD->modifieEnregistrements("document",
-                        "hyperLien='" . $_FILES[$tIds[$i][0]] . "'", "id='" . $tIds[$i][0] . "'");
+                    if (isset($_FILES[$tIds[$i][0]])) {
+                        enregistrerDocument($tIds[$i][0], "./televersements", null, PHP_INT_MAX,
+                            ["txt", "doc", "docx", "pdf", "zip", "rtf", "odt", "tex", "wks", "wps", "wpd"]);
+                        $objBD->modifieEnregistrements("document",
+                            "hyperLien='" . $_FILES[$tIds[$i][0]] . "'", "id='" . $tIds[$i][0] . "'");
+                    }
                 }
             }
         }

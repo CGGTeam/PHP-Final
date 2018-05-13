@@ -3,14 +3,12 @@ class Cours{
         /**
          * @type {string}
          */
-        this.sigle = obj.sigle;
+        this.sigle = "";
         /**
          * @type {string}
          */
-        this.titre = obj.titre;
-        /**
-         * @type {string}
-         */
-        this.nomProf = obj.nomProf;
+        this.titre = "";
+
+        Object.assign(this, obj);
     }
 }

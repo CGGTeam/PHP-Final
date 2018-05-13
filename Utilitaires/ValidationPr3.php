@@ -17,7 +17,7 @@
                 if ($binCheckBD) {
                     $objBd = Mysql::getBD();
                     $objBd->selectionneRow("Utilisateurs", "*", "nomUtilisateur='$nomUtil");
-                    return $objBd->OK && $objBd->OK->num_rows > 0;
+                    return $objBd->OK && $objBd->OK->num_rows == 0;
                 } else {
                     return true;
                 }
