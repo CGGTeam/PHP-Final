@@ -108,19 +108,27 @@ function configCouleurs() {
 /**
  *
  * @param objClass Class a post
+ * @param cheminTab
  * @param tabProto array (optionnel) proprietes a envoyer, null si tout
  * @param fctOnParam Object avec des fonctions a faire sur les proprietes precises ({prop1: func1, prop2: func2...})
  */
-function configPost(objClass, tabProto, fctOnParam){
+function configPost(objClass, tabProto,cheminTab, fctOnParam){
     $_postObj.classToPost = objClass;
     if(tabProto)
         $_postObj.protoToPost = tabProto;
     else
         $_postObj.protoToPost = Object.keys(new objClass());
+    if(cheminTab){
+        $_postObj.cheminTab = cheminTab;
+    }else if(!$_postObj.cheminTab){
+        $_postObj.cheminTab = "$scope.model";
+    }
     $_postObj.protoToPost.push("modelState");
     $_postObj.tabObjToPost = [];
     $_anguleuxInterne.customEventListeners.push(postEventList);
-    $_postObj.fctOnParam = fctOnParam;
+    if(fctOnParam) {
+        $_postObj.fctOnParam = fctOnParam;
+    }
 }
 
 /**
@@ -128,11 +136,14 @@ function configPost(objClass, tabProto, fctOnParam){
  * @param type
  * @param lien
  * @param toDoBefore
+ * @param reload
+ * @param toDoAfter
  */
-function postChanges(type,lien = "?controller=BD&action=Confirmer", toDoBefore=null, reload=false){
+function postChanges(type,lien = "?controller=BD&action=Confirmer", toDoBefore=null, reload=false, toDoAfter=null){
     if(toDoBefore){
         toDoBefore();
     }
+    $_postObj.toDoAfter = toDoAfter;
     let tabToPost = $_postObj.tabObjToPost.filter(function(n){ return typeof n !== 'undefined' });
     $_postObj.tabObjToPost.forEach(x => delete x.toDelete);
     let strJSON = '';
@@ -144,12 +155,19 @@ function postChanges(type,lien = "?controller=BD&action=Confirmer", toDoBefore=n
         if(xhttp.readyState === XMLHttpRequest.DONE){
             if(!reload) {
                 $scope.model = JSON.parse(xhttp.responseText);
-                eval('$scope.model.unshift(new ' + type + '())');
+                eval($_postObj.cheminTab + '.unshift(new ' + type + '())');
+
+                if($_postObj.toDoAfter){
+                    $_postObj.toDoAfter();
+                }
+
+                configCouleurs();
                 $_anguleuxInterne.updateAgFor(document.getElementById("tr_parent"));
-                configPost(Cours, $_postObj.protoToPost);
+                configPost(eval(type), $_postObj.protoToPost);
             }else {
                 location.reload();
             }
+
         }
     };
     xhttp.open("POST", lien + "&strType=" + type, true);
@@ -189,8 +207,8 @@ function deleteSelected(tab){
     });
 }
 
-function reconstruireStyle(tab) {
-    tab.forEach((obj, i) => {
+function reconstruireStyle() {
+    $_anguleuxInterne.agForElements[0].$_createdElementsTable[0].$_objRef.forEach((obj, i) => {
         switch (obj.modelState){
             case 0:
                 $_anguleuxInterne.agForElements[0].$_createdElementsTable[i].style.backgroundColor = 'green';
