@@ -25,12 +25,12 @@
 
 
         function Confirmer() {
-            log_fichier("test");
             $strPOST = file_get_contents('php://input');
             $arSplit = explode("\n", $strPOST);
             $strType = $arSplit[0];
             $strDonnees = $arSplit[1];
             $tDonneesJson = json_decode($strDonnees, true);
+            log_fichier($tDonneesJson);
     
     
             for ($i = 0; $i < sizeof($tDonneesJson); $i++) {
@@ -38,13 +38,14 @@
                 $etat = $sj["modelState"];
                 if ($etat == ModelState::Added) {
                     unset($sj["id"]); //This can probably stay
-                } else {
+                } else if($sj["id"]){
                     $sj["id"] = intval($sj["id"]);
                 }
                 unset($sj["modelState"]);//this too
     
                 /** @var ModelBinding $so */
                 $so = new $strType($sj);
+                log_fichier($so);
                 if (strtolower($strType) == "document") {
                     /**@var Document $so */
                     if ($etat == ModelState::Deleted) {

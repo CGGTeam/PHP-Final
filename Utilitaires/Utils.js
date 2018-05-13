@@ -119,11 +119,12 @@ function configPost(objClass, tabProto, fctOnParam){
  * @param lien
  * @param toDoBefore
  */
-function postChanges(type,lien = "index.php?controller=BD&action=Confirmer", toDoBefore=null){
+function postChanges(type,lien = "?controller=BD&action=Confirmer", toDoBefore=null){
     if(toDoBefore){
         toDoBefore();
     }
-    let tabToPost = $_postObj.tabObjToPost.filter(function(n){ return n !== undefined });
+    let tabToPost = $_postObj.tabObjToPost.filter(function(n){ return typeof n !== 'undefined' });
+    $_postObj.tabObjToPost.forEach(x => delete x.toDelete);
     let strJSON = '';
     strJSON += (type+'\n');
     strJSON += JSON.stringify(tabToPost);
@@ -159,4 +160,13 @@ function reconstruirePost(tableau) {
            $_postObj.tabObjToPost[i] = nouvObj;
        }
     });
+}
+
+function deleteSelected(tab, indexName){
+    tab.forEach((obj, i) =>{
+        if(obj.toDelete){
+            obj.modelState = 1;
+            $_postObj.tabObjToPost[i] = obj;
+        }
+    })
 }

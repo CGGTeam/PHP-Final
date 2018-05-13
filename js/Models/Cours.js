@@ -8,9 +8,5 @@ class Cours{
          * @type {string}
          */
         this.titre = obj.titre;
-        /**
-         * @type {string}
-         */
-        this.nomProf = obj.nomProf;
     }
 }

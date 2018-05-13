@@ -51,6 +51,7 @@
                     }
                     $strConditions = substr($strConditions, 0, strlen($strConditions) - 5);
                     mysql::getBD()->supprimeEnregistrements(get_class($this), $strConditions);
+                    log_fichier(mysql::getBD()->requete);
                     break;
                 case ModelState::Modified :
 
