@@ -20,9 +20,10 @@
     }
         
         public function valider() {
-            $binValide = validerSession($this->session) && validerSigle($this->sigle) && is_int($this->utilisateur);
-            if (!$binValide)
-                $this->setModelState(ModelState::Invalid);
-            return $binValide;
+        //TODO validation @Antoine
+        //    $binValide = validerSession($this->session) && validerSigle($this->sigle) && is_numeric($this->utilisateur) && is_int($this->utilisateur+0);
+        //    if (!$binValide)
+        //        $this->setModelState(ModelState::Invalid);
+            return true;
         }
 }

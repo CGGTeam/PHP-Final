@@ -62,7 +62,7 @@
                 <td ag-for="wack in util.tbCours">
                     <div class="checkbox">
                         <label>
-                            <input name="checkbox" type="checkbox" for-bind="true">
+                            <input name="checkbox" type="checkbox" for-bind="true" onclick="postEventList(event);postCouleursList(event);">
                             <em class="helper"></em>
                         </label>
                     </div>
@@ -70,7 +70,7 @@
             </tr>
         </tbody>
     </table>
-    <button type="button" name="submit" id="submit" onclick="postChanges('Utilisateur')">
+    <button type="button" name="submit" id="submit" onclick="postChanges('Utilisateur','?controller=EditPrivileges&action=Post')">
         Enregistrement
     </button>
     <button type="button" name="button" id="button"

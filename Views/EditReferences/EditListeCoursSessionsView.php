@@ -99,7 +99,7 @@
                 </select>
             </td>
             <td>
-                <select attrib-bind-obj="coursAttrib" for-bind="true" for-bind-path="sigle">
+                <select attrib-bind-obj="coursAttrib" for-bind="true" for-bind-path="sigle" onclick="postEventList(event);postCouleursList(event);">
                     <?php
                     foreach ($model->tCours as $cours){
                         ?>
@@ -108,7 +108,7 @@
                 </select>
             </td>
             <td>
-                <select attrib-bind-obj="utilAttrib" for-bind="true" for-bind-path="utilisateur">
+                <select attrib-bind-obj="utilAttrib" for-bind="true" for-bind-path="utilisateur" onclick="postEventList(event);postCouleursList(event);">
                     <?php
                     foreach ($model->tAdmin as $util){
                         ?>
