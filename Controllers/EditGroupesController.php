@@ -8,6 +8,7 @@
     
     require_once("Controllers/ModuleAdminBase.php");
     require_once("Models/EditGroupes/Champ.php");
+    require_once("Models/EditGroupes/EnumRaisons.php");
     require_once("Utilitaires/ModelState.php");
     
     
@@ -40,73 +41,77 @@
             $binOK = true;
         
             if (isset($_FILES["fichierCSV"])) {
+                if (file_exists("permissions.csv")) {
+                    unlink("permissions.csv");
+                }
                 enregistrerDocument("fichierCSV", "./temp", "permissions.csv",
-                    PHP_INT_MAX, ["csv", "tsv"]);
-                $tcontenu = preg_split("/\r\n|\r|\n/", file_get_contents($_FILES["fichierCSV"]["tmp_name"]));
-                for ($i = 1; $i < sizeof($tcontenu); $i++) {
+                    PHP_INT_MAX, ["csv"]);
+                $fp = fopen("./temp/permissions.csv", "r");
+                for ($i = 0; !feof($fp); $i++) {
                     $tRetour[] = array();
                     $binVerdict = true;
-                    $tChamps = preg_split('/[\t;,\|\^]/g', $tcontenu[$i]);
+                    $tChamps = fgetcsv($fp, 0, ";");
                 
                     if ($tChamps[0]) { //NomUtilisateur
-                        if (validerNomUtilisateur($tChamps[0], true))
+                        if (validerNomUtilisateur($tChamps[0], true, $raison))
                             $tRetour[$i][] = new Champ($tChamps[0], true);
                         else {
                             $binVerdict = false;
-                            $tRetour[$i][] = new Champ($tChamps[0], false);
+                            $tRetour[$i][] = new Champ($tChamps[0], false, $raison);
                         }
                     } else {
                         $binVerdict = false;
-                        $tRetour[$i][] = new Champ("", false);
+                        $tRetour[$i][] = new Champ("", false, EnumRaisons::ABSENT);
                     }
                 
                     if ($tChamps[1]) { //MotDePasse
-                        if (validerMotPasse($tChamps[1]))
+                        if (validerMotPasse($tChamps[1], $raison))
                             $tRetour[$i][] = new Champ($tChamps[1], true);
                         else {
                             $binVerdict = false;
-                            $tRetour[$i][] = new Champ($tChamps[1], false);
+                            $tRetour[$i][] = new Champ($tChamps[1], false, $raison);
                         }
                     } else {
                         $binVerdict = false;
-                        $tRetour[$i][] = new Champ("", false);
+                        $tRetour[$i][] = new Champ("", false, EnumRaisons::ABSENT);
                     }
                 
                     if ($tChamps[2]) { //NomComplet
-                        if (validerNomComplet($tChamps[2]))
+                        if (validerNomComplet($tChamps[2], $raison))
                             $tRetour[$i][] = new Champ($tChamps[2], true);
                         else {
                             $binVerdict = false;
-                            $tRetour[$i][] = new Champ($tChamps[2], false);
+                            $tRetour[$i][] = new Champ($tChamps[2], false, $raison);
                         }
                     } else {
                         $binVerdict = false;
-                        $tRetour[$i][] = new Champ("", false);
+                        $tRetour[$i][] = new Champ("", false, EnumRaisons::ABSENT);
                     }
                 
                     if ($tChamps[3]) { //Courriel
-                        if (validerAdresseCourriel($tChamps[3]))
+                        if (validerAdresseCourriel($tChamps[3], $raison))
                             $tRetour[$i][] = new Champ($tChamps[3], true);
                         else {
                             $binVerdict = false;
-                            $tRetour[$i][] = new Champ($tChamps[3], false);
+                            $tRetour[$i][] = new Champ($tChamps[3], false, $raison);
                         }
                     } else {
                         $binVerdict = false;
-                        $tRetour[$i][] = new Champ("", false);
+                        $tRetour[$i][] = new Champ("", false, EnumRaisons::ABSENT);
                     }
-                
+        
+                    $tdecompte = array_count_values($tChamps);
                     for ($j = 4; $j < sizeof($tChamps); $j++) { //Sigles
-                        if ($tChamps[$j]) { //NomUtilisateur
-                            if (validerSigle($tChamps[$j]))
+                        if ($tChamps[$j]) {
+                            if (validerSigle($tChamps[$j], $raison))
                                 $tRetour[$i][] = new Champ($tChamps[$j], true);
                             else {
                                 $binVerdict = false;
-                                $tRetour[$i][] = new Champ($tChamps[$j], false);
+                                $tRetour[$i][] = new Champ($tChamps[$j], false, $raison);
                             }
+                            $tRetour[$i][$j]->raison = $tdecompte[$j] > 1 ? EnumRaisons::DOUBLON : $tRetour[$i][$j]->raison;
                         } else {
-                            $binVerdict = false;
-                            $tRetour[$i][] = new Champ("", false);
+                            $tRetour[$i][] = new Champ("", true);
                         }
                     }
                     $binOK = $binVerdict ? $binVerdict : false;
@@ -133,7 +138,7 @@
          * des sigles.
          * @return JSONView
          */
-        function validerSession() {
+        function ValiderSession() {
             $GLOBALS["titrePage"] = "Validation des Cours-Sessions";
     
             $strSession = get("ddlSession");
@@ -171,8 +176,8 @@
                 "binOK" => $binOK
             ]);
         }
-    
-        function confirmer() {
+        
+        function Confirmer() {
             session_start();
             $strSession = $_SESSION["sessionSelec"];
             unset($_SESSION["sessionSelec"]);

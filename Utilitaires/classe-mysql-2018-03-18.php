@@ -482,6 +482,40 @@
            return $this->OK;
        }
     
+       function ajouteFKCasc($strNomTablePrimaire, $strColonnePrimaire, $strNomTableRef, $strColonneRef, $binAccumuler = false) {
+           if (!$binAccumuler) {
+               $this->requete = "";
+           }
+           $this->requete .= "ALTER TABLE $strNomTablePrimaire " .
+               "ADD CONSTRAINT FK_$strNomTablePrimaire" . "_" . "$strNomTableRef " .
+               "FOREIGN KEY($strColonnePrimaire) " .
+               "REFERENCES $strNomTableRef($strColonneRef) ON DELETE CASCADE";
+           if ($binAccumuler) {
+               $this->requete .= ";";
+           } else {
+               $this->OK = $this->cBD->query($this->requete);
+           }
+        
+           return $this->OK;
+       }
+    
+       function ajouteFKNull($strNomTablePrimaire, $strColonnePrimaire, $strNomTableRef, $strColonneRef, $binAccumuler = false) {
+           if (!$binAccumuler) {
+               $this->requete = "";
+           }
+           $this->requete .= "ALTER TABLE $strNomTablePrimaire " .
+               "ADD CONSTRAINT FK_$strNomTablePrimaire" . "_" . "$strNomTableRef " .
+               "FOREIGN KEY($strColonnePrimaire) " .
+               "REFERENCES $strNomTableRef($strColonneRef) ON DELETE SET NULL";
+           if ($binAccumuler) {
+               $this->requete .= ";";
+           } else {
+               $this->OK = $this->cBD->query($this->requete);
+           }
+        
+           return $this->OK;
+       }
+    
        function insereEnregistrementsTableau($strNomTable, $tenregistrements, $binAccumuler = false) {
            if (!$binAccumuler) {
                $this->requete = "";

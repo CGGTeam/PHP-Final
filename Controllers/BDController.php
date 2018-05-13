@@ -116,21 +116,21 @@
                 "I,id;V6,session;V7,sigle;D,dateCours;J,noSequence;D,dateAccesDebut;" .
                 "D,dateAccesFin;V100,titre;V255,description;J,nbPages;V15,categorie;J,noVersion;" .
                 "D,dateVersion;V255,hyperLien;J,ajoutePar;B,supprimer", "id", true);
-            $objBD->ajouteFK("document", "session",
+            $objBD->ajouteFKCasc("document", "session",
                 "session", "description", true);
-            $objBD->ajouteFK("document", "sigle",
+            $objBD->ajouteFKCasc("document", "sigle",
                 "cours", "sigle", true);
-            $objBD->ajouteFK("document", "categorie",
+            $objBD->ajouteFKNull("document", "categorie",
                 "categorie", "description", true);
-            $objBD->ajouteFK("document", "ajoutePar",
+            $objBD->ajouteFKNull("document", "ajoutePar",
                 "utilisateur", "id", true);
             $objBD->creeTableGenerique("courssession", "V6,session;V7,sigle;J,utilisateur",
                 "session, sigle, utilisateur", true);
-            $objBD->ajouteFK("courssession", "sigle",
+            $objBD->ajouteFKCasc("courssession", "sigle",
                 "cours", "sigle", true);
-            $objBD->ajouteFK("courssession", "session",
+            $objBD->ajouteFKCasc("courssession", "session",
                 "session", "description", true);
-            $objBD->ajouteFK("courssession", "utilisateur",
+            $objBD->ajouteFKCasc("courssession", "utilisateur",
                 "utilisateur", "id", true);
     
             $objBD->requete = substr($objBD->requete, 0, strlen($objBD->requete) - 1);

@@ -5,62 +5,76 @@
      * Date: 2018-05-09
      * Time: 6:57 PM
      */
-    
+    require_once "Models/EditGroupes/EnumRaisons.php";
     /**
      * @param string $nomUtil nom d'utilisateur forme: pr.nom (en minuscules) 3 à 25 caractères
      * @return bool
      */
-    function validerNomUtilisateur($nomUtil, $binCheckBD = false) {
+    function validerNomUtilisateur($nomUtil, $binCheckBD = false, &$raison) {
         if ($nomUtil) {
             $rexp = "/^[a-z]{1,2}.[a-z]{1,13}$/";
             if (strlen($nomUtil) >= 3 && strlen($nomUtil) <= 25 && preg_match($rexp, $nomUtil) && strtolower($nomUtil) == $nomUtil) {
                 if ($binCheckBD) {
                     $objBd = Mysql::getBD();
                     $objBd->selectionneRow("Utilisateurs", "*", "nomUtilisateur='$nomUtil");
+                    $raison = $objBd->OK && $objBd->OK->num_rows == 0 ? EnumRaisons::VALIDE : EnumRaisons::BD_COLLISION;
                     return $objBd->OK && $objBd->OK->num_rows == 0;
                 } else {
                     return true;
                 }
-            } else
+            } else {
+                $raison = EnumRaisons::INVALIDE;
                 return false;
-        } else
+            }
+        } else {
+            $raison = EnumRaisons::ABSENT;
             return false;
+        }
     }
     
     /**
      * @param string $motPasse mot de passe forme: 3 à 15 caractères; Lettres ou Chiffres; Minuscules != Majuscules
      * @return bool
      */
-    function validerMotPasse($motPasse) {
+    function validerMotPasse($motPasse, &$raison) {
         if ($motPasse) {
             $rexp = "/^[a-z0-9]{3,15}$/i";
+            $raison = preg_match($rexp, $motPasse) != false ? EnumRaisons::VALIDE : EnumRaisons::INVALIDE;
             return preg_match($rexp, $motPasse) != false;
-        } else
+        } else {
+            $raison = EnumRaisons::ABSENT;
             return false;
+        }
     }
     
     /**
      * @param string $nomComplet Nom, Prénom; 5 à 30 caractères
      * @return bool
      */
-    function validerNomComplet($nomComplet) {
+    function validerNomComplet($nomComplet, &$raison) {
         if ($nomComplet) {
             $rexp = "/^[a-z\- ]+, [a-z\- ]+$/i";
+            $raison = preg_match($rexp, $nomComplet) != false ? EnumRaisons::VALIDE : EnumRaisons::INVALIDE;
             return preg_match($rexp, $nomComplet) != false;
-        } else
+        } else {
+            $raison = EnumRaisons::ABSENT;
             return false;
+        }
     }
     
     /**
      * @param string $courriel thing[atsing]thing.thing
      * @return bool
      */
-    function validerAdresseCourriel($courriel) {
+    function validerAdresseCourriel($courriel, &$raison) {
         if ($courriel) {
             $rexp = "/^[a-z0-9.\-_]+\@\w+\.\w+$/i";
+            $raison = preg_match($rexp, $nomComplet) != false ? EnumRaisons::VALIDE : EnumRaisons::INVALIDE;
             return (preg_match($rexp, $courriel) && strlen($courriel) >= 10 && strlen($courriel) <= 50);
-        } else
+        } else {
+            $raison = EnumRaisons::ABSENT;
             return false;
+        }
     }
     
     /**
@@ -118,19 +132,26 @@
      * @param string $sigle
      * @return bool
      */
-    function validerSigle($sigle) {
+    function validerSigle($sigle, &$raison) {
         if ($sigle) {
             $rexpSigle = "/^\d{1,3}-[A-Z0-9]$/";
             $rexpAdmin = "/^ADM-[AHE]\d{2}$/";
-            if (preg_match($rexpSigle, $sigle))
+            if (preg_match($rexpSigle, $sigle)) {
+                $raison = EnumRaisons::VALIDE;
                 return true;
+            }
             else if (preg_match($rexpAdmin, $sigle)) {
                 $annee = intval(substr($sigle, 5));
+                $raison = $annee >= 18 && $annee <= 21 ? EnumRaisons::VALIDE : EnumRaisons::INVALIDE;
                 return $annee >= 18 && $annee <= 21;
-            } else
+            } else {
+                EnumRaisons::INVALIDE;
                 return false;
-        } else
+            }
+        } else {
+            $raison = EnumRaisons::ABSENT;
             return false;
+        }
     }
     
     /**
