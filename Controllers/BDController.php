@@ -98,7 +98,7 @@
             //Reconstruction des structures de tables
             //categorie
             $objBD->creeTableGenerique("categorie",
-                "I,id,V15,description", "id", true);
+                "I,id;V15,description", "id", true);
             //utilisateur
             $objBD->creeTableGenerique("utilisateur",
                 "I,id;V25,nomUtilisateur;V15,motDePasse;B,statutAdmin;V30,nomComplet;V50,courriel",
