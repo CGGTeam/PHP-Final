@@ -59,6 +59,7 @@
             }
     
             $objBD = mysql::getBD();
+            $strConditions = $strType == "document" ? "supprimer=0" : "";
             $objBD->selectionneRow($strType);
             if ($objBD->OK)
                 $tDonneesPHP = ModelBinding::bindToClass($objBD->OK, $strType);
