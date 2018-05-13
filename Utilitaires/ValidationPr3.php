@@ -10,7 +10,7 @@
      * @param string $nomUtil nom d'utilisateur forme: pr.nom (en minuscules) 3 à 25 caractères
      * @return bool
      */
-    function validerNomUtilisateur($nomUtil, $binCheckBD = false, &$raison) {
+    function validerNomUtilisateur($nomUtil, $binCheckBD = false, &$raison=null) {
         if ($nomUtil) {
             $rexp = "/^[a-z]{1,2}.[a-z]{1,13}$/";
             if (strlen($nomUtil) >= 3 && strlen($nomUtil) <= 25 && preg_match($rexp, $nomUtil) && strtolower($nomUtil) == $nomUtil) {

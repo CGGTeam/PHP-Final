@@ -13,8 +13,8 @@ class CoursSessionIJModel extends ModelBinding
     public $session;
     /** @var string $sigle Sigle du cours (999-ZZZ; ADM-A99) */
     public $sigle;
-    /** @var int $id */
-    public $id;
+    /** @var int $utilisateur */
+    public $utilisateur;
     /** @var string $nomUtilisateur Identifiant pour connexion */
     public $nomUtilisateur;
     /** @var string $motDePasse Mot de passe pour connexion */

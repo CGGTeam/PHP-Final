@@ -56,27 +56,52 @@ function getAllParents(a) {
     return els;
 }
 
-function configCouleurs() {
-    $_anguleuxInterne.customEventListeners.push( function (e) {
-        console.log(e.type);
-        if((e.type === "keydown" || e.type === "change") && !e.target.$_init) {
-            let parents = getAllParents(e.target);
-            let nodeTr = parents.find(obj => obj.tagName === "TR");
-            if (nodeTr && nodeTr.$_objRef[nodeTr.$_objIndex]) {
-                if (nodeTr.$_objRef[nodeTr.$_objIndex].modelState === 2) {
-                    nodeTr.style.backgroundColor = '#ffff33';
-                }else if(nodeTr.$_objRef[nodeTr.$_objIndex].modelState === 1){
-                    nodeTr.style.backgroundColor = 'red';
+function postEventList(e) {
+    let parents = getAllParents(e.target);
+    let nodeTr = parents.find(obj => obj.tagName === "TR");
+    console.log(nodeTr);
+    if (nodeTr && nodeTr.$_objRef[nodeTr.$_objIndex]) {
+        let objCourant = nodeTr.$_objRef[nodeTr.$_objIndex];
+        if (objCourant instanceof $_postObj.classToPost) {
+            let objPost = {};
+            console.log(objCourant.modelState);
+            objCourant.modelState = (objCourant.modelState === 0 || objCourant.modelState === 1) ? objCourant.modelState : 2;
+            $_postObj.protoToPost.forEach(param => {
+                if($_postObj.fctOnParam && $_postObj.fctOnParam[param]){
+                    $_postObj.fctOnParam[param](objPost, objCourant);
+                }else {
+                    objPost[param] = objCourant[param];
                 }
-            }
+            });
+            console.log(objPost);
+            $_postObj.tabObjToPost[nodeTr.$_objIndex] = objPost;
         }
-        if(e.target.name === "main_id"){
-            //let btn = document.getElementsByName(e.target.id.replace("tr","annuler"));
-            e.target.id = "tr_" + e.target.value;
-            //btn.name = "annuler_" + e.target.value;
-            //btn.onclick = "annuler('" + e.target.value + "')";
+    }
+}
+
+function postCouleursList(e) {
+    console.log(e.type);
+    //if((e.type === "keydown" || e.type === "change") && !e.target.$_init) {
+    let parents = getAllParents(e.target);
+    let nodeTr = parents.find(obj => obj.tagName === "TR");
+    if (nodeTr && nodeTr.$_objRef[nodeTr.$_objIndex]) {
+        if (nodeTr.$_objRef[nodeTr.$_objIndex].modelState === 2) {
+            nodeTr.style.backgroundColor = '#ffff33';
+        }else if(nodeTr.$_objRef[nodeTr.$_objIndex].modelState === 1){
+            nodeTr.style.backgroundColor = 'red';
         }
-    });
+    }
+    //}
+    if(e.target.name === "main_id"){
+        //let btn = document.getElementsByName(e.target.id.replace("tr","annuler"));
+        e.target.id = "tr_" + e.target.value;
+        //btn.name = "annuler_" + e.target.value;
+        //btn.onclick = "annuler('" + e.target.value + "')";
+    }
+}
+
+function configCouleurs() {
+    $_anguleuxInterne.customEventListeners.push(postCouleursList);
 }
 
 
@@ -94,26 +119,8 @@ function configPost(objClass, tabProto, fctOnParam){
         $_postObj.protoToPost = Object.keys(new objClass());
     $_postObj.protoToPost.push("modelState");
     $_postObj.tabObjToPost = [];
-    $_anguleuxInterne.customEventListeners.push( function (e) {
-        let parents = getAllParents(e.target);
-        let nodeTr = parents.find(obj => obj.tagName === "TR");
-        if (nodeTr && nodeTr.$_objRef[nodeTr.$_objIndex]) {
-            let objCourant = nodeTr.$_objRef[nodeTr.$_objIndex];
-            if (objCourant instanceof $_postObj.classToPost) {
-                let objPost = {};
-                console.log(objCourant.modelState);
-                objCourant.modelState = (objCourant.modelState === 0 || objCourant.modelState === 1) ? objCourant.modelState : 2;
-                $_postObj.protoToPost.forEach(param => {
-                    if(fctOnParam && fctOnParam[param]){
-                        fctOnParam[param](objPost, objCourant);
-                    }else {
-                        objPost[param] = objCourant[param];
-                    }
-                });
-                $_postObj.tabObjToPost[nodeTr.$_objIndex] = objPost;
-            }
-        }
-    });
+    $_anguleuxInterne.customEventListeners.push(postEventList);
+    $_postObj.fctOnParam = fctOnParam;
 }
 
 /**
@@ -122,7 +129,7 @@ function configPost(objClass, tabProto, fctOnParam){
  * @param lien
  * @param toDoBefore
  */
-function postChanges(type,lien = "?controller=BD&action=Confirmer", toDoBefore=null){
+function postChanges(type,lien = "?controller=BD&action=Confirmer", toDoBefore=null, reload=false){
     if(toDoBefore){
         toDoBefore();
     }
@@ -135,7 +142,14 @@ function postChanges(type,lien = "?controller=BD&action=Confirmer", toDoBefore=n
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if(xhttp.readyState === XMLHttpRequest.DONE){
-            tabDonnees = [];
+            if(!reload) {
+                $scope.model = JSON.parse(xhttp.responseText);
+                eval('$scope.model.unshift(new ' + type + '())');
+                $_anguleuxInterne.updateAgFor(document.getElementById("tr_parent"));
+                configPost(Cours, $_postObj.protoToPost);
+            }else {
+                location.reload();
+            }
         }
     };
     xhttp.open("POST", lien + "&strType=" + type, true);
@@ -171,6 +185,22 @@ function deleteSelected(tab){
             obj.modelState = 1;
             $_postObj.tabObjToPost[i] = obj;
             $_anguleuxInterne.agForElements[0].$_createdElementsTable[i].style.backgroundColor = 'red';
+        }
+    });
+}
+
+function reconstruireStyle(tab) {
+    tab.forEach((obj, i) => {
+        switch (obj.modelState){
+            case 0:
+                $_anguleuxInterne.agForElements[0].$_createdElementsTable[i].style.backgroundColor = 'green';
+                break;
+            case 1:
+                $_anguleuxInterne.agForElements[0].$_createdElementsTable[i].style.backgroundColor = 'red';
+                break;
+            case 2:
+                $_anguleuxInterne.agForElements[0].$_createdElementsTable[i].style.backgroundColor = '#ffff33';
+                break;
         }
     });
 }

@@ -1,7 +1,8 @@
 <script>
 
-    $scope.model.tDonnees.forEach((x,i) => $scope.model[i] = new CoursSession(x));
-    $scope.model.tDonnees.forEach(x => x.cleUnique = x.session + "_" + x.sigle + "_" + x.id);
+    $scope.model.tDonnees.forEach((x,i) => $scope.model.tDonnees[i] = new CoursSession(x));
+    console.log($scope.model.tDonnees);
+    $scope.model.tDonnees.forEach(x => x.cleUnique = x.session + "_" + x.sigle + "_" + x.utilisateur);
     $scope.backup = JSON.parse(JSON.stringify($scope.model));
     $scope.model.tDonnees.unshift(new CoursSession());
     $scope.trAttrib = {
@@ -11,9 +12,15 @@
         onclick: "annuler('{{cs.cleUnique}}')"
     };
     $scope.utilAttrib = {
-        value: "{{cs.id}}"
+        value: "{{cs.utilisateur}}"
     };
-    configPost(CoursSession);
+    $scope.sessionAttrib = {
+        value: "{{cs.session}}"
+    };
+    $scope.coursAttrib = {
+        value: "{{cs.sigle}}"
+    };
+    configPost(CoursSession, ["session", "sigle", "utilisateur"]);
     configCouleurs();
 
     function annuler(id) {
@@ -44,12 +51,12 @@
 
     function nouvObj() {
         $scope.model.tDonnees.unshift(new CoursSession());
-        //TODO reconstruire tableau + configPost
         $scope.model.tDonnees[1].modelState = 0;
         $_anguleuxInterne.updateAgFor(document.getElementById("tr_parent"));
-        configPost(CoursSession);
+        configPost(CoursSession,  ["session", "sigle", "utilisateur"]);
         document.getElementById("tr_" + $scope.model.tDonnees[1].cleUnique).style.backgroundColor = 'green';
         reconstruirePost($scope.model.tDonnees);
+        reconstruireStyle($scope.model.tDonnees);
     }
 
 </script>
@@ -82,10 +89,26 @@
                     </label>
                 </div>
             </td>
-            <td><input type="text" for-bind="true" for-bind-path="session"></td>
-            <td><input type="text" for-bind="true" for-bind-path="sigle"></td>
             <td>
-                <select attrib-bind-obj="utilAttrib" for-bind="true" for-bind-path="id">
+                <select attrib-bind-obj="sessionAttrib" for-bind="true" for-bind-path="session" onclick="postEventList(event);postCouleursList(event);">
+                    <?php
+                    foreach ($model->tSessions as $session){
+                        ?>
+                        <option value="<?=$session->description?>"><?=$session->description?></option>
+                    <?php } ?>
+                </select>
+            </td>
+            <td>
+                <select attrib-bind-obj="coursAttrib" for-bind="true" for-bind-path="sigle">
+                    <?php
+                    foreach ($model->tCours as $cours){
+                        ?>
+                        <option value="<?=$cours->sigle?>"><?=$cours->sigle?></option>
+                    <?php } ?>
+                </select>
+            </td>
+            <td>
+                <select attrib-bind-obj="utilAttrib" for-bind="true" for-bind-path="utilisateur">
                     <?php
                     foreach ($model->tAdmin as $util){
                         ?>
@@ -99,7 +122,7 @@
         </tr>
         </tbody>
     </table>
-    <button type="button" name="submit" id="submit" class="boutonsConfirm" onclick="postDocuments()">
+    <button type="button" name="submit" id="submit" class="boutonsConfirm" onclick="postChanges('CoursSession', '?controller=BD&action=Confirmer', null, true)">
         Enregistrement
     </button>
     <button type="button" name="submit" id="submit" class="boutonsConfirm" onclick="nouvObj()">

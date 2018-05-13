@@ -11,7 +11,7 @@ class CoursSession{
         /**
          * @type {number}
          */
-        this.id = "";
+        this.utilisateur = "";
 
         this.nomComplet = "";
 
@@ -20,5 +20,6 @@ class CoursSession{
         this.statutAdmin = false;
 
         obj && Object.assign(this, obj);
+        this.statutAdmin = !!this.statutAdmin;
     }
 }

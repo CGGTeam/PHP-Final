@@ -38,7 +38,7 @@
                 $etat = $sj["modelState"];
                 if ($etat == ModelState::Added) {
                     unset($sj["id"]); //This can probably stay
-                } else if($sj["id"]){
+                } else if(isset($sj["id"])){
                     $sj["id"] = intval($sj["id"]);
                 }
                 unset($sj["modelState"]);//this too
@@ -66,6 +66,7 @@
                 return new View(500);
             }
 
+            log_fichier($tDonneesPHP);
             return new JSONView(json_encode($tDonneesPHP));
         }
     
@@ -114,16 +115,18 @@
             //document
             $objBD->creeTableGenerique("document",
                 "I,id;V6,session;V7,sigle;D,dateCours;J,noSequence;D,dateAccesDebut;" .
-                "D,dateAccesFin;V100,titre;V255,description;J,nbPages;V15,categorie;J,noVersion;" .
+                "D,dateAccesFin;V100,titre;V255,description;J,nbPages;J,categorie;J,noVersion;" .
                 "D,dateVersion;V255,hyperLien;J,ajoutePar;B,supprimer", "id", true);
             $objBD->ajouteFKCasc("document", "session",
                 "session", "description", true);
             $objBD->ajouteFKCasc("document", "sigle",
                 "cours", "sigle", true);
             $objBD->ajouteFKNull("document", "categorie",
-                "categorie", "description", true);
+                "categorie", "id", true);
             $objBD->ajouteFKNull("document", "ajoutePar",
                 "utilisateur", "id", true);
+
+
             $objBD->creeTableGenerique("courssession", "V6,session;V7,sigle;J,utilisateur",
                 "session, sigle, utilisateur", true);
             $objBD->ajouteFKCasc("courssession", "sigle",
@@ -132,8 +135,10 @@
                 "session", "description", true);
             $objBD->ajouteFKCasc("courssession", "utilisateur",
                 "utilisateur", "id", true);
+
     
             $objBD->requete = substr($objBD->requete, 0, strlen($objBD->requete) - 1);
+            log_fichier($objBD->requete);
             $objBD->cBD->multi_query($objBD->requete);
     
             while ($objBD->cBD->more_results())

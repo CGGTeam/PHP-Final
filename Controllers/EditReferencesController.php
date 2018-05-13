@@ -68,17 +68,27 @@
         function EditListeCoursSessions(){
             $tDonnees = [];
             $tAdmin = [];
-            $objRetour = mysql::getBD()->selectionneRowIJ("CoursSession", "id, nomComplet, nomUtilisateur, session, sigle, statutAdmin",
+            $tSessions = [];
+            $tCours = [];
+            $objRetour = mysql::getBD()->selectionneRowIJ("CoursSession", "utilisateur, nomComplet, nomUtilisateur, session, sigle, statutAdmin",
                 "Utilisateur", "courssession.utilisateur = utilisateur.id", "statutAdmin = 1" );
             if($objRetour)
                 $tDonnees = ModelBinding::bindToClass($objRetour, "CoursSessionIJModel");
             $objRetour = mysql::getBD()->selectionneRow("Utilisateur", "*", "statutAdmin = 1");
             if($objRetour)
                 $tAdmin = ModelBinding::bindToClass($objRetour, "Utilisateur");
+            $objRetour = mysql::getBD()->selectionneRow("Session");
+            if($objRetour)
+                $tSessions = ModelBinding::bindToClass($objRetour, "Session");
+            $objRetour = mysql::getBD()->selectionneRow("Cours");
+            if($objRetour)
+                $tCours = ModelBinding::bindToClass($objRetour, "Cours");
 
             return new View((object) [
                 'tAdmin' => $tAdmin,
-                'tDonnees' => $tDonnees
+                'tDonnees' => $tDonnees,
+                'tCours' => $tCours,
+                'tSessions' => $tSessions
             ]);
         }
     }

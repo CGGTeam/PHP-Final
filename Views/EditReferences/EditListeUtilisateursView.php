@@ -46,6 +46,7 @@
         configPost(Utilisateur);
         document.getElementById("tr_" + $scope.model[1].description).style.backgroundColor = 'green';
         reconstruirePost($scope.model);
+        reconstruireStyle($scope.model);
     }
 
 </script>

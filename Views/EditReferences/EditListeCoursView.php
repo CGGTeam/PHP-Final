@@ -48,6 +48,7 @@
         configPost(Cours);
         document.getElementById("tr_" + $scope.model[1].sigle).style.backgroundColor = 'green';
         reconstruirePost($scope.model);
+        reconstruireStyle($scope.model);
     }
 
 </script>

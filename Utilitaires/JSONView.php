@@ -17,7 +17,7 @@
         
         public function afficher() {
             log_fichier($this->model);
-            //ob_end_clean();
+            ob_end_clean();
             log_fichier('cleaned');
             header('Content-Type: application/json');
             log_fichier('set header');
