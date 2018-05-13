@@ -52,11 +52,11 @@
      * @return bool
      */
     function validerNomComplet($nomComplet, &$raison = null) {
-        //TODO: valider longueur
         if ($nomComplet) {
             $rexp = "/^[\\pL\- ]+, [\\pL\- ]+$/ui";
             $raison = preg_match($rexp, $nomComplet) != false ? EnumRaisons::VALIDE : EnumRaisons::INVALIDE;
-            return preg_match($rexp, $nomComplet) != false;
+            $raison = strlen($nomComplet) >= 5 && strlen($nomComplet) <= 30 ? $raison : EnumRaisons::INVALIDE;
+            return $raison == EnumRaisons::VALIDE;
         } else {
             $raison = EnumRaisons::ABSENT;
             return false;
@@ -84,7 +84,7 @@
      */
     function validerCategorie($categorie) {
         if ($categorie) {
-            return $categorie >= 3 && $categorie <= 15;
+            return strlen($categorie) >= 3 && strlen($categorie) <= 15;
         } else
             return false;
     }
@@ -108,13 +108,17 @@
     /**
      * Valider la date de début ou de fin de session
      * @param string $date aaaa-mm-jj (entre 2018 et 2021)
+     * @param string $dateMin aaaa-mm-jj date minimale requise (inclus)
+     * @param string $dateMax aaaa-mm-jj date maximum requise (inclus)
      * @return bool
      */
-    function validerDateSession($date) {
+    function validerDateSession($date, $dateMin = "2018-01-01", $dateMax = "2021-12-31") {
         if ($date) {
             if (preg_match("/^\\d{4}-\\d{2}-\\d{2}$/", $date) && dateValide($date)) {
-                $annee = annee($date);
-                return $annee >= 2018 && $annee <= 2021;
+                $intTSMin = strtotime($dateMin);
+                $intTSMax = strtotime($dateMax);
+                $intTSDate = strtotime($date);
+                return $intTSDate >= $intTSMin && $intTSDate <= $intTSMax;
             } else {
                 return false;
             }
@@ -166,11 +170,8 @@
     function validerString($string, $intMin, $intMax) {
         if (is_string($string)) {
             $long = strlen($string);
-            if ($long <= $intMin && $long >= $intMax)
-                var_dump("LENGTH IS WRONG");
             return $long >= $intMin && $long <= $intMax;
         } else {
-            var_dump("IS NOT A STRING");
             return false;
         }
     }
