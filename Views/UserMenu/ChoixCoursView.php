@@ -5,8 +5,11 @@
         <label for="coursChoisi">
             Cours à visionner:
         </label>
-        <select name="coursChoisi" id="coursChoisi">
-            <option ag-for="x in model" selected>
+        <select name="coursChoisi" id="coursChoisi" required>
+            <option value="" disabled selected>
+                Sélectionner une session
+            </option>
+            <option ag-for="x in model">
                 {{x.session}}_{{x.sigle}}
             </option>
         </select>
