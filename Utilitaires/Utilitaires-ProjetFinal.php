@@ -5,11 +5,6 @@
      * Date: 2018-05-11
      * Time: 11:05 AM
      */
-    
-    //        $intDepth1 = sizeof(preg_split("/(C:\\\\)|\\\\/", getcwd()));
-//        $intDepth2 = sizeof(preg_split("/(C:\\\\)|\\\\/", $tempfolder));
-//        $strNomFichierTempCopy = str_repeat("../", $intDepth1 - $intDepth2) . basename($strNomFichierTemp);
-    //TODO: refaire: ;
     /**
      * Gère le téléversement d'un fichier donné
      * @param string $strNomPost Nom du fichier dans le tableau $_FILES[]
@@ -22,7 +17,6 @@
     function enregistrerDocument($strNomPost, $strNomDossier, $strNouveauNom = null, $grandeurMax = PHP_INT_MAX, $tTypesFichiers = []) {
         $strNomFichier = $_FILES[$strNomPost]["name"];
         $strTypeFichier = substr($strNomFichier, strrpos($strNomFichier, ".") + 1); //extension plutôt que MIME
-        $tempfolder = "C:\\wamp64\\tmp";
         $strNomFichierTemp = $_FILES[$strNomPost]["tmp_name"];
         $binTypeValide = sizeof($tTypesFichiers) == 0 || in_array($strTypeFichier, $tTypesFichiers);
         $intTaille = intval($_FILES[$strNomPost]["size"]);
@@ -51,12 +45,13 @@
             fgetcsv($fp, 0, ";");
         }
     
-    
         while (!feof($fp)) {
             $tChamps = fgetcsv($fp, 0, ";");
             if ($classe == "document") {
                 $lastIndex = sizeof($tChamps) - 1;
                 $objBD->selectionneRow("utilisateur", "id", "nomComplet='$tChamps[$lastIndex]'");
+                var_dump($objBD->OK);
+                var_dump($objBD->cBD->error_list);
                 $tChamps[$lastIndex] = $objBD->OK->fetch_row()[0];
                 $tChamps[] = 0;
             }

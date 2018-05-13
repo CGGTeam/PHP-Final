@@ -105,6 +105,7 @@
             $objBD->creeTableGenerique("utilisateur",
                 "I,id;V25,nomUtilisateur;V15,motDePasse;B,statutAdmin;V30,nomComplet;V50,courriel",
                 "id", true);
+            $objBD->addConst("utilisateur", "UNIQUE(nomUtilisateur)", true);
             //session
             $objBD->creeTableGenerique("session",
                 "V6,description;D,dateDebut;D,dateFin", "description", true);
@@ -140,8 +141,10 @@
             log_fichier($objBD->requete);
             $objBD->cBD->multi_query($objBD->requete);
     
-            while ($objBD->cBD->more_results())
+            while ($objBD->cBD->more_results()) {
                 $objBD->cBD->next_result();
+            }
+    
             $objBD->insereEnregistrement("utilisateur", "1", "admin", "admin", "1", "admin, admin", "admin@admin.com");
             $objBD->requete = "";
             //TODO: add const for document directory

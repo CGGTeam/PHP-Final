@@ -516,6 +516,19 @@
            return $this->OK;
        }
     
+       function addConst($strNomTable, $strContrainte, $binAccumuler = false) {
+           if (!$binAccumuler) {
+               $this->requete = "";
+           }
+           $this->requete .= "ALTER TABLE $strNomTable" .
+               " ADD $strContrainte";
+           if ($binAccumuler) {
+               $this->requete .= ";";
+           } else {
+               $this->OK = $this->cBD->query($this->requete);
+           }
+       }
+    
        function insereEnregistrementsTableau($strNomTable, $tenregistrements, $binAccumuler = false) {
            if (!$binAccumuler) {
                $this->requete = "";
