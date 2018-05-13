@@ -36,7 +36,7 @@
      * @param string $motPasse mot de passe forme: 3 à 15 caractères; Lettres ou Chiffres; Minuscules != Majuscules
      * @return bool
      */
-    function validerMotPasse($motPasse, &$raison) {
+    function validerMotPasse($motPasse, &$raison = null) {
         if ($motPasse) {
             $rexp = "/^[a-z0-9]{3,15}$/i";
             $raison = preg_match($rexp, $motPasse) != false ? EnumRaisons::VALIDE : EnumRaisons::INVALIDE;
@@ -51,7 +51,7 @@
      * @param string $nomComplet Nom, Prénom; 5 à 30 caractères
      * @return bool
      */
-    function validerNomComplet($nomComplet, &$raison) {
+    function validerNomComplet($nomComplet, &$raison = null) {
         if ($nomComplet) {
             $rexp = "/^[a-z\- ]+, [a-z\- ]+$/i";
             $raison = preg_match($rexp, $nomComplet) != false ? EnumRaisons::VALIDE : EnumRaisons::INVALIDE;
@@ -66,7 +66,7 @@
      * @param string $courriel thing[atsing]thing.thing
      * @return bool
      */
-    function validerAdresseCourriel($courriel, &$raison) {
+    function validerAdresseCourriel($courriel, &$raison = null) {
         if ($courriel) {
             $rexp = "/^[a-z0-9.\-_]+\@\w+\.\w+$/i";
             $raison = preg_match($rexp, $nomComplet) != false ? EnumRaisons::VALIDE : EnumRaisons::INVALIDE;
@@ -132,7 +132,7 @@
      * @param string $sigle
      * @return bool
      */
-    function validerSigle($sigle, &$raison) {
+    function validerSigle($sigle, &$raison = null) {
         if ($sigle) {
             $rexpSigle = "/^\d{1,3}-[A-Z0-9]$/";
             $rexpAdmin = "/^ADM-[AHE]\d{2}$/";
