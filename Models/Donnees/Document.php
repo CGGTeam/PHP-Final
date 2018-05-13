@@ -50,6 +50,7 @@
         public function valider() {
             //TODO: valider si entre début et fin de session
             try {
+                $this->supprimer = is_null($this->supprimer) ? false : boolval($this->supprimer);
                 $binValide = validerSession($this->session) && validerSigle($this->sigle)
                     && validerDateSession($this->dateCours)
                     && validerInt(intval($this->noSequence), 1, 20)

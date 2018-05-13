@@ -52,6 +52,9 @@
                     ?>
                     <span class="hDroite">Bienvenue <?= $utilisateur->nomUtilisateur ?></span>
                     <?php
+                } else if (!isset($utilisateur->etatAdmin) && isset($_SESSION["creerAdmin"])) {
+                    ?>
+                    <?php
                 } else if ($utilisateur->etatAdmin) {
                     ?>
                     <!--menu admin-->

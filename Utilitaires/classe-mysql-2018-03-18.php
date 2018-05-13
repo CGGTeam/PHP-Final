@@ -516,6 +516,19 @@
            return $this->OK;
        }
     
+       function addConst($strNomTable, $strContrainte, $binAccumuler = false) {
+           if (!$binAccumuler) {
+               $this->requete = "";
+           }
+           $this->requete .= "ALTER TABLE $strNomTable" .
+               " ADD $strContrainte";
+           if ($binAccumuler) {
+               $this->requete .= ";";
+           } else {
+               $this->OK = $this->cBD->query($this->requete);
+           }
+       }
+    
        function insereEnregistrementsTableau($strNomTable, $tenregistrements, $binAccumuler = false) {
            if (!$binAccumuler) {
                $this->requete = "";
@@ -524,7 +537,7 @@
            $this->requete .= "INSERT INTO $strNomTable VALUES ";
            for ($i = 0; $i < sizeof($tenregistrements); $i++) {
                $this->requete .= "(";
-               if (in_array($strNomTable, ["document", "categorie", "utilisateur"]))
+               if (in_array($strNomTable, ["document", "utilisateur"]))
                    $this->requete .= "DEFAULT, ";
                for ($j = 0; $j < sizeof($tenregistrements[$i]); $j++) {
                    $tempo = $tenregistrements[$i][$j];

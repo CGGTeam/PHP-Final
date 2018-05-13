@@ -31,11 +31,16 @@
         }
         
         public function valider() {
-            $binValide = validerNomUtilisateur($this->nomUtilisateur, $this->getModelState() === ModelState::Deleted)
-                && validerMotPasse($this->motDePasse)
-                && is_bool($this->statutAdmin) && validerNomComplet($this->nomComplet);
-            if (!$binValide)
+            try {
+                $this->statutAdmin = boolval($this->statutAdmin);
+                $binValide = validerNomUtilisateur($this->nomUtilisateur, $this->getModelState() === ModelState::Deleted)
+                    && validerMotPasse($this->motDePasse)
+                    && is_bool($this->statutAdmin) && validerNomComplet($this->nomComplet);
+                if (!$binValide)
+                    $this->setModelState(ModelState::Invalid);
+                return $binValide;
+            } catch (Exception $e) {
                 $this->setModelState(ModelState::Invalid);
-            return $binValide;
+            }
         }
     }

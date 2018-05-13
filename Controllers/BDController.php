@@ -100,11 +100,12 @@
             //Reconstruction des structures de tables
             //categorie
             $objBD->creeTableGenerique("categorie",
-                "I,id;V15,description", "id", true);
+                "V15,description", "description", true);
             //utilisateur
             $objBD->creeTableGenerique("utilisateur",
                 "I,id;V25,nomUtilisateur;V15,motDePasse;B,statutAdmin;V30,nomComplet;V50,courriel",
                 "id", true);
+            $objBD->addConst("utilisateur", "UNIQUE(nomUtilisateur)", true);
             //session
             $objBD->creeTableGenerique("session",
                 "V6,description;D,dateDebut;D,dateFin", "description", true);
@@ -115,18 +116,17 @@
             //document
             $objBD->creeTableGenerique("document",
                 "I,id;V6,session;V7,sigle;D,dateCours;J,noSequence;D,dateAccesDebut;" .
-                "D,dateAccesFin;V100,titre;V255,description;J,nbPages;J,categorie;J,noVersion;" .
+                "D,dateAccesFin;V100,titre;V255,description;J,nbPages;V15,categorie;J,noVersion;" .
                 "D,dateVersion;V255,hyperLien;J,ajoutePar;B,supprimer", "id", true);
             $objBD->ajouteFKCasc("document", "session",
                 "session", "description", true);
             $objBD->ajouteFKCasc("document", "sigle",
                 "cours", "sigle", true);
             $objBD->ajouteFKNull("document", "categorie",
-                "categorie", "id", true);
+                "categorie", "description", true);
             $objBD->ajouteFKNull("document", "ajoutePar",
                 "utilisateur", "id", true);
-
-
+    
             $objBD->creeTableGenerique("courssession", "V6,session;V7,sigle;J,utilisateur",
                 "session, sigle, utilisateur", true);
             $objBD->ajouteFKCasc("courssession", "sigle",
@@ -141,8 +141,10 @@
             log_fichier($objBD->requete);
             $objBD->cBD->multi_query($objBD->requete);
     
-            while ($objBD->cBD->more_results())
+            while ($objBD->cBD->more_results()) {
                 $objBD->cBD->next_result();
+            }
+    
             $objBD->insereEnregistrement("utilisateur", "1", "admin", "admin", "1", "admin, admin", "admin@admin.com");
             $objBD->requete = "";
             //TODO: add const for document directory

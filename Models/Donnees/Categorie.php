@@ -18,7 +18,7 @@
         }
         
         public function valider() {
-            $rexpCategorie = "/^[a-z]{3,}$/i";
+            $rexpCategorie = "/^[\\pL\\d]{3,15}$/ui";
             $binValide = preg_match($rexpCategorie, $this->description);
             if (!$binValide)
                 $this->setModelState(ModelState::Invalid);
