@@ -54,6 +54,13 @@
     
         while (!feof($fp)) {
             $tChamps = fgetcsv($fp, 0, ";");
+            if ($classe == "document") {
+                $lastIndex = sizeof($tChamps) - 1;
+                $objBD->selectionneRow("utilisateur", "id", "nomComplet='$tChamps[$lastIndex]'");
+                $tChamps[$lastIndex] = $objBD->OK->fetch_row()[0];
+                $tChamps[] = 0;
+            }
+            
             $contenu[] = $tChamps;
         }
     
