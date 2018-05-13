@@ -99,7 +99,7 @@
             //Reconstruction des structures de tables
             //categorie
             $objBD->creeTableGenerique("categorie",
-                "I,id,V15,description", "description", true);
+                "I,id;V15,description", "id", true);
             //utilisateur
             $objBD->creeTableGenerique("utilisateur",
                 "I,id;V25,nomUtilisateur;V15,motDePasse;B,statutAdmin;V30,nomComplet;V50,courriel",
@@ -138,7 +138,7 @@
     
             while ($objBD->cBD->more_results())
                 $objBD->cBD->next_result();
-    
+            die();
             $objBD->insereEnregistrement("utilisateur", "1", "admin", "admin", "1", "admin, admin", "admin@admin.com");
             $objBD->requete = "";
             //TODO: add const for document directory
