@@ -18,9 +18,12 @@
     function enregistrerDocument($strNomPost, $strNomDossier, $strNouveauNom = null, $grandeurMax = PHP_INT_MAX, $tTypesFichiers = []) {
         $strNomFichier = $_FILES[$strNomPost]["name"];
         $strNomFichierTemp = $_FILES[$strNomPost]["tmp_name"];
-        $strTypeFichier = strtolower($_FILES[$strNomPost]["type"]);
+        $strTypeFichier = explode('.',$strNomFichier)[sizeof(explode('.',$strNomFichier))-1];
         $binTypeValide = sizeof($tTypesFichiers) == 0 || in_array($strTypeFichier, $tTypesFichiers);
-        $intTaille = intval($_FILES["tbNomFichier"]["size"]);
+        $intTaille = intval($_FILES[$strNomPost]["size"]);
+
+        var_dump($_FILES);
+        var_dump($tTypesFichiers);
         
         if (!$binTypeValide)
             exit ("Le fichier n'est pas d'un type valide");
