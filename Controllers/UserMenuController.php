@@ -36,10 +36,13 @@
             $strConditions = "session='$session' AND sigle='$cours' AND utilisateur='"  . $_SESSION["utilisateurCourant"]->id . "'";
             $objRetour = $objBD->selectionneRow("CoursSession", "*", $strConditions);
             if($objRetour && $objRetour->num_rows ){
-                $objBD->selectionneRow("Document", "*", "session='$session' AND sigle='$cours'");
+                $objBD->selectionneRow("Document", "*", "session='$session' AND sigle='$cours'",
+                    "dateCours DESC, numeroSequence ASC");
                 if ($objBD->OK) {
                     $tDocuments = ModelBinding::bindToClass($objBD->OK, "Document");
                     return new View($tDocuments);
+                } else {
+                    return new View("500: erreur de base de données", 500);
                 }
             }
             return new View("", 500);
