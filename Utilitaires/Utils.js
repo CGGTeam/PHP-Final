@@ -222,3 +222,8 @@ function reconstruireStyle() {
         }
     });
 }
+
+function trier(tab, comparateur) {
+    tab.sort(comparateur);
+    $_anguleuxInterne.updateAgFor(document.getElementById("tr_parent"));
+}

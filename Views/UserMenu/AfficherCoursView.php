@@ -15,7 +15,7 @@
         id = "titre_" + id;
         document.getElementById(id).hidden = !document.getElementById(id).hidden;
     }
-
+    $scope.croissant = true;
 
 </script>
 
@@ -26,16 +26,36 @@
         <tbody>
         <tr>
             <th scope="col">Numéro du<br/>document</th>
-            <th scope="col">Date du cours</th>
+            <th scope="col">Date du cours &nbsp;
+                <a onclick="trier($scope.model,(a,b) => {
+                if($scope.croissant)
+                    return (new Date(a.dateCours) - (new Date(b.dateCours)));
+                else
+                    return (new Date(b.dateCours) - (new Date(a.dateCours)));
+            });$scope.croissant = !$scope.croissant;">↑↓</a>
+            </th>
             <th scope="col">Numéro de<br/>séquence</th>
-            <th scope="col">Catégorie</th>
-            <th scope="col">Titre</th>
+            <th scope="col">Catégorie &nbsp;
+                <a onclick="trier($scope.model,(a,b) => {
+                if($scope.croissant)
+                    return a.categorie.localeCompare(b.categorie);
+                else
+                    return b.categorie.localeCompare(a.categorie);
+            });$scope.croissant = !$scope.croissant;">↑↓</a>
+            </th>
+            <th scope="col">Titre &nbsp;
+                <a onclick="trier($scope.model,(a,b) => {
+                if($scope.croissant)
+                    return a.titre.localeCompare(b.titre);
+                else
+                    return b.titre.localeCompare(a.titre);
+            });$scope.croissant = !$scope.croissant;">↑↓</a></th>
             <th scope="col">Description</th>
             <th scope="col">Nombre de pages</th>
             <th scope="col">Dernière mise à jour</th>
             <th scope="col">Nombre de jours restants</th>
         </tr>
-        <tr ag-for="doc in model">
+        <tr ag-for="doc in model" id="tr_parent">
             <td>{{doc.id}}</td>
             <td>{{doc.dateCours}}</td>
             <td>{{doc.noSequence}}</td>
