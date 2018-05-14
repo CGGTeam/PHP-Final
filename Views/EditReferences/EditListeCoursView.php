@@ -80,8 +80,9 @@
                     </label>
                 </div>
             </td>
-            <td><input type="text" for-bind="true" for-bind-path="sigle" name="main_id"></td>
-            <td><input type="text" for-bind="true" for-bind-path="titre"></td>
+            <td><input type="text" for-bind="true" for-bind-path="sigle" pattern="(\d{3}-[A-Z0-9]{3})|(ADM-[AHE]\d{2})"
+                       name="main_id"></td>
+            <td><input type="text" for-bind="true" for-bind-path="titre" minlength="5" maxlength="50"></td>
             <td>
                 <button type="button" attrib-bind-obj="annuleAttrib">&nbsp;X&nbsp</button>
             </td>

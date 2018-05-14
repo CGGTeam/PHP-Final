@@ -80,9 +80,10 @@
                     </label>
                 </div>
             </td>
-            <td><input type="text" for-bind="true" for-bind-path="description" name="main_id"></td>
-            <td><input type="date" for-bind="true" for-bind-path="dateDebut"></td>
-            <td><input type="date" for-bind="true" for-bind-path="dateFin"></td>
+            <td><input type="text" for-bind="true" pattern="[AHE]-\d{4}" for-bind-path="description" name="main_id">
+            </td>
+            <td><input type="date" for-bind="true" min="2018-01-01" max="2021-12-31" for-bind-path="dateDebut"></td>
+            <td><input type="date" for-bind="true" min="2018-01-01" max="2021-12-31" for-bind-path="dateFin"></td>
             <td>
                 <button type="button" attrib-bind-obj="annuleAttrib">&nbsp;X&nbsp</button>
             </td>

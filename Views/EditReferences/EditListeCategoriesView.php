@@ -78,7 +78,8 @@
                     </label>
                 </div>
             </td>
-            <td><input type="text" for-bind="true" for-bind-path="description" name="main_id"></td>
+            <td><input type="text" for-bind="true" for-bind-path="description" minlength="3" maxlength="15"
+                       name="main_id"></td>
             <td>
                 <button type="button" attrib-bind-obj="annuleAttrib">&nbsp;X&nbsp</button>
             </td>

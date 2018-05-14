@@ -90,7 +90,8 @@
                 </div>
             </td>
             <td>
-                <select attrib-bind-obj="sessionAttrib" for-bind="true" for-bind-path="session" onclick="postEventList(event);postCouleursList(event);">
+                <select attrib-bind-obj="sessionAttrib" for-bind="true" for-bind-path="session" pattern="[AHE]-\d{4}"
+                        onclick="postEventList(event);postCouleursList(event);">
                     <?php
                     foreach ($model->tSessions as $session){
                         ?>
@@ -99,7 +100,9 @@
                 </select>
             </td>
             <td>
-                <select attrib-bind-obj="coursAttrib" for-bind="true" for-bind-path="sigle" onclick="postEventList(event);postCouleursList(event);">
+                <select attrib-bind-obj="coursAttrib" for-bind="true" for-bind-path="sigle"
+                        pattern="(\d{3}-[A-Z0-9]{3})|(ADM-[AHE]\d{2})"
+                        onclick="postEventList(event);postCouleursList(event);">
                     <?php
                     foreach ($model->tCours as $cours){
                         ?>
