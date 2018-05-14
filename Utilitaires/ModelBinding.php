@@ -39,16 +39,18 @@
                 case ModelState::Same :
                     break;
                 case ModelState::Deleted :
-                    $tCles = mysql::getBD()->retourneClesPrimaires(get_class($this))->fetch_row();
+                    $tCles = mysql::getBD()->retourneClesPrimaires(get_class($this))->fetch_all();
+                    log_fichier($tCles);
                     $strConditions = "";
-    
+
                     foreach ($this->tbValeurs as $nomChamp => $valeur) {
-                        for ($i = 0; $i < sizeof($tCles); $i += 13) {
-                            if ($nomChamp == $tCles[$i + 4]) {
+                        foreach ($tCles as $cle){
+                            if ($nomChamp == $cle[4]) {
                                 $strConditions .= "$nomChamp = '$valeur' AND ";
                             }
                         }
                     }
+
                     $strConditions = substr($strConditions, 0, strlen($strConditions) - 5);
                     mysql::getBD()->supprimeEnregistrements(get_class($this), $strConditions);
                     log_fichier(mysql::getBD()->requete);
@@ -57,10 +59,10 @@
 
                     $tCles = mysql::getBD()->retourneClesPrimaires(get_class($this))->fetch_row();
                     $strConditions = "";
-        
+
                     foreach ($this->tbValeurs as $nomChamp => $valeur) {
-                        for ($i = 0; $i < sizeof($tCles); $i += 13) {
-                            if ($nomChamp == $tCles[$i + 4]) {
+                        foreach ($tCles as $cle){
+                            if ($nomChamp == $cle[4]) {
                                 $strConditions .= "$nomChamp = '$valeur' AND ";
                             }
                         }

@@ -35,6 +35,9 @@
          */
         public $tSessions;
 
+
+        public $intNbCoursSessions;
+
         /**
          * @param Document[] $tDocuments
          * @param array $tCategorie
@@ -42,13 +45,15 @@
          * @param array $tCours
          * @param int $etat
          * @param int $intNbDocuments
+         * @param int $intNbCoursSessions
          */
-        function __construct($tDocuments, $tCategorie, $tSessions, $tCours, $etat = 0, $intNbDocuments = 0) {
+        function __construct($tDocuments, $tCategorie, $tSessions, $tCours, $etat = 0, $intNbDocuments = 0, $intNbCoursSessions = 0) {
             $this->tDocuments = $tDocuments;
             $this->etat = $etat;
             $this->intNbDocuments = $intNbDocuments;
             $this->tCategories = $tCategorie;
             $this->tSessions = $tSessions;
             $this->tCours = $tCours;
+            $this->intNbCoursSessions = $intNbCoursSessions;
         }
     }

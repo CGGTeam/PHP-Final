@@ -4,6 +4,10 @@
 
 <script>
 
+    $scope.cbAttribs = {
+        col: "{{wack.}}"
+    };
+
     function configCoursSession() {
         $scope.coursSession = [];
         $scope.utilisateurs = [];
@@ -51,6 +55,17 @@
         }
     }
 
+    function selectAll(e) {
+        let parents = getAllParents(e.target);
+        let nodeTh = parents.find(obj => obj.tagName === "TH");
+        let index = nodeTh.$_objIndex;
+        $scope.utilisateurs.forEach(obj => obj.tbCours[index] = e.target.checked);
+        //$_anguleuxInterne.updateAgFor(document.getElementById("tr_parent"));
+        let event = new Event("change");
+        event.$_init = true;
+        Array.from($_anguleuxInterne.dataBindElements).forEach(x => x.dispatchEvent(event));
+    }
+
 
 </script>
 
@@ -59,13 +74,20 @@
 
 
 <form class="container">
-    <table border="1" cellspacing="5" cellpadding="5">
-        <tbody>
+    <div class="table-container">
+        <table border="1" cellspacing="5" cellpadding="5">
+            <tbody>
             <tr>
                 <th>Utilisateurs</th>
                 <th ag-for="cours in tbCours">
                     <div>{{cours.sigle}}</div>
                     <div class="sousTitre">{{cours.session}}</div>
+                    <div class="checkbox">
+                        <label>
+                            <input name="checkbox" type="checkbox" onchange="selectAll(event);">
+                            <em class="helper"></em>
+                        </label>
+                    </div>
                 </th>
             </tr>
             <tr ag-for="util in utilisateurs" id="tr_parent">
@@ -79,12 +101,14 @@
                     </div>
                 </td>
             </tr>
-        </tbody>
-    </table>
-    <button type="button" name="submit" id="submit" onclick="postChanges('Utilisateur','?controller=EditPrivileges&action=Post',null,false,configCoursSession)">
+            </tbody>
+        </table>
+    </div>
+    <button class="boutonsConfirm" type="button" name="submit" id="submit"
+            onclick="postChanges('Utilisateur','?controller=EditPrivileges&action=Post',null,false,configCoursSession)">
         Enregistrement
     </button>
-    <button type="button" name="button" id="button"
+    <button class="boutonsConfirm" type="button" name="button" id="button"
             onclick="window.location='?controller=AdminMenu&action=AdminMenu';">
         Retour
     </button>
