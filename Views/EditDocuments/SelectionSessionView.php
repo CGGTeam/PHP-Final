@@ -6,7 +6,7 @@
         <span ag-template="true">Nombre de documents: {{model.nbDocuments}}</span>
     </h2>
 </div>
-<form action="?controller=EditDocuments&action=EditDocuments" method="post">
+<form method="get">
 <div style="padding-top: 2vh">
     <h3 style="color: white">Choisir un cours-session:</h3>
     <select name="session">
@@ -16,7 +16,8 @@
         <option ag-for="cours in model.tCours" selected>{{cours.sigle}}</option>
     </select>
 </div>
-
+    <input type="hidden" name="controller" value="EditDocuments">
+    <input type="hidden" name="action" value="EditDocuments">
 <input type="submit" name="submit" id="submit" class="boutonsConfirm" value="Sélection">
 </form>
 <button type="button" name="button" id="button" class="boutonsConfirm"
