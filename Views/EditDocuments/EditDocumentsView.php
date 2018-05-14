@@ -18,7 +18,7 @@
     $scope.docCatAttrib = {
         value: "{{doc.categorie}}"
     };
-    configPost(DocumentBD);
+    configPost(DocumentBD,null,"$scope.model.tDocuments");
 
     $_anguleuxInterne.customEventListeners.push( function (e) {
         console.log(e.type);
@@ -108,7 +108,7 @@
             <th scope="col">Fichier</th>
             <th scope="col">Annuler</th>
         </tr>
-        <tr ag-for="doc in model.tDocuments" attrib-bind-obj="trAttrib">
+        <tr ag-for="doc in model.tDocuments" attrib-bind-obj="trAttrib" id="tr_parent">
             <td>
                 <div class="checkbox">
                     <label>
