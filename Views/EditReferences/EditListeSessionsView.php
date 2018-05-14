@@ -55,40 +55,43 @@
 <link rel="stylesheet" href="Utilitaires/anguleux/AnguleuxStyle.css"/>
 <link href="Style/editDocumentsStyle.css" rel="stylesheet" type="text/css">
 <div class="container">
-    <table border="1" cellspacing="5" cellpadding="5">
-        <tbody>
-        <tr>
-            <th>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" onchange="document.querySelectorAll('[col1]').forEach(x => x.checked = event.target.checked)">
-                        <em class="helper"></em>
-                    </label>
-                </div>
-            </th>
-            <th scope="col">Description</th>
-            <th scope="col">dateDebut</th>
-            <th scope="col">debutFin</th>
-            <th scope="col">Annuler</th>
-        </tr>
-        <tr ag-for="session in model" attrib-bind-obj="trAttrib" id="tr_parent">
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox" for-bind="true" for-bind-path="toDelete" col1>
-                        <em class="helper"></em>
-                    </label>
-                </div>
-            </td>
-            <td><input type="text" for-bind="true" for-bind-path="description" name="main_id"></td>
-            <td><input type="date" for-bind="true" for-bind-path="dateDebut"></td>
-            <td><input type="date" for-bind="true" for-bind-path="dateFin"></td>
-            <td>
-                <button type="button" attrib-bind-obj="annuleAttrib">&nbsp;X&nbsp</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="table-container">
+        <table border="1" cellspacing="5" cellpadding="5">
+            <tbody>
+            <tr>
+                <th>
+                    <div class="checkbox">
+                        <label>
+                            <input name="checkbox" type="checkbox" onchange="document.querySelectorAll('[col1]').forEach(x => x.checked = event.target.checked)">
+                            <em class="helper"></em>
+                        </label>
+                    </div>
+                </th>
+                <th scope="col">Description</th>
+                <th scope="col">dateDebut</th>
+                <th scope="col">debutFin</th>
+                <th scope="col">Annuler</th>
+            </tr>
+            <tr ag-for="session in model" attrib-bind-obj="trAttrib" id="tr_parent">
+                <td>
+                    <div class="checkbox">
+                        <label>
+                            <input name="checkbox" type="checkbox" for-bind="true" for-bind-path="toDelete" col1>
+                            <em class="helper"></em>
+                        </label>
+                    </div>
+                </td>
+                <td><input type="text" for-bind="true" pattern="[AHE]-\d{4}" for-bind-path="description" name="main_id">
+                </td>
+                <td><input type="date" for-bind="true" min="2018-01-01" max="2021-12-31" for-bind-path="dateDebut"></td>
+                <td><input type="date" for-bind="true" min="2018-01-01" max="2021-12-31" for-bind-path="dateFin"></td>
+                <td>
+                    <button type="button" attrib-bind-obj="annuleAttrib">&nbsp;X&nbsp</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
     <button type="button" name="submit" id="submit" class="boutonsConfirm" onclick="postChanges('Session')">
         Enregistrement
     </button>

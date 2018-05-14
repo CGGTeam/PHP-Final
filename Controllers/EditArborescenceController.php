@@ -6,6 +6,7 @@
      * Time: 12:44 AM
      */
     require_once("Controllers/ModuleAdminBase.php");
+    require_once("Models/EditArborescence/EditArborescenceModel.php");
     
     class EditArborescenceController extends ModuleAdminBase {
         function __construct() {
@@ -40,10 +41,8 @@
                 $verdict = $e;
             }
     
-            return new JSONView([
-                "verdict" => $verdict,
-                "lastIndex" => $lastIndex
-            ]);
+    
+            return new JSONView(new EditArborescenceModel($verdict, $lastIndex));
         }
     
         function ConfirmerSuppressionFichiers() {

@@ -140,8 +140,8 @@
      */
     function validerSigle($sigle, &$raison = null) {
         if ($sigle) {
-            $rexpSigle = "/^\d{3}-[A-Z0-9]{3}$/";
-            $rexpAdmin = "/^ADM-[AHE]\d{2}$/";
+            $rexpSigle = "/^\\d{3}-[A-Z0-9]{3}$/";
+            $rexpAdmin = "/^ADM-[AHE]\\d{2}$/";
             if (preg_match($rexpSigle, $sigle)) {
                 $raison = EnumRaisons::VALIDE;
                 return true;
