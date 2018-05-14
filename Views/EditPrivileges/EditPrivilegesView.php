@@ -4,6 +4,10 @@
 
 <script>
 
+    $scope.cbAttribs = {
+        col: "{{wack.}}"
+    };
+
     function configCoursSession() {
         $scope.coursSession = [];
         $scope.utilisateurs = [];
@@ -51,6 +55,17 @@
         }
     }
 
+    function selectAll(e) {
+        let parents = getAllParents(e.target);
+        let nodeTh = parents.find(obj => obj.tagName === "TH");
+        let index = nodeTh.$_objIndex;
+        $scope.utilisateurs.forEach(obj => obj.tbCours[index] = e.target.checked);
+        //$_anguleuxInterne.updateAgFor(document.getElementById("tr_parent"));
+        let event = new Event("change");
+        event.$_init = true;
+        Array.from($_anguleuxInterne.dataBindElements).forEach(x => x.dispatchEvent(event));
+    }
+
 
 </script>
 
@@ -66,6 +81,12 @@
                 <th ag-for="cours in tbCours">
                     <div>{{cours.sigle}}</div>
                     <div class="sousTitre">{{cours.session}}</div>
+                    <div class="checkbox">
+                        <label>
+                            <input name="checkbox" type="checkbox" onchange="selectAll(event);">
+                            <em class="helper"></em>
+                        </label>
+                    </div>
                 </th>
             </tr>
             <tr ag-for="util in utilisateurs" id="tr_parent">
