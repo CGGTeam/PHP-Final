@@ -40,6 +40,7 @@
                     $lastIndex = $i;
                     $sj = $tDocuments[$i];
                     $so = new Document($sj);
+                    $so = $so->setModelState(ModelState::Deleted)
                     $so->saveChangesOnObj();
                     if (mysql::getBD()->OK) {
                         $tVerdicts[] = true;
