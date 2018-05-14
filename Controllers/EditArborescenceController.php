@@ -30,17 +30,16 @@
     
         function ConfirmerSuppressionBD() {
             $GLOBALS["titrePage"] = "Confirmer suppression des documents";
-            $tDocuments = json_decode(post("DocumentsASupprimer"));
+            $strPOST = file_get_contents('php://input');
+            $tDocuments = json_decode($strPOST, true);
             $tVerdicts = array();
             $verdict = true;
-            $lastIndex = 0;
         
             try {
                 for ($i = 0; $i < sizeof($tDocuments); $i++) {
-                    $lastIndex = $i;
                     $sj = $tDocuments[$i];
                     $so = new Document($sj);
-                    $so = $so->setModelState(ModelState::Deleted)
+                    $so->setModelState(ModelState::Deleted);
                     $so->saveChangesOnObj();
                     if (mysql::getBD()->OK) {
                         $tVerdicts[] = true;
@@ -52,8 +51,7 @@
                 $verdict = $e;
             }
     
-    
-            return new JSONView($tVerdicts);
+            return new JSONView(["verdicts" => $tVerdicts, "OK" => $verdict]);
         }
     
         function ConfirmerSuppressionFichiers() {

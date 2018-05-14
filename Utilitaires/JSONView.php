@@ -21,7 +21,7 @@
             log_fichier('cleaned');
             header('Content-Type: application/json');
             log_fichier('set header');
-            echo $this->model;
+            echo json_encode($this->model);
             log_fichier('echo fait');
         }
     }
