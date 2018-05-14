@@ -68,7 +68,7 @@
             }
 
             log_fichier($tDonneesPHP);
-            return new JSONView(json_encode($tDonneesPHP));
+            return new JSONView($tDonneesPHP);
         }
     
         /**
