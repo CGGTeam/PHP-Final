@@ -41,7 +41,7 @@
 
 
     configCoursSession();
-    configPost(Utilisateur,["id","tbCours"],"$scope.reponse",{tbCours: postTbCours});
+    configPost(Utilisateur,["id","tbCours"],"$scope.model.CoursSession",{tbCours: postTbCours});
 
     function postTbCours(objPost, objCourant) {
         objPost.tbCours = [];
@@ -112,7 +112,7 @@
         </table>
     </div>
     <button class="boutonsConfirm" type="button" name="submit" id="submit"
-            onclick="postChanges('Utilisateur','?controller=EditPrivileges&action=Post',null,true,configCoursSession)">
+            onclick="postChanges('Utilisateur','?controller=EditPrivileges&action=Post',null,false,configCoursSession)">
         Enregistrement
     </button>
     <button class="boutonsConfirm" type="button" name="button" id="button"
