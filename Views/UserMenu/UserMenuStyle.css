@@ -18,7 +18,7 @@ body {
     bottom: 0;
     right: 0;
     width: 65vw;
-    height: 50vh;
+    height: 45vh;
 }
 
 .boutonSoumettre {
@@ -35,6 +35,22 @@ body {
     width: 40%;
 }
 
+#lblCours {
+    font-size: 2.5vmax;
+    font-weight: bold;
+}
+
+#coursChoisi {
+    font-size: 1.5vmax;
+}
+
+.boutons-User {
+    font-size: 1.75vmax;
+    height: 10vh;
+    width: 35%;
+}
+
 p {
+    margin: 7.5vh 0;
     padding: 10px;
 }

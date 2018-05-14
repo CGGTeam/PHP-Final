@@ -2,7 +2,7 @@
 <link href="Views/UserMenu/UserMenuStyle.css" rel="stylesheet" type="text/css"/>
 <form method="post" action="?controller=UserMenu&action=AfficherCours" class="divChoix">
     <p>
-        <label for="coursChoisi" class="ddlCours">
+        <label id="lblCours" for="coursChoisi" class="ddlCours">
             Cours à visionner:
         </label>
         <select name="coursChoisi" id="coursChoisi" class="ddlCours" required>
@@ -15,10 +15,10 @@
         </select>
     </p>
     <p>
-        <button type="submit" class="boutonsConfirm">
+        <button type="submit" class="boutonsConfirm boutons-User">
             Soumettre
         </button>
-        <button type="button" name="button" id="button" class="boutonsConfirm"
+        <button type="button" name="button" id="button" class="boutonsConfirm boutons-User"
                 onclick="window.location='?controller=Login&action=Deconnexion';">
             Retour
         </button>
