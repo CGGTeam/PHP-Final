@@ -41,7 +41,7 @@
 
 
     configCoursSession();
-    configPost(Utilisateur,["id","tbCours"],"[]",{tbCours: postTbCours});
+    configPost(Utilisateur,["id","tbCours"],"$scope.reponse",{tbCours: postTbCours});
 
     function postTbCours(objPost, objCourant) {
         objPost.tbCours = [];
@@ -52,6 +52,13 @@
                 delete $scope.tbCours[i].statutAdmin;
                 objPost.tbCours.push($scope.tbCours[i]);
             }
+        }
+        let tempo = event.target.getAttribute("data-bind").split(".")[3];
+        if(event.target.checked){
+            delete $scope.tbCours[tempo].nomComplet;
+            delete $scope.tbCours[tempo].nomUtilisateur;
+            delete $scope.tbCours[tempo].statutAdmin;
+            objPost.tbCours.push($scope.tbCours[tempo]);
         }
     }
 
@@ -105,7 +112,7 @@
         </table>
     </div>
     <button class="boutonsConfirm" type="button" name="submit" id="submit"
-            onclick="postChanges('Utilisateur','?controller=EditPrivileges&action=Post',null,false,configCoursSession)">
+            onclick="postChanges('Utilisateur','?controller=EditPrivileges&action=Post',null,true,configCoursSession)">
         Enregistrement
     </button>
     <button class="boutonsConfirm" type="button" name="button" id="button"
