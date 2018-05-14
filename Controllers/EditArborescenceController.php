@@ -8,6 +8,10 @@
     require_once("Controllers/ModuleAdminBase.php");
     require_once("Models/EditArborescence/EditArborescenceModel.php");
     
+    function fichiersSort($a, $b) {
+        return intval($a->binDeleted) > intval($b->binDeleted);
+    }
+    
     class EditArborescenceController extends ModuleAdminBase {
         function __construct() {
             parent::__construct();
@@ -27,6 +31,7 @@
         function ConfirmerSuppressionBD() {
             $GLOBALS["titrePage"] = "Confirmer suppression des documents";
             $tDocuments = json_decode(post("DocumentsASupprimer"));
+            $tVerdicts = array();
             $verdict = true;
             $lastIndex = 0;
         
@@ -36,13 +41,18 @@
                     $sj = $tDocuments[$i];
                     $so = new Document($sj);
                     $so->saveChangesOnObj();
+                    if (mysql::getBD()->OK) {
+                        $tVerdicts[] = true;
+                    } else {
+                        $tVerdicts[] = false;
+                    }
                 }
             } catch (Exception $e) {
                 $verdict = $e;
             }
     
     
-            return new JSONView(new EditArborescenceModel($verdict, $lastIndex));
+            return new JSONView($tVerdicts);
         }
     
         function ConfirmerSuppressionFichiers() {
@@ -66,7 +76,9 @@
                     }
                 }
             }
-        
+    
+            usort($tFichiersTraites, "fichiersSort");
+            
             return new View($tFichiersTraites);
         }
     }

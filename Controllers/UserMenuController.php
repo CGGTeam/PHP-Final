@@ -31,13 +31,13 @@
         function AfficherCours() {
             $GLOBALS["titrePage"] = "Affichage des cours";
             $objBD = MYSQL::getBD();
-            $session = explode("_", post("coursChoisi"))[0];
-            $cours = explode("_", post("coursChoisi"))[1];
+            $session = explode("_", get("coursChoisi"))[0];
+            $cours = explode("_", get("coursChoisi"))[1];
             $strConditions = "session='$session' AND sigle='$cours' AND utilisateur='"  . $_SESSION["utilisateurCourant"]->id . "'";
             $objRetour = $objBD->selectionneRow("CoursSession", "*", $strConditions);
-            if($objRetour && $objRetour->num_rows ){
+            if ($objRetour) {
                 $objBD->selectionneRow("Document", "*", "session='$session' AND sigle='$cours'",
-                    "dateCours DESC, numeroSequence ASC");
+                    "dateCours DESC, noSequence ASC");
                 if ($objBD->OK) {
                     $tDocuments = ModelBinding::bindToClass($objBD->OK, "Document");
                     return new View($tDocuments);
