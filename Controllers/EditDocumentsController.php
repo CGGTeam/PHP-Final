@@ -10,7 +10,6 @@
     require_once("Models/EditDocuments/EnumEtatsDocuments.php");
     require_once("Models/EditDocuments/DocumentsCoursSession.php");
     
-    
     class EditDocumentsController extends ModuleAdminBase {
         function __construct() {
             parent::__construct();
@@ -70,11 +69,10 @@
             $objBD = mysql::getBD();
             $objBD->selectionneRow("document", "id");
             if ($objBD->OK) {
-                //TODO: const for upload dir
                 $tIds = $objBD->OK->fetch_all();
                 for ($i = 0; $i < $tIds; $i++) {
                     if (isset($_FILES[$tIds[$i][0]])) {
-                        enregistrerDocument($tIds[$i][0], "./televersements", null, PHP_INT_MAX,
+                        enregistrerDocument($tIds[$i][0], UPLOAD_DIR, null, PHP_INT_MAX,
                             ["txt", "doc", "docx", "pdf", "zip", "rtf", "odt", "tex", "wks", "wps", "wpd"]);
                         $objBD->modifieEnregistrements("document",
                             "hyperLien='" . $_FILES[$tIds[$i][0]] . "'", "id='" . $tIds[$i][0] . "'");

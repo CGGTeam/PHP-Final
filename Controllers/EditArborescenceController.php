@@ -39,7 +39,6 @@
                 for ($i = 0; $i < sizeof($tDocuments); $i++) {
                     $sj = $tDocuments[$i];
                     $so = new Document($sj);
-                    $so->setModelState(ModelState::Deleted);
                     $so->saveChangesOnObj();
                     if (mysql::getBD()->OK) {
                         $tVerdicts[] = true;
@@ -56,11 +55,9 @@
     
         function ConfirmerSuppressionFichiers() {
             $GLOBALS["titrePage"] = "Confirmer suppression des fichiers orphelins";
-            //TODO: make const for upload dir
         
-            $strDirTelev = "./televersements";
             $tFichiersTraites = array();
-            $tFichiers = scandir($strDirTelev);
+            $tFichiers = scandir(UPLOAD_DIR);
             if ($tFichiers) {
                 foreach ($tFichiers as $nomFichier) {
                     if (!is_dir($nomFichier)) {

@@ -48,7 +48,6 @@
         }
         
         public function valider() {
-            //TODO: valider si entre début et fin de session
             try {
                 $this->supprimer = is_null($this->supprimer) ? false : boolval($this->supprimer);
                 if (!validerSession($this->session) || !validerSigle($this->sigle)
