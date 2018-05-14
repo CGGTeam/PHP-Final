@@ -63,9 +63,10 @@ function postEventList(e) {
     if (nodeTr && nodeTr.$_objRef[nodeTr.$_objIndex]) {
         let objCourant = nodeTr.$_objRef[nodeTr.$_objIndex];
         if (objCourant instanceof $_postObj.classToPost) {
+            $_postObj.changed = true;
             let objPost = {};
             console.log(objCourant.modelState);
-            objCourant.modelState = (objCourant.modelState === 0 || objCourant.modelState === 1) ? objCourant.modelState : 2;
+            objCourant.modelState = (objCourant.modelState === 0 || (objCourant.modelState === 1 && objCourant.toDelete)) ? objCourant.modelState : 2;
             $_postObj.protoToPost.forEach(param => {
                 if($_postObj.fctOnParam && $_postObj.fctOnParam[param]){
                     $_postObj.fctOnParam[param](objPost, objCourant);
@@ -113,11 +114,15 @@ function configCouleurs() {
  * @param fctOnParam Object avec des fonctions a faire sur les proprietes precises ({prop1: func1, prop2: func2...})
  */
 function configPost(objClass, tabProto,cheminTab, fctOnParam){
+    window.onbeforeunload = function () {
+        return $_postObj.changed;
+    };
     $_postObj.classToPost = objClass;
     if(tabProto)
         $_postObj.protoToPost = tabProto;
     else
         $_postObj.protoToPost = Object.keys(new objClass());
+    $_postObj.protoToPost.push("toDelete");
     if(cheminTab){
         $_postObj.cheminTab = cheminTab;
     }else if(!$_postObj.cheminTab){
@@ -140,6 +145,12 @@ function configPost(objClass, tabProto,cheminTab, fctOnParam){
  * @param toDoAfter
  */
 function postChanges(type,lien = "?controller=BD&action=Confirmer", toDoBefore=null, reload=false, toDoAfter=null){
+    if($_postObj.confirmer){
+        let rep = confirm("Êtes-vous sûrs de vouloir supprimer les éléments en rouge?");
+        if(rep != true){
+            return;
+        }
+    }
     if(toDoBefore){
         toDoBefore();
     }
@@ -203,6 +214,8 @@ function deleteSelected(tab){
             obj.modelState = 1;
             $_postObj.tabObjToPost[i] = obj;
             $_anguleuxInterne.agForElements[0].$_createdElementsTable[i].style.backgroundColor = 'red';
+            $_postObj.confirmer = true;
+            $_postObj.changed = true;
         }
     });
 }

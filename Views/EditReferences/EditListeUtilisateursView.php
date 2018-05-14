@@ -5,15 +5,16 @@
     $scope.model.unshift(new Utilisateur());
     $scope.model.modelState = 0;
     $scope.trAttrib = {
-        id: "tr_{{util.description}}"
+        id: "tr_{{util.id}}"
     };
     $scope.annuleAttrib = {
-        onclick: "annuler('{{util.description}}')"
+        onclick: "annuler('{{util.id}}')"
     };
     configPost(Utilisateur);
     configCouleurs();
 
     function annuler(id) {
+        console.log(id);
         let aAnnuler = $scope.model.find(obj => obj.id === id);
         let aRetrouver = $scope.backup.find(obj => obj.id === id);
         if(aAnnuler){
