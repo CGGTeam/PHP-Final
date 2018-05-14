@@ -42,10 +42,7 @@
             }
     
     
-            return new JSONView([
-                "verdict" => $verdict,
-                "lastIndex" => $lastIndex
-            ]);
+            return new JSONView(new EditArborescenceModel($verdict, $lastIndex));
         }
     
         function ConfirmerSuppressionFichiers() {

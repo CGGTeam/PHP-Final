@@ -1,9 +1,9 @@
 @charset "UTF-8";
-@import url("main.css");
+@import url("../main.css");
 
 /* Body */
 body {
-    background: url(../images/MD-portes-GG.png) round !important;
+    background: url(../../images/MD-portes-GG.png) round !important;
     background-size: 100%;
 }
 

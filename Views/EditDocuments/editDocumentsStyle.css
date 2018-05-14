@@ -1,20 +1,9 @@
 @charset "UTF-8";
 
 body {
-    background: url(../images/MD-portes-GG.png) no-repeat center center fixed;
+    background: url(../../images/MD-portes-GG.png) no-repeat center center fixed;
     background-size: cover;
 }
-
-.boutonsConfirm {
-    position: relative;
-    display: inline-block;
-    padding: 18px 39px;
-    font-size: 18px;
-    width: 200px;
-    margin-top: 15px;
-    margin-right: 15px;
-}
-
 
 .fichierSelect input{
     width: 0.1px;
@@ -73,7 +62,6 @@ body h2 {
 	background-color: rgba(213,213,213,0.80);
 	width: 100%;
 	border-collapse: collapse;
-	margin-bottom: 20px;
 }
 
 .container table tbody tr th {

@@ -55,37 +55,39 @@
 <link rel="stylesheet" href="Utilitaires/anguleux/AnguleuxStyle.css"/>
 <link href="Style/editDocumentsStyle.css" rel="stylesheet" type="text/css">
 <div class="container">
-    <table border="1" cellspacing="5" cellpadding="5">
-        <tbody>
-        <tr>
-            <th>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox">
-                        <em class="helper"></em>
-                    </label>
-                </div>
-            </th>
-            <th scope="col">Description</th>
-            <th scope="col">Annuler</th>
-        </tr>
-        <tr ag-for="cat in model" attrib-bind-obj="trAttrib" id="tr_parent">
-            <td>
-                <div class="checkbox">
-                    <label>
-                        <input name="checkbox" type="checkbox">
-                        <em class="helper"></em>
-                    </label>
-                </div>
-            </td>
-            <td><input type="text" for-bind="true" for-bind-path="description" minlength="3" maxlength="15"
-                       name="main_id"></td>
-            <td>
-                <button type="button" attrib-bind-obj="annuleAttrib">&nbsp;X&nbsp</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="table-container">
+        <table border="1" cellspacing="5" cellpadding="5">
+            <tbody>
+            <tr>
+                <th>
+                    <div class="checkbox">
+                        <label>
+                            <input name="checkbox" type="checkbox">
+                            <em class="helper"></em>
+                        </label>
+                    </div>
+                </th>
+                <th scope="col">Description</th>
+                <th scope="col">Annuler</th>
+            </tr>
+            <tr ag-for="cat in model" attrib-bind-obj="trAttrib" id="tr_parent">
+                <td>
+                    <div class="checkbox">
+                        <label>
+                            <input name="checkbox" type="checkbox">
+                            <em class="helper"></em>
+                        </label>
+                    </div>
+                </td>
+                <td><input type="text" for-bind="true" for-bind-path="description" minlength="3" maxlength="15"
+                           name="main_id"></td>
+                <td>
+                    <button type="button" attrib-bind-obj="annuleAttrib">&nbsp;X&nbsp</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
     <button type="button" name="submit" id="submit" class="boutonsConfirm" onclick="postDocuments()">
         Enregistrement
     </button>

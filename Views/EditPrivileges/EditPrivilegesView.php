@@ -54,7 +54,7 @@
 
 </script>
 
-<link href="Style/privilegeStyles.css" rel="stylesheet" type="text/css">
+<link href="Views/EditPrivileges/privilegeStyles.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="Utilitaires/anguleux/AnguleuxStyle.css"/>
 
 
