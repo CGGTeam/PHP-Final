@@ -83,8 +83,13 @@
                 </div>
             </td>
             <td><input type="text" for-bind="true" for-bind-path="id" name="main_id" disabled></td>
-            <td><input type="text" for-bind="true" for-bind-path="nomUtilisateur"></td>
-            <td><input type="password" for-bind="true" for-bind-path="motDePasse"></td>
+            <td><input type="text" for-bind="true" for-bind-path="nomUtilisateur"
+                       pattern="([A-Za-z]{1,2}\.[A-Za-z]{1,23})"
+                       title="Nom d'utilisateur de la forme 'pr.nomfamille'. Insensible à la casse.
+                           pr: la première lettre de vo.tre.s prénom.s nomfamille: Vo.tre.s nom de famille (en un mot)">
+            </td>
+            <td><input type="password" for-bind="true" for-bind-path="motDePasse" pattern="([A-Za-z0-9]{3,15})"
+                       title="3 à 15 caractères alphanumériques." maxlength="15"></td>
             <td>
                 <div class="checkbox">
                     <label>
@@ -93,8 +98,13 @@
                     </label>
                 </div>
             </td>
-            <td><input type="text" for-bind="true" for-bind-path="nomComplet"></td>
-            <td><input type="email" for-bind="true" for-bind-path="courriel"></td>
+            <td><input type="text" for-bind="true" for-bind-path="nomComplet" pattern="[\pL\-\ ]+, [\pL\-\ ]+"
+                       minlength="5" maxlength="30"
+                       title="Forme: 'Nom.s de famille, Prénom.s'. 5 à 30 caractères"></td>
+            <td><input type="email" for-bind="true" for-bind-path="courriel" placeholder="Courriel"
+                       title="adresse@domaine.tld. 10 à 50 caractères. Facultatif."
+                       pattern="[a-z0-9.\-_]+\@\w+\.\w+"
+                       minlength="10" maxlength="50"></td>
             <td>
                 <button type="button" attrib-bind-obj="annuleAttrib">&nbsp;X&nbsp</button>
             </td>
