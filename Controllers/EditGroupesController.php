@@ -11,6 +11,7 @@
     require_once("Models/EditGroupes/EnumRaisons.php");
     require_once("Utilitaires/ModelState.php");
     
+    const TEMP_DIR = "./temp";
     
     class EditGroupesController extends ModuleAdminBase
     {
@@ -39,19 +40,29 @@
             $tRetour = array();
             $tSessions = array();
             $binOK = true;
-        
-            if (isset($_FILES["fichierCSV"])) {
-                if (file_exists("permissions.csv")) {
-                    unlink("permissions.csv");
+            if (true /*isset($_FILES["fichierCSV"])*/) {
+                if (!file_exists(TEMP_DIR)) {
+                    mkdir(TEMP_DIR);
                 }
-                enregistrerDocument("fichierCSV", "./temp", "permissions.csv",
-                    PHP_INT_MAX, ["csv"]);
-                $fp = fopen("./temp/permissions.csv", "r");
-                for ($i = 0; !feof($fp); $i++) {
+                // if (file_exists(TEMP_DIR . "/permissions.csv")) {
+                //     unlink(TEMP_DIR . "/permissions.csv");
+                // }
+                if (isset($_FILES["fichierCSV"])) {
+                    enregistrerDocument("fichierCSV", TEMP_DIR, "permissions.csv",
+                        PHP_INT_MAX, ["csv"]);
+                }
+                $fp = fopen(TEMP_DIR . "/permissions.csv", "r");
+                fgetcsv($fp, 0, ";");
+                $binErreur = false;
+                for ($i = 0; !feof($fp) && !$binErreur; $i++) {
                     $tRetour[] = array();
                     $binVerdict = true;
                     $tChamps = fgetcsv($fp, 0, ";");
-                
+                    if (!$tChamps)
+                        continue;
+                    if (sizeof($tChamps) < 4) {
+                        $binErreur;
+                    }
                     if ($tChamps[0]) { //NomUtilisateur
                         if (validerNomUtilisateur($tChamps[0], true, $raison))
                             $tRetour[$i][] = new Champ($tChamps[0], true);
@@ -109,7 +120,7 @@
                                 $binVerdict = false;
                                 $tRetour[$i][] = new Champ($tChamps[$j], false, $raison);
                             }
-                            $tRetour[$i][$j]->raison = $tdecompte[$j] > 1 ? EnumRaisons::DOUBLON : $tRetour[$i][$j]->raison;
+                            $tRetour[$i][$j]->raison = $tdecompte[$tChamps[$j]] > 1 ? EnumRaisons::DOUBLON : $tRetour[$i][$j]->raison;
                         } else {
                             $tRetour[$i][] = new Champ("", true);
                         }
@@ -129,7 +140,8 @@
             return new View([
                 "tDonnees" => $tRetour,
                 "tSessions" => $tSessions,
-                "binOK" => $binOK
+                "binOK" => $binOK,
+                "binErreur" => !$binErreur
             ]);
         }
     
@@ -146,9 +158,9 @@
             $_SESSION["sessionSelec"] = $strSession;
             $binOK = false;
             $tRetour = array();
-        
-            if (file_exists("./temp_upload/permissions.csv")) {
-                $contenu = file_get_contents("./temp_upload/permissions.csv");
+    
+            if (file_exists(TEMP_DIR . "/permissions.csv")) {
+                $contenu = file_get_contents(TEMP_DIR . "/permissions.csv");
                 $tcontenu = preg_split("/\r\n|\r|\n/", $contenu);
                 $objBD = Mysql::getBD();
                 for ($i = 1; $i < sizeof($tcontenu); $i++) {
@@ -181,9 +193,9 @@
             session_start();
             $strSession = $_SESSION["sessionSelec"];
             unset($_SESSION["sessionSelec"]);
-        
-            if (file_exists("./temp_upload/permissions.csv")) {
-                $fp = fopen("./temp_upload/permissions.csv", "r");
+    
+            if (file_exists(TEMP_DIR . "/permissions.csv")) {
+                $fp = fopen(TEMP_DIR . "/permissions.csv", "r");
                 while (!feof($fp)) {
                     $tChamps = fgetcsv($fp, 0, ";");
                     $objUtil = new Utilisateur([

@@ -11,12 +11,17 @@
         private $model;
 
         public function __construct($model = null) {
+            log_fichier("aaaa");
             $this->model = $model;
         }
         
         public function afficher() {
+            log_fichier($this->model);
             ob_end_clean();
+            log_fichier('cleaned');
             header('Content-Type: application/json');
-            echo $this->model;
+            log_fichier('set header');
+            echo json_encode($this->model);
+            log_fichier('echo fait');
         }
     }

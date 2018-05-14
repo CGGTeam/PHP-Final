@@ -77,16 +77,15 @@
             //TODO: enable for prod
 //            if (!post("binConfirmation"))
 //                return new View("403: Forbidden", 403);
-            //TODO: add const for document directory
-            if (file_exists("./televersements")) {
-                $tDocuments = scandir("./televersements");
+            if (file_exists(UPLOAD_DIR)) {
+                $tDocuments = scandir(UPLOAD_DIR);
                 $rexp = "/^..?$/";
                 foreach ($tDocuments as $doc) {
                     if (!preg_match($rexp, $doc)) {
-                        unlink("./televersements/$doc");
+                        unlink(UPLOAD_DIR . $doc);
                     }
                 }
-                rmdir("./televersements");
+                rmdir(UPLOAD_DIR);
             }
         
             $objBD = Mysql::getBD();
@@ -145,14 +144,13 @@
     
             $objBD->insereEnregistrement("utilisateur", "1", "admin", "admin", "1", "admin, admin", "admin@admin.com");
             $objBD->requete = "";
-            //TODO: add const for document directory
-            if (!file_exists("./televersements"))
-                mkdir("./televersements");
+            if (!file_exists(UPLOAD_DIR))
+                mkdir(UPLOAD_DIR);
             $tDocuments = scandir("./reset/televersements");
             $rexp = "/^..?$/";
             foreach ($tDocuments as $doc) {
                 if (!preg_match($rexp, $doc)) {
-                    copy("./reset/televersements/$doc", "./televersements/$doc");
+                    copy("./reset/televersements/$doc", UPLOAD_DIR . "$doc");
                 }
             }
     

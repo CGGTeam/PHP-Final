@@ -70,7 +70,7 @@
     function validerAdresseCourriel($courriel, &$raison = null) {
         if ($courriel) {
             $rexp = "/^[a-z0-9.\-_]+\@\w+\.\w+$/i";
-            $raison = preg_match($rexp, $nomComplet) != false ? EnumRaisons::VALIDE : EnumRaisons::INVALIDE;
+            $raison = preg_match($rexp, $courriel) != false ? EnumRaisons::VALIDE : EnumRaisons::INVALIDE;
             return (preg_match($rexp, $courriel) && strlen($courriel) >= 10 && strlen($courriel) <= 50);
         } else {
             $raison = EnumRaisons::VALIDE;
