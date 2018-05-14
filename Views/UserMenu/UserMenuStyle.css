@@ -29,6 +29,12 @@ body {
     font-weight: bolder;
 }
 
+.ddlCours {
+    display: inline-block;
+    height: 5vh;
+    width: 40%;
+}
+
 p {
     padding: 10px;
 }

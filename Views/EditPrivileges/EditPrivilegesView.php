@@ -74,8 +74,9 @@
 
 
 <form class="container">
-    <table border="1" cellspacing="5" cellpadding="5">
-        <tbody>
+    <div class="table-container">
+        <table border="1" cellspacing="5" cellpadding="5">
+            <tbody>
             <tr>
                 <th>Utilisateurs</th>
                 <th ag-for="cours in tbCours">
@@ -100,12 +101,14 @@
                     </div>
                 </td>
             </tr>
-        </tbody>
-    </table>
-    <button type="button" name="submit" id="submit" onclick="postChanges('Utilisateur','?controller=EditPrivileges&action=Post',null,false,configCoursSession)">
+            </tbody>
+        </table>
+    </div>
+    <button class="boutonsConfirm" type="button" name="submit" id="submit"
+            onclick="postChanges('Utilisateur','?controller=EditPrivileges&action=Post',null,false,configCoursSession)">
         Enregistrement
     </button>
-    <button type="button" name="button" id="button"
+    <button class="boutonsConfirm" type="button" name="button" id="button"
             onclick="window.location='?controller=AdminMenu&action=AdminMenu';">
         Retour
     </button>
