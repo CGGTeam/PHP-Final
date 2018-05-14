@@ -172,6 +172,8 @@ function postChanges(type,lien = "?controller=BD&action=Confirmer", toDoBefore=n
                     $_postObj.toDoAfter();
                 }
 
+                $_postObj.confirmer = false;
+                $_postObj.changed = false;
                 configCouleurs();
                 $_anguleuxInterne.updateAgFor(document.getElementById("tr_parent"));
                 configPost(eval(type), $_postObj.protoToPost);
