@@ -74,8 +74,7 @@
                 }
     
                 if (!validerDateSession($this->dateAccesFin, $this->dateAccesDebut) ||
-                    !validerDateSession($this->dateAccesDebut, "2018-01-01", $this->dateAccesFin) ||
-                    !validerDateSession($this->dateCours)) {
+                    !validerDateSession($this->dateAccesDebut, "2018-01-01", $this->dateAccesFin)) {
                     var_dump("BORNES INVALIDES");
                     $this->setModelState(ModelState::Invalid);
                     return false;

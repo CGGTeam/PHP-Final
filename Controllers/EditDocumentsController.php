@@ -17,9 +17,9 @@
         }
         
         function EditDocuments() {
-            $session =  post("session");
-            $cours =  post("cours");
-            $GLOBALS["titrePage"] = "Modification des documents de la session $session";
+            $session = get("session");
+            $cours = get("cours");
+            $GLOBALS["titrePage"] = "Modification des documents du cours " . $cours . " " . $session;
             $model = null;
     
             if ($session && $cours) {

@@ -154,7 +154,7 @@ function postChanges(type,lien = "?controller=BD&action=Confirmer", toDoBefore=n
     xhttp.onreadystatechange = function() {
         if(xhttp.readyState === XMLHttpRequest.DONE){
             if(!reload) {
-                $scope.model = JSON.parse(xhttp.responseText);
+                eval($_postObj.cheminTab + " = JSON.parse(xhttp.responseText)");
                 eval($_postObj.cheminTab + '.unshift(new ' + type + '())');
 
                 if($_postObj.toDoAfter){
