@@ -141,11 +141,16 @@
                     <option>20</option>
                 </select>
             </td>
-            <td><input type="date" name="date5" id="date14" for-bind="true" for-bind-path="dateAccesDebut"></td>
-            <td><input type="date" name="date5" id="date15" for-bind="true" for-bind-path="dateAccesFin"></td>
-            <td><input type="text" name="textfield3" id="textfield7" placeholder="Entrez un titre" for-bind="true" for-bind-path="titre"></td>
-            <td><input type="text" name="textfield3" id="textfield8" placeholder="Entrez une description" for-bind="true" for-bind-path="description"></td>
-            <td><input type="number" name="number2" id="number4" for-bind="true" for-bind-path="nbPages"></td>
+            <td><input type="date" name="date5" id="date14" for-bind="true" for-bind-path="dateAccesDebut"
+                       min="2018-01-01" max="2021-12-31"></td>
+            <td><input type="date" name="date5" id="date15" for-bind="true" for-bind-path="dateAccesFin"
+                       min="2018-01-01" max="2021-12-31"></td>
+            <td><input type="text" name="textfield3" id="textfield7" placeholder="Entrez un titre" for-bind="true"
+                       for-bind-path="titre" minlength="5" maxlength="100"></td>
+            <td><input type="text" name="textfield3" id="textfield8" placeholder="Entrez une description"
+                       for-bind="true" for-bind-path="description" minlength="5" maxlength="255"></td>
+            <td><input type="number" name="number2" id="number4" for-bind="true" for-bind-path="nbPages" min="1"
+                       max="99"></td>
             <td>
                 <select attrib-bind-obj="docCatAttrib" for-bind="true" for-bind-path="categorie">
                     <?php
