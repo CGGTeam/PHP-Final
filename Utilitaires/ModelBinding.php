@@ -40,7 +40,6 @@
                     break;
                 case ModelState::Deleted :
                     $tCles = mysql::getBD()->retourneClesPrimaires(get_class($this))->fetch_all();
-                    log_fichier($tCles);
                     $strConditions = "";
 
                     foreach ($this->tbValeurs as $nomChamp => $valeur) {
@@ -73,7 +72,6 @@
                     foreach ($this->tbValeurs as $nomChamp => $valeur) {
                         $strSets .= "$nomChamp='$valeur', ";
                     }
-                    //log_fichier($strSets);
                     $strSets = substr($strSets, 0, strlen($strSets) - 2);
                     mysql::getBD()->modifieEnregistrements(get_class($this), $strSets, $strConditions);
                     break;

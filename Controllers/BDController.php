@@ -30,7 +30,6 @@
             $strType = $arSplit[0];
             $strDonnees = $arSplit[1];
             $tDonneesJson = json_decode($strDonnees, true);
-            log_fichier($tDonneesJson);
     
     
             for ($i = 0; $i < sizeof($tDonneesJson); $i++) {
@@ -45,7 +44,6 @@
     
                 /** @var ModelBinding $so */
                 $so = new $strType($sj);
-                log_fichier($so);
                 if (strtolower($strType) == "document") {
                     /**@var Document $so */
                     if ($etat == ModelState::Deleted) {
@@ -67,7 +65,6 @@
                 return new View(500);
             }
 
-            log_fichier($tDonneesPHP);
             return new JSONView($tDonneesPHP);
         }
     
