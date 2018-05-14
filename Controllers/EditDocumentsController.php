@@ -45,27 +45,25 @@
         function SelectionSession() {
             $GLOBALS["titrePage"] = "Sélection d'un cours-session";
             $objBD = MYSQL::getBD();
-            $objBD->selectionneRow("CoursSession");
-            if ($objBD->OK) {
-                $tCoursSession = ModelBinding::bindToClass($objBD->OK, "CoursSession");
-                $tListeDocuments = ModelBinding::bindToClass($objBD->OK, "Document");
-                $objBD->selectionneRow("Categorie");
-                $tListeCategories = ModelBinding::bindToClass($objBD->OK, "Categorie");
-                $objBD->selectionneRow("Session");
-                $tListeSessions = ModelBinding::bindToClass($objBD->OK, "Session");
-                $objBD->selectionneRow("Cours");
-                $tListeCours = ModelBinding::bindToClass($objBD->OK, "Cours");
-            }
-            else
-                return new View("500: Erreur Fatale", 500);
+            $objBD->selectionneRow("Session");
+            $tListeSessions = ModelBinding::bindToClass($objBD->OK, "Session");
+            $objBD->selectionneRow("Cours");
+            $tListeCours = ModelBinding::bindToClass($objBD->OK, "Cours");
     
             $objBD->selectionneRow("Document");
             if ($objBD->OK)
                 $intNbDocuments = $objBD->OK->num_rows;
             else
                 return new View("500: Erreur Fatale", 500);
+
+            $objBD->selectionneRowIJ("CoursSession", "utilisateur, session, sigle",
+                "Utilisateur", "courssession.utilisateur = utilisateur.id", "statutAdmin = 1" );
+            if ($objBD->OK)
+                $intNbCoursSessions = $objBD->OK->num_rows;
+            else
+                return new View("500: Erreur Fatale", 500);
     
-            return new View(new DocumentsCoursSession($tListeDocuments, $tListeCategories, $tListeSessions, $tListeCours, EnumEtatsDocuments::SUCCES, sizeof($tListeDocuments)));
+            return new View(new DocumentsCoursSession(null, null, $tListeSessions, $tListeCours, EnumEtatsDocuments::SUCCES, $intNbDocuments, $intNbCoursSessions));
         }
     
         function SauvegardeFichier() {
