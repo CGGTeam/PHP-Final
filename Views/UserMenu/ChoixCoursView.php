@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="Utilitaires/anguleux/AnguleuxStyle.css"/>
 <link href="Views/UserMenu/UserMenuStyle.css" rel="stylesheet" type="text/css"/>
-<form method="post" action="?controller=UserMenu&action=AfficherCours" class="divChoix">
+<form method="get" class="divChoix">
     <p>
         <label id="lblCours" for="coursChoisi" class="ddlCours">
             Cours à visionner:
@@ -23,4 +23,6 @@
             Retour
         </button>
     </p>
+    <input type="hidden" name="controller" value="UserMenu">
+    <input type="hidden" name="action" value="AfficherCours">
 </form>

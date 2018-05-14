@@ -119,3 +119,10 @@ input[type="checkbox"]:checked ~ .helper::after {
 input[type="checkbox"]:focus + label::before {
     outline: #9099A2;
 }
+
+p {
+    color: var(--primary);
+    margin-top: 20vh;
+    font-weight: bolder;
+    font-size: 2.5vmax;
+}
