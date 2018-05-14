@@ -8,6 +8,10 @@
     require_once("Controllers/ModuleAdminBase.php");
     require_once("Models/EditArborescence/EditArborescenceModel.php");
     
+    function fichiersSort($a, $b) {
+        return intval($a->binDeleted) > intval($b->binDeleted);
+    }
+    
     class EditArborescenceController extends ModuleAdminBase {
         function __construct() {
             parent::__construct();
@@ -51,8 +55,6 @@
             return new JSONView($tVerdicts);
         }
     
-        function
-    
         function ConfirmerSuppressionFichiers() {
             $GLOBALS["titrePage"] = "Confirmer suppression des fichiers orphelins";
             //TODO: make const for upload dir
@@ -74,7 +76,9 @@
                     }
                 }
             }
-        
+    
+            usort($tFichiersTraites, "fichiersSort");
+            
             return new View($tFichiersTraites);
         }
     }
