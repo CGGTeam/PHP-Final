@@ -1,5 +1,4 @@
 @charset "UTF-8";
-@import url("../../Style/main.css");
 
 /* Body */
 body {
@@ -50,51 +49,6 @@ body {
 th .sousTitre {
     font-size: 10px;
     font-style: italic;
-}
-
-.checkbox {
-    margin: auto;
-    position: relative;
-    display: block;
-    width: 26px;
-    height: 26px;
-}
-
-.helper {
-    position: absolute;
-    top: -4px;
-    left: -4px;
-    cursor: pointer;
-    display: block;
-    font-size: 16px;
-    color: #e7e7e7;
-}
-
-.helper:before {
-    content: '';
-    position: absolute;
-    margin: 4px;
-    width: 22px;
-    height: 22px;
-    transition: transform 0.28s ease;
-    border-radius: 3px;
-    border: 2px solid #9099A2;
-}
-
-.helper:after {
-    content: '';
-    display: block;
-    width: 10px;
-    height: 5px;
-    border-bottom: 2px solid var(--tertiary);
-    border-left: 2px solid var(--tertiary);
-    -webkit-transform: rotate(-45deg) scale(0);
-    -moz-transform: rotate(-45deg) scale(0);
-    -ms-transform: rotate(-45deg) scale(0);
-    transform: rotate(-45deg) scale(0);
-    position: absolute;
-    top: 12px;
-    left: 10px;
 }
 
 input[type="checkbox"]:checked ~ .helper::before {
