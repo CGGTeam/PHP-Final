@@ -12,6 +12,7 @@
     require_once("Utilitaires/ModelState.php");
     
     const TEMP_DIR = "./temp";
+    const TEMP_FILE = "permissions.csv";
     
     class EditGroupesController extends ModuleAdminBase
     {
@@ -43,12 +44,12 @@
             if (isset($_FILES["fichierCSV"])) {
                 if (!file_exists(TEMP_DIR))
                     mkdir(TEMP_DIR);
-        
-                if (file_exists(TEMP_DIR . "/permissions.csv"))
-                    unlink(TEMP_DIR . "/permissions.csv");
-                enregistrerDocument("fichierCSV", TEMP_DIR, "permissions.csv",
+    
+                if (file_exists(TEMP_DIR . "/" . TEMP_FILE))
+                    unlink(TEMP_DIR . "/" . TEMP_FILE);
+                enregistrerDocument("fichierCSV", TEMP_DIR, TEMP_FILE,
                         PHP_INT_MAX, ["csv"]);
-                $fp = fopen(TEMP_DIR . "/permissions.csv", "r");
+                $fp = fopen(TEMP_DIR . "/" . TEMP_FILE, "r");
                 fgetcsv($fp, 0, ";");
                 $binErreur = false;
                 for ($i = 0; !feof($fp) && !$binErreur; $i++) {
@@ -59,7 +60,9 @@
                         continue;
                     if (sizeof($tChamps) < 4) {
                         $binErreur = true;
+                        continue;
                     }
+    
                     if ($tChamps[0]) { //NomUtilisateur
                         if (validerNomUtilisateur($tChamps[0], true, $raison))
                             $tRetour[$i][] = new Champ($tChamps[0], true);
@@ -116,12 +119,8 @@
                                 $binVerdict = false;
                                 $tRetour[$i][] = new Champ($tChamps[$j], false, $raison);
                             }
-                            var_dump($tChamps[$j]);
-                            var_dump($tdecompte[$tChamps[$j]]);
-                            var_dump($tRetour[$i][$j]->valeur);
                             $tRetour[$i][$j]->raison = $tdecompte[$tChamps[$j]] > 1 ? EnumRaisons::DOUBLON : $tRetour[$i][$j]->raison;
                             $tRetour[$i][$j]->valide = $tdecompte[$tChamps[$j]] > 1 ? false : $tRetour[$i][$j]->valide;
-                            var_dump($tRetour[$i][$j]);
                         } else {
                             $tRetour[$i][] = new Champ("", true);
                         }
@@ -137,6 +136,7 @@
                 else
                     $binOK = false;
             }
+    
             return new View([
                 "tDonnees" => $tRetour,
                 "tSessions" => $tSessions,
@@ -154,35 +154,43 @@
             $GLOBALS["titrePage"] = "Validation des Cours-Sessions";
     
             $strSession = post("ddlSession");
-            session_start();
             $_SESSION["sessionSelec"] = $strSession;
             $binOK = false;
             $tRetour = array();
-    
-            if (file_exists(TEMP_DIR . "/permissions.csv")) {
-                $contenu = file_get_contents(TEMP_DIR . "/permissions.csv");
-                $tcontenu = preg_split("/\r\n|\r|\n/", $contenu);
+            if (file_exists(TEMP_DIR . "/" . TEMP_FILE)) {
                 $objBD = Mysql::getBD();
-                for ($i = 1; $i < sizeof($tcontenu); $i++) {
+                $fp = fopen(TEMP_DIR . "/" . TEMP_FILE, "r");
+                fgetcsv($fp, 0, ";");
+                for ($i = 1; !feof($fp); $i++) {
                     $tRetour[] = array();
                     $binVerdict = true;
-                    $tChamps = preg_split('/[\t;,\|\^]/g', $tcontenu[$i]);
-                
+                    $tChamps = fgetcsv($fp, 0, ";");
+                    if (!$tChamps)
+                        continue;
+                    
                     for ($j = 4; $j < sizeof($tChamps); $j++) {
                         if ($tChamps[$j]) {
-                            if ($objBD->OK && $objBD->OK->num_rows > 0) {
-                                $tRetour[$i][] = new Champ($tChamps[$j], true);
+                            $rexpAdmin = "/^ADM-[AHE]\\d{2}$/";
+    
+                            if (!preg_match($rexpAdmin, $tChamps[$j])) {
+                                $objBD->selectionneRow("Cours", "*", "sigle='$tChamps[$j]'");
+                                if ($objBD->OK && $objBD->OK->num_rows > 0) {
+                                    $tRetour[$i][] = new Champ($tChamps[$j], true);
+                                } else {
+                                    $binVerdict = false;
+                                    $tRetour[$i][] = new Champ($tChamps[$j], false, EnumRaisons::BD_ABSENT);
+                                }
                             } else {
-                                $binVerdict = false;
-                                $tRetour[$i][] = new Champ($tChamps[$j], false);
+                                $tRetour[$i][] = new Champ($tChamps[$j], true);
                             }
                         }
                     }
                     $binOK = $binVerdict ? $binVerdict : false;
-                    $tRetour[$j][] = $binVerdict;
+                    $tRetour[$i][] = $binVerdict;
                 }
             }
-        
+    
+    
             return new JSONView([
                 "tDonnees" => $tRetour,
                 "binOK" => $binOK
@@ -194,8 +202,8 @@
             $strSession = $_SESSION["sessionSelec"];
             unset($_SESSION["sessionSelec"]);
     
-            if (file_exists(TEMP_DIR . "/permissions.csv")) {
-                $fp = fopen(TEMP_DIR . "/permissions.csv", "r");
+            if (file_exists(TEMP_DIR . "/" . TEMP_FILE)) {
+                $fp = fopen(TEMP_DIR . "/" . TEMP_FILE, "r");
                 while (!feof($fp)) {
                     $tChamps = fgetcsv($fp, 0, ";");
                     $objUtil = new Utilisateur([

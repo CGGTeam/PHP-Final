@@ -21,23 +21,18 @@
         $binTypeValide = sizeof($tTypesFichiers) == 0 || in_array($strTypeFichier, $tTypesFichiers);
         $intTaille = intval($_FILES[$strNomPost]["size"]);
     
-        var_dump("lol1");
         if (!$binTypeValide)
             exit ("Le fichier n'est pas d'un type valide");
-        var_dump("lol2");
     
         if ($intTaille > $grandeurMax)
             exit("La grandeur du fichier excède la limite de " . $grandeurMax);
-        var_dump("lol3");
     
         if (!is_uploaded_file($strNomFichierTemp))
             exit("Téléversement impossible...");
-        var_dump("lol4");
     
         if (!move_uploaded_file($strNomFichierTemp, $strNomDossier . "/" .
             ($strNouveauNom ? $strNouveauNom : $strNomFichier)))
             exit("Impossible de copier le fichier '$strNomFichier' dans le dossier '$strNomDossier'");
-        var_dump("lol5");
     }
     
     function loadDonneesCSV($classe) {
