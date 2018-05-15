@@ -73,6 +73,7 @@
         }
 
         function ConfirmerSuppressionFichiers() {
+            var_dump("LOL");
             $GLOBALS["titrePage"] = "Suppression des fichiers orphelins";
         
             $tFichiersTraites = array();
