@@ -68,7 +68,7 @@
         console.log(formData);
         if(!formData.values().next().done) {
             let xhr = new XMLHttpRequest();
-            xhr.open('POST', '?controller=EditDocuments&action=UploadDocuments, true', true);
+            xhr.open('POST', '?controller=EditDocuments&action=SauvegardeFichier', true);
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     postChanges('Document', removeFirst)
