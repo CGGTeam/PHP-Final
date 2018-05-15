@@ -19,10 +19,7 @@
             require_once "Models/Donnees/Document.php";
             require_once "Models/Donnees/Session.php";
             require_once "Models/Donnees/Utilisateur.php";
-
-            if (!isset($_SESSION)) {
-                session_start();
-            }
+    
             global $authorized;
     
     

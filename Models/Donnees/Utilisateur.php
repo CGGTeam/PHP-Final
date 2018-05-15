@@ -33,14 +33,14 @@
         public function valider() {
             try {
                 $this->statutAdmin = boolval($this->statutAdmin);
-                $binValide = validerNomUtilisateur($this->nomUtilisateur, $this->getModelState() === ModelState::Deleted)
+                $binValide = validerNomUtilisateur($this->nomUtilisateur, $this->getIntModelState() === ModelState::Deleted)
                     && validerMotPasse($this->motDePasse)
                     && is_bool($this->statutAdmin) && validerNomComplet($this->nomComplet);
                 if (!$binValide)
-                    $this->setModelState(ModelState::Invalid);
+                    $this->setIntModelState(ModelState::Invalid);
                 return $binValide;
             } catch (Exception $e) {
-                $this->setModelState(ModelState::Invalid);
+                $this->setIntModelState(ModelState::Invalid);
             }
         }
     }

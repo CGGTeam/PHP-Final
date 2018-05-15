@@ -23,13 +23,13 @@
         
         public function valider() {
             if (!validerSession($this->description) || !dateValide($this->dateDebut) || !dateValide($this->dateFin)) {
-                $this->setModelState(ModelState::Invalid);
+                $this->setIntModelState(ModelState::Invalid);
                 return false;
             }
     
             if (!validerDateSession($this->dateDebut, "2018-01-01", $this->dateFin) ||
                 !validerDateSession($this->dateFin, $this->dateDebut)) {
-                $this->setModelState(ModelState::Invalid);
+                $this->setIntModelState(ModelState::Invalid);
                 return false;
             }
     

@@ -215,7 +215,7 @@
                         "nomComplet" => $tChamps[2],
                         "courriel" => $tChamps[3]
                     ]);
-                    $objUtil->setModelState(ModelState::Added);
+                    $objUtil->setIntModelState(ModelState::Added);
                     $objUtil->saveChangesOnObj();
     
                     $objBD->selectionneRow("Utilisateur", "*", "nomUtilisateur = '$tChamps[0]'");
@@ -231,7 +231,7 @@
                                 "utilisateur" => $objUtil[0]->id
                             ]);
     
-                            $objCoursSession->setModelState(ModelState::Added);
+                            $objCoursSession->setIntModelState(ModelState::Added);
                             $objCoursSession->saveChangesOnObj();
                         }
                     }

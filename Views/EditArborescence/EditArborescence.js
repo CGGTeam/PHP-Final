@@ -20,7 +20,7 @@ function ConfirmerSuppressionBD() {
         $_postObj.tabObjToPost.push(x);
     });
 
-    postChanges('DocumentBD', "index.php?controller=EditArborescence&action=ConfirmerSuppressionBD", null, false, afficherVerdictState, false);
+    postChanges('DocumentBD', "module-admin.php?controller=EditArborescence&action=ConfirmerSuppressionBD", null, false, afficherVerdictState, false);
 
 }
 

@@ -34,8 +34,8 @@
     
             for ($i = 0; $i < sizeof($tDonneesJson); $i++) {
                 $sj = $tDonneesJson[$i];
-                $etat = $sj["modelState"];
-                if ($etat == ModelState::Added) {
+                $intEtat = $sj["modelState"];
+                if ($intEtat == ModelState::Added) {
                     unset($sj["id"]); //This can probably stay
                 } else if(isset($sj["id"])){
                     $sj["id"] = intval($sj["id"]);
@@ -46,13 +46,22 @@
                 $so = new $strType($sj);
                 if (strtolower($strType) == "document") {
                     /**@var Document $so */
-                    if ($etat == ModelState::Deleted) {
-                        $so->setModelState(ModelState::Same);
+                    if ($intEtat == ModelState::Deleted) {
+                        $so->setIntModelState(ModelState::Same);
                         $objBD = MySql::getBD();
                         $objBD->modifieEnregistrements("Document", "supprimer=1", "id='$so->id'");
                     }
+                } else if (strtolower($strType) == "utilisateur" && $intEtat == ModelState::Deleted) {
+                    /**@var Utilisateur $so */
+                    if ($so->statutAdmin) {
+                        $objBD = mysql::getBD();
+                        $objBD->selectionneRow("utilisateur", "*", "statutAdmin=1");
+                        if ($objBD->OK && $objBD->OK->num_rows == 1) {
+                            $so->setIntModelState(ModelState::Same);
+                        }
+                    }
                 } else
-                    $so->setModelState($etat);
+                    $so->setIntModelState($intEtat);
                 $so->saveChangesOnObj();
             }
     

@@ -17,14 +17,17 @@ body {
     bottom: 0;
     right: 0;
     width: 65vw;
-    height: 65vh;
+    height: 80vh;
+    overflow: auto;
+    background-color: var(--tertiary);
 }
 
 .tableauBoutons tbody {
     background-color: var(--primary);
     display: block;
     padding: 5%;
-    width: 95%;
+    width: 90%;
+    height: 100%;
     text-align: center;
 }
 
@@ -39,7 +42,7 @@ body {
 .tableauBoutons tr td {
     display: block;
     width: 100%;
-    padding: 5px 0px;
+    padding: 5px 0;
     text-align: center;
 }
 
@@ -49,6 +52,17 @@ body {
     width: 100%;
     min-height: 5vh;
     height: auto;
-    font-size: 2vmax;
+    font-size: 3vh;
     font-weight: bolder;
+}
+
+.tableauBoutons tr td button p {
+    height: auto;
+    margin: 5px;
+}
+
+.desc {
+    font-style: italic;
+    font-size: 2vh;
+    font-weight: lighter;
 }
