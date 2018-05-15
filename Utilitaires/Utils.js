@@ -143,6 +143,7 @@ function configPost(objClass, tabProto,cheminTab, fctOnParam){
  * @param toDoBefore
  * @param reload
  * @param toDoAfter
+ * @param createNew
  */
 function postChanges(type,lien = "?controller=BD&action=Confirmer", toDoBefore=null, reload=false, toDoAfter=null, createNew = true){
     if($_postObj.confirmer){
