@@ -54,7 +54,12 @@
     function nouvObj() {
         $scope.model.tDocuments.unshift(new DocumentBD());
         //TODO reconstruire tableau + configPost
+        $scope.model.tDocuments[1].modelState = 0;
+        $_anguleuxInterne.updateAgFor(document.getElementById("tr_parent"));
+        configPost(DocumentBD,null,"$scope.model.tDocuments");
+        document.getElementById("tr_" + $scope.model.tDocuments[1].id).style.backgroundColor = 'green';
         reconstruirePost($scope.model.tDocuments);
+        reconstruireStyle($scope.model.tDocuments);
     }
 
     function postDocuments() {
@@ -71,7 +76,7 @@
             xhr.open('POST', '?controller=EditDocuments&action=UploadDocuments, true', true);
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
-                    postChanges('Document', removeFirst)
+                    postChanges('Document', "index.php?controller=BD&action=Confirmer", removeFirst)
                 }
             };
             xhr.send(formData);
