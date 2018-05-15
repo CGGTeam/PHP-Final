@@ -85,3 +85,24 @@ th .sousTitre {
     font-size: 10px;
     font-style: italic;
 }
+
+.ddlCours {
+    display: inline-block;
+    height: 5vh;
+    margin-right: 15px;
+    width: 200px;
+}
+
+.container-selection {
+    height: auto;
+    width: 60vw;
+    text-align: center;
+    color: var(--text);
+    background-color: var(--tertiary);
+    padding: 5vh;
+}
+
+.container-selection h2 {
+    display: inline;
+    color: var(--text);
+}

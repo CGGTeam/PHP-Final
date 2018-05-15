@@ -11,11 +11,11 @@
 </div>
 <script>
     function valide() {
-        let valeur = document.getElementById('fichierCSV').value.split('.').pop();
+        let extension = document.getElementById('fichierCSV').value.split('.').pop();
         let accept = document.getElementById('fichierCSV').accept;
-        if (accept.indexOf(valeur) === -1) {
+        if (accept.indexOf(extension) === -1) {
             alert("Le type de fichier est invalide: le fichier doit être un .csv!");
         }
-        return accept.indexOf(valeur) !== -1;
+        return accept.indexOf(extension) !== -1;
     }
 </script>
