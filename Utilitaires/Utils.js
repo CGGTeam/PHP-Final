@@ -171,7 +171,7 @@ function postChanges(type,lien = "?controller=BD&action=Confirmer", toDoBefore=n
                 try {
                     eval($_postObj.cheminTab + " = JSON.parse(xhttp.responseText)");
                     if(createNew)
-                        eval($_postObj.cheminTab + '.unshift(new ' + type + '())');
+                        eval($_postObj.cheminTab + '.unshift(new ' + $_postObj.classToPost + '())');
                 }catch (e){}
 
                 if($_postObj.toDoAfter){

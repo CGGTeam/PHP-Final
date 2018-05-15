@@ -173,7 +173,7 @@
                             $rexpAdmin = "/^ADM-[AHE]\\d{2}$/";
     
                             if (!preg_match($rexpAdmin, $tChamps[$j])) {
-                                $objBD->selectionneRow("Cours", "*", "sigle='$tChamps[$j]'");
+                                $objBD->selectionneRow("CoursSession", "*", "sigle='$tChamps[$j]' AND session='$strSession'");
                                 if ($objBD->OK && $objBD->OK->num_rows > 0) {
                                     $tRetour[$i][] = new Champ($tChamps[$j], true);
                                 } else {

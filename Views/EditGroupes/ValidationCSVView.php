@@ -45,7 +45,25 @@
         xhttp.onreadystatechange = function () {
             if(xhttp.readyState === XMLHttpRequest.DONE){
                 console.log(JSON.parse(xhttp.responseText));
+                let tReponse = JSON.parse(xhttp.responseText).tDonnees;
+
+                let tTr = Array.from(document.getElementById("tableParent").querySelectorAll("TR"));
+                tTr.filter(x => !x.classList.contains("ag-disp-none") && x.children[0].tagName !== "TH").forEach(tr => {
+                    let tTd = Array.from(tr.querySelectorAll("TD")).filter(y => !y.classList.contains("ag-disp-none"));
+                    if(tTd.length >= 8) {
+                        for (let i = 4; i < 8; i++) {
+                            let element = tReponse[i - 3].find(x => x.valeur === tTd[i].children[0].innerHTML);
+                            if (element && !element.valide) {
+                                tTd[i].style.backgroundColor = 'red';
+                            }else{
+                                tTd[i].style.backgroundColor = null;
+                            }
+                        }
+                    }
+                });
+
             }
+
         };
         xhttp.send(formData);
     }
