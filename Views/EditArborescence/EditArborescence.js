@@ -91,7 +91,7 @@ function finalState(xhttp) {
     trTH.innerHTML = fluxTRTH;
 
     let fluxTR_PARENT = "";
-    fluxTR_PARENT += "<td>{{doc.id}}</td>";
+    fluxTR_PARENT += "<td index-offset='1'>{{_index}}</td>";
     fluxTR_PARENT += "<td>{{doc.nomFichier}}</td>";
     fluxTR_PARENT += "<td>{{doc.verdict}}</td>";
     trParent.innerHTML = fluxTR_PARENT;

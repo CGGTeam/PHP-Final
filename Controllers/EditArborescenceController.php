@@ -84,6 +84,7 @@
                         $tFichiersTraites[] = $fd;
                         $objBd = Mysql::getBD();
                         $objBd->selectionneRow("Document", "*", "hyperLien='$nomFichier'");
+                        $fd->verdict = "";
                         if ($objBd->OK && $objBd->OK->num_rows == 0) {
                             unlink(UPLOAD_DIR . "/" . $nomFichier);
                             $fd->binDeleted = true;
