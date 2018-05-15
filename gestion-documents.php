@@ -15,6 +15,7 @@
     require_once "Models/EditReferences/CoursSessionIJModel.php";
     
     const UPLOAD_DIR = "./televersements";
+    $objBD = mysql::getBD();
     
     if (isset($_GET['controller']) && isset($_GET['action'])) {
         $controller = $_GET['controller'];
@@ -23,6 +24,5 @@
         $controller = 'Login';
         $action = 'Login';
     }
-
-require_once "routes.php";
+    
     require_once "routes.php";

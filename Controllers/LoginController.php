@@ -62,13 +62,13 @@
                         $_SESSION["utilisateurCourant"] = ModelBinding::bindToClass($objRetour, "Utilisateur")[0];
                         if ($_SESSION["utilisateurCourant"]->nomUtilisateur == "admin" && $_SESSION["utilisateurCourant"]->motDePasse == "admin") {
                             $_SESSION["creerAdmin"] = true;
-                            header('Location: ?controller=Login&action=CreerAdmin');
+                            header('Location: module=admin.php?controller=Login&action=CreerAdmin');
                             $objView = new View("", 301);
                         } else if ($_SESSION["utilisateurCourant"]->statutAdmin) {
-                            header('Location: ?controller=AdminMenu&action=AdminMenu');
+                            header('Location: module-admin?controller=AdminMenu&action=AdminMenu');
                             $objView = new View("", 302);
                         } else {
-                            header('Location: ?controller=UserMenu&action=ChoixCours');
+                            header('Location: gestion-documents?controller=UserMenu&action=ChoixCours');
                             $objView = new View("", 302);
                         }
                     } else {
