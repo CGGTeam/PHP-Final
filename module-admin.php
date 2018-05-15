@@ -8,7 +8,6 @@
         session_start();
     }
     if (isset($_SESSION["utilisateurCourant"])) {
-        ob_end_clean();
         $strFichier = $_SESSION["utilisateurCourant"]->statutAdmin ? "module-admin.php" : "gestion-documents.php";
         $strController = isset($_GET["controller"]) ? "?controller=" . $_GET["controller"] : "";
         $strAction = isset($_GET["action"]) ? "action=" . $_GET["action"] : "";
@@ -20,8 +19,8 @@
         $strParamsGet = $_SERVER['QUERY_STRING'];
         if (!(empty($_SERVER['QUERY_STRING']) && strpos($_SERVER['REQUEST_URI'], "?") === false))
             $strParamsGet = "?" . $_SERVER['QUERY_STRING'];
-
-        if ($_SESSION["utilisateurCourant"]->statutAdmin) {
+        
+        if (!$_SESSION["utilisateurCourant"]->statutAdmin) {
             header("Location: $strFichier$strParamsGet");
             http_response_code(302);
             die();
@@ -33,6 +32,8 @@
     require_once "sqlConnection.php";
     require_once "Utilitaires/View.php";
     require_once "Utilitaires/JSONView.php";
+    require_once "Utilitaires/ModelBinding.php";
+    require_once "Models/Donnees/Utilisateur.php";
     require_once "Utilitaires/ModelState.php";
     require_once "Controllers/ModuleUtilisateurBase.php";
     require_once "Controllers/ModuleAdminBase.php";
