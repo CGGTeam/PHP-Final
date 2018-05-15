@@ -75,7 +75,7 @@
                         enregistrerDocument($tIds[$i][0], UPLOAD_DIR, null, PHP_INT_MAX,
                             ["txt", "doc", "docx", "pdf", "zip", "rtf", "odt", "tex", "wks", "wps", "wpd"]);
                         $objBD->modifieEnregistrements("document",
-                            "hyperLien='" . $_FILES[$tIds[$i][0]] . "'", "id='" . $tIds[$i][0] . "'");
+                            "hyperLien='" . UPLOAD_DIR . "/" . $_FILES[$tIds[$i][0]]["name"] . "'", "id='" . $tIds[$i][0] . "'");
                     }
                 }
             }
