@@ -116,7 +116,12 @@
                                 $binVerdict = false;
                                 $tRetour[$i][] = new Champ($tChamps[$j], false, $raison);
                             }
+                            var_dump($tChamps[$j]);
+                            var_dump($tdecompte[$tChamps[$j]]);
+                            var_dump($tRetour[$i][$j]->valeur);
                             $tRetour[$i][$j]->raison = $tdecompte[$tChamps[$j]] > 1 ? EnumRaisons::DOUBLON : $tRetour[$i][$j]->raison;
+                            $tRetour[$i][$j]->valide = $tdecompte[$tChamps[$j]] > 1 ? false : $tRetour[$i][$j]->valide;
+                            var_dump($tRetour[$i][$j]);
                         } else {
                             $tRetour[$i][] = new Champ("", true);
                         }
@@ -132,7 +137,6 @@
                 else
                     $binOK = false;
             }
-    
             return new View([
                 "tDonnees" => $tRetour,
                 "tSessions" => $tSessions,
