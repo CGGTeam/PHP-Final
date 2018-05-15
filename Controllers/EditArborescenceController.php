@@ -7,16 +7,16 @@
      */
     require_once("Controllers/ModuleAdminBase.php");
     require_once("Models/EditArborescence/EditArborescenceModel.php");
-    
+
     function fichiersSort($a, $b) {
         return intval($a->binDeleted) > intval($b->binDeleted);
     }
-    
+
     class EditArborescenceController extends ModuleAdminBase {
         function __construct() {
             parent::__construct();
         }
-        
+
         function EditArborescence() {
             $GLOBALS["titrePage"] = "Arborescence des documents";
             $objBD = Mysql::getBD();
@@ -27,32 +27,40 @@
                 return new View("500: Erreur Fatale", 500);
             return new View($tDocuments);
         }
-    
+
         function ConfirmerSuppressionBD() {
             $GLOBALS["titrePage"] = "Confirmer suppression des documents";
             $strPOST = file_get_contents('php://input');
-            $tDocuments = json_decode($strPOST, true);
+            $arSplit = explode("\n", $strPOST);
+            $strType = $arSplit[0];
+            $strDonnees = $arSplit[1];
+            $tDonneesJson = json_decode($strDonnees, true);
+            $tDocuments = $tDonneesJson;
             $tVerdicts = array();
             $verdict = true;
-        
+            $lastIndex = 0;
+            $tRetour = array();
+
             try {
                 for ($i = 0; $i < sizeof($tDocuments); $i++) {
                     $sj = $tDocuments[$i];
                     $so = new Document($sj);
                     $so->saveChangesOnObj();
                     if (mysql::getBD()->OK) {
-                        $tVerdicts[] = true;
+                        $so -> verdict = true;
                     } else {
-                        $tVerdicts[] = false;
+                        $so -> verdict = false;
                     }
+                    $tRetour[] = $so;
                 }
             } catch (Exception $e) {
                 $verdict = $e;
+                return $verdict;
             }
-    
-            return new JSONView(["verdicts" => $tVerdicts, "OK" => $verdict]);
+
+            return new JSONView($tRetour);
         }
-    
+
         function ConfirmerSuppressionFichiers() {
             $GLOBALS["titrePage"] = "Confirmer suppression des fichiers orphelins";
         
@@ -72,9 +80,9 @@
                     }
                 }
             }
-    
+
             usort($tFichiersTraites, "fichiersSort");
-            
+
             return new View($tFichiersTraites);
         }
     }
