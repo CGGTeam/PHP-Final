@@ -7,6 +7,7 @@
      */
     require_once("Controllers/ModuleAdminBase.php");
     require_once("Models/EditArborescence/EditArborescenceModel.php");
+    require_once("Models/EditArborescence/FichierDoc.php");
 
     function fichiersSort($a, $b) {
         return intval($a->binDeleted) > intval($b->binDeleted);
@@ -36,20 +37,21 @@
             $strDonnees = $arSplit[1];
             $tDonneesJson = json_decode($strDonnees, true);
             $tDocuments = $tDonneesJson;
-            $tVerdicts = array();
-            $verdict = true;
-            $lastIndex = 0;
             $tRetour = array();
 
             try {
                 for ($i = 0; $i < sizeof($tDocuments); $i++) {
                     $sj = $tDocuments[$i];
                     $so = new Document($sj);
-                    $so->saveChangesOnObj();
-                    if (mysql::getBD()->OK) {
-                        $so -> verdict = true;
-                    } else {
-                        $so -> verdict = false;
+                    if($so -> getModelState() === 1){
+                        $so->saveChangesOnObj();
+                        if (mysql::getBD()->OK) {
+                            $so -> verdict = "Supprimé";
+                        } else {
+                            $so -> verdict = "ERREUR";
+                        }
+                    }else{
+                        $so -> verdict = "";
                     }
                     $tRetour[] = $so;
                 }
@@ -68,14 +70,15 @@
             $tFichiers = scandir(UPLOAD_DIR);
             if ($tFichiers) {
                 foreach ($tFichiers as $nomFichier) {
-                    if (!is_dir($nomFichier)) {
+                    if (!is_dir(UPLOAD_DIR . "/" . $nomFichier)) {
                         $fd = new FichierDoc($nomFichier, false);
                         $tFichiersTraites[] = $fd;
                         $objBd = Mysql::getBD();
-                        $objBd->selectionneRow("Documents", "*", "hyperLien='$nomFichier'");
+                        $objBd->selectionneRow("Document", "*", "hyperLien='$nomFichier'");
                         if ($objBd->OK && $objBd->OK->num_rows == 0) {
                             unlink($nomFichier);
                             $fd->binDeleted = true;
+                            $fd->verdict = "Supprimé";
                         }
                     }
                 }
@@ -83,6 +86,6 @@
 
             usort($tFichiersTraites, "fichiersSort");
 
-            return new View($tFichiersTraites);
+            return new JSONView($tFichiersTraites);
         }
     }
