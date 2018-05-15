@@ -14,7 +14,7 @@
         <th scope="col">Titre</th>
         <th scope="col">Supprimer?</th>
     </tr>
-    <tr ag-for="doc in model">
+    <tr id="tr_parent" ag-for="doc in model">
         <td>{{doc.id}}</td>
         <td>{{doc.session}}</td>
         <td>{{doc.sigle}}</td>
@@ -31,6 +31,9 @@
     <tr>
 </table>
 <button type="submit" name="button" id="button" onclick="ConfirmerSuppressionBD();">
+    Enregistrer
+</button>
+<button type="button" name="submit" id="submit" class="boutonsConfirm" onclick="deleteSelected($scope.model)">
     Supprimer
 </button>
 <button type="button" name="button" id="button"
