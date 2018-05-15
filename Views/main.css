@@ -135,15 +135,15 @@ button:hover {
 /* Container */
 .container {
     width: 80vw;
-    height: 90vh;
+    height: 80vh;
     overflow: auto;
 }
 
 .table-container {
-    margin-top: 5vh;
     position: relative;
     width: 100%;
     height: auto;
+    max-height: 80%;
     overflow: auto;
 }
 
@@ -182,15 +182,6 @@ button:hover {
     height: 26px;
 }
 
-input[type="checkbox"] {
-    z-index: 99;
-    position: absolute;
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-    opacity: 0.00000001;
-}
 
 .helper {
     position: absolute;
@@ -229,6 +220,16 @@ input[type="checkbox"] {
     left: 10px;
 }
 
+input[type="checkbox"] {
+    z-index: 99;
+    position: absolute;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    opacity: 0.00000001;
+}
+
 input[type="checkbox"]:checked ~ .helper::before {
     color: var(--tertiary);
 }
@@ -263,7 +264,6 @@ input[type="checkbox"]:focus + label::before {
 }
 
 .boutonsConfirm {
-    position: relative;
     display: inline-block;
     padding: 18px 39px;
     font-size: 18px;
@@ -271,4 +271,48 @@ input[type="checkbox"]:focus + label::before {
     margin-bottom: 5vh;
     margin-top: 15px;
     margin-right: 15px;
+}
+
+th div label input[type="checkbox"] {
+    background-color: orange;
+}
+
+th div label .helper {
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    cursor: pointer;
+    display: block;
+    font-size: 16px;
+}
+
+th div label .helper:before {
+    content: '';
+    position: absolute;
+    margin: 4px;
+    width: 22px;
+    height: 22px;
+    transition: transform 0.28s ease;
+    border-radius: 3px;
+    border: 2px solid black;
+}
+
+th div label .helper:after {
+    content: '';
+    display: block;
+    width: 10px;
+    height: 5px;
+    border-bottom: 2px solid black;
+    border-left: 2px solid black;
+    -webkit-transform: rotate(-45deg) scale(0);
+    -moz-transform: rotate(-45deg) scale(0);
+    -ms-transform: rotate(-45deg) scale(0);
+    transform: rotate(-45deg) scale(0);
+    position: absolute;
+    top: 12px;
+    left: 10px;
+}
+
+.stickyHeader {
+    position: absolute;
 }

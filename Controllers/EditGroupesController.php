@@ -40,13 +40,13 @@
             $tRetour = array();
             $tSessions = array();
             $binOK = true;
-            if (true /*isset($_FILES["fichierCSV"])*/) {
+            if (isset($_FILES["fichierCSV"]))
                 if (!file_exists(TEMP_DIR)) {
                     mkdir(TEMP_DIR);
-                }
-                // if (file_exists(TEMP_DIR . "/permissions.csv")) {
-                //     unlink(TEMP_DIR . "/permissions.csv");
-                // }
+    
+                    if (file_exists(TEMP_DIR . "/permissions.csv"))
+                        unlink(TEMP_DIR . "/permissions.csv");
+                 
                 if (isset($_FILES["fichierCSV"])) {
                     enregistrerDocument("fichierCSV", TEMP_DIR, "permissions.csv",
                         PHP_INT_MAX, ["csv"]);
