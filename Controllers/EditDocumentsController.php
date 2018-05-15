@@ -70,7 +70,7 @@
             $objBD->selectionneRow("document", "id");
             if ($objBD->OK) {
                 $tIds = $objBD->OK->fetch_all();
-                for ($i = 0; $i < $tIds; $i++) {
+                for ($i = 0; $i < sizeof($tIds); $i++) {
                     if (isset($_FILES[$tIds[$i][0]])) {
                         enregistrerDocument($tIds[$i][0], UPLOAD_DIR, null, PHP_INT_MAX,
                             ["txt", "doc", "docx", "pdf", "zip", "rtf", "odt", "tex", "wks", "wps", "wpd"]);
@@ -79,5 +79,8 @@
                     }
                 }
             }
+            $objBD->selectionneRow("Document", "*");
+            $tDocs = ModelBinding::bindToClass($objBD->OK, "Document");
+            return new JSONView($tDocs);
         }
     }

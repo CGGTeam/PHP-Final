@@ -41,101 +41,101 @@
             $tRetour = array();
             $tSessions = array();
             $binOK = true;
-            if (isset($_FILES["fichierCSV"])) {
-                if (!file_exists(TEMP_DIR))
-                    mkdir(TEMP_DIR);
     
-                if (file_exists(TEMP_DIR . "/" . TEMP_FILE))
-                    unlink(TEMP_DIR . "/" . TEMP_FILE);
+            if (!file_exists(TEMP_DIR))
+                mkdir(TEMP_DIR);
+    
+            if (file_exists(TEMP_DIR . "/" . TEMP_FILE))
+                unlink(TEMP_DIR . "/" . TEMP_FILE);
+            if (isset($_FILES["fichierCSV"]))
                 enregistrerDocument("fichierCSV", TEMP_DIR, TEMP_FILE,
-                        PHP_INT_MAX, ["csv"]);
-                $fp = fopen(TEMP_DIR . "/" . TEMP_FILE, "r");
-                fgetcsv($fp, 0, ";");
-                $binErreur = false;
-                for ($i = 0; !feof($fp) && !$binErreur; $i++) {
-                    $tRetour[] = array();
-                    $binVerdict = true;
-                    $tChamps = fgetcsv($fp, 0, ";");
-                    if (!$tChamps)
-                        continue;
-                    if (sizeof($tChamps) < 4) {
-                        $binErreur = true;
-                        continue;
-                    }
-    
-                    if ($tChamps[0]) { //NomUtilisateur
-                        if (validerNomUtilisateur($tChamps[0], true, $raison))
-                            $tRetour[$i][] = new Champ($tChamps[0], true);
-                        else {
-                            $binVerdict = false;
-                            $tRetour[$i][] = new Champ($tChamps[0], false, $raison);
-                        }
-                    } else {
+                    PHP_INT_MAX, ["csv"]);
+            $fp = fopen(TEMP_DIR . "/" . TEMP_FILE, "r");
+            fgetcsv($fp, 0, ";");
+            $binErreur = false;
+            for ($i = 0; !feof($fp) && !$binErreur; $i++) {
+                $tRetour[] = array();
+                $binVerdict = true;
+                $tChamps = fgetcsv($fp, 0, ";");
+                if (!$tChamps)
+                    continue;
+                if (sizeof($tChamps) < 4) {
+                    $binErreur = true;
+                    continue;
+                }
+        
+                if ($tChamps[0]) { //NomUtilisateur
+                    if (validerNomUtilisateur($tChamps[0], true, $raison))
+                        $tRetour[$i][] = new Champ($tChamps[0], true);
+                    else {
                         $binVerdict = false;
-                        $tRetour[$i][] = new Champ("", false, EnumRaisons::ABSENT);
+                        $tRetour[$i][] = new Champ($tChamps[0], false, $raison);
                     }
-                
-                    if ($tChamps[1]) { //MotDePasse
-                        if (validerMotPasse($tChamps[1], $raison))
-                            $tRetour[$i][] = new Champ($tChamps[1], true);
-                        else {
-                            $binVerdict = false;
-                            $tRetour[$i][] = new Champ($tChamps[1], false, $raison);
-                        }
-                    } else {
+                } else {
+                    $binVerdict = false;
+                    $tRetour[$i][] = new Champ("", false, EnumRaisons::ABSENT);
+                }
+        
+                if ($tChamps[1]) { //MotDePasse
+                    if (validerMotPasse($tChamps[1], $raison))
+                        $tRetour[$i][] = new Champ($tChamps[1], true);
+                    else {
                         $binVerdict = false;
-                        $tRetour[$i][] = new Champ("", false, EnumRaisons::ABSENT);
+                        $tRetour[$i][] = new Champ($tChamps[1], false, $raison);
                     }
-                
-                    if ($tChamps[2]) { //NomComplet
-                        if (validerNomComplet($tChamps[2], $raison))
-                            $tRetour[$i][] = new Champ($tChamps[2], true);
-                        else {
-                            $binVerdict = false;
-                            $tRetour[$i][] = new Champ($tChamps[2], false, $raison);
-                        }
-                    } else {
+                } else {
+                    $binVerdict = false;
+                    $tRetour[$i][] = new Champ("", false, EnumRaisons::ABSENT);
+                }
+        
+                if ($tChamps[2]) { //NomComplet
+                    if (validerNomComplet($tChamps[2], $raison))
+                        $tRetour[$i][] = new Champ($tChamps[2], true);
+                    else {
                         $binVerdict = false;
-                        $tRetour[$i][] = new Champ("", false, EnumRaisons::ABSENT);
+                        $tRetour[$i][] = new Champ($tChamps[2], false, $raison);
                     }
-                
-                    if ($tChamps[3]) { //Courriel
-                        if (validerAdresseCourriel($tChamps[3], $raison))
-                            $tRetour[$i][] = new Champ($tChamps[3], true);
+                } else {
+                    $binVerdict = false;
+                    $tRetour[$i][] = new Champ("", false, EnumRaisons::ABSENT);
+                }
+        
+                if ($tChamps[3]) { //Courriel
+                    if (validerAdresseCourriel($tChamps[3], $raison))
+                        $tRetour[$i][] = new Champ($tChamps[3], true);
+                    else {
+                        $binVerdict = false;
+                        $tRetour[$i][] = new Champ($tChamps[3], false, $raison);
+                    }
+                } else {
+                    $tRetour[$i][] = new Champ("", true);
+                }
+        
+                $tdecompte = array_count_values($tChamps);
+                for ($j = 4; $j < sizeof($tChamps); $j++) { //Sigles
+                    if ($tChamps[$j]) {
+                        if (validerSigle($tChamps[$j], $raison))
+                            $tRetour[$i][] = new Champ($tChamps[$j], true);
                         else {
                             $binVerdict = false;
-                            $tRetour[$i][] = new Champ($tChamps[3], false, $raison);
+                            $tRetour[$i][] = new Champ($tChamps[$j], false, $raison);
                         }
+                        $tRetour[$i][$j]->raison = $tdecompte[$tChamps[$j]] > 1 ? EnumRaisons::DOUBLON : $tRetour[$i][$j]->raison;
+                        $tRetour[$i][$j]->valide = $tdecompte[$tChamps[$j]] > 1 ? false : $tRetour[$i][$j]->valide;
                     } else {
                         $tRetour[$i][] = new Champ("", true);
                     }
-        
-                    $tdecompte = array_count_values($tChamps);
-                    for ($j = 4; $j < sizeof($tChamps); $j++) { //Sigles
-                        if ($tChamps[$j]) {
-                            if (validerSigle($tChamps[$j], $raison))
-                                $tRetour[$i][] = new Champ($tChamps[$j], true);
-                            else {
-                                $binVerdict = false;
-                                $tRetour[$i][] = new Champ($tChamps[$j], false, $raison);
-                            }
-                            $tRetour[$i][$j]->raison = $tdecompte[$tChamps[$j]] > 1 ? EnumRaisons::DOUBLON : $tRetour[$i][$j]->raison;
-                            $tRetour[$i][$j]->valide = $tdecompte[$tChamps[$j]] > 1 ? false : $tRetour[$i][$j]->valide;
-                        } else {
-                            $tRetour[$i][] = new Champ("", true);
-                        }
-                    }
-                    $binOK = $binVerdict ? $binVerdict : false;
-                    $tRetour[$i][] = new Champ($binVerdict ? "OK" : "PAS OK", true);
                 }
-    
-                $objBD = mysql::getBD();
-                $objBD->selectionneRow("session");
-                if ($objBD->OK)
-                    $tSessions = ModelBinding::bindToClass($objBD->OK, "Session");
-                else
-                    $binOK = false;
+                $binOK = $binVerdict ? $binVerdict : false;
+                $tRetour[$i][] = new Champ($binVerdict ? "OK" : "PAS OK", true);
             }
+    
+            $objBD = mysql::getBD();
+            $objBD->selectionneRow("session");
+            if ($objBD->OK)
+                $tSessions = ModelBinding::bindToClass($objBD->OK, "Session");
+            else
+                $binOK = false;
     
             return new View([
                 "tDonnees" => $tRetour,
@@ -148,7 +148,7 @@
         /**
          * retourne la même chose que ValidationCSV sauf que les rangées de tRetour ne contiennent que les informations
          * des sigles.
-         * @return JSONView
+         * @return JSONView|View
          */
         function ValiderSession() {
             $GLOBALS["titrePage"] = "Validation des Cours-Sessions";
@@ -188,6 +188,8 @@
                     $binOK = $binVerdict ? $binVerdict : false;
                     $tRetour[$i][] = $binVerdict;
                 }
+            } else {
+                return new View("500: Erreur fatale", 500);
             }
     
     
@@ -232,7 +234,10 @@
                         }
                     }
                 }
+            } else {
+                return new View("500: Erreur fatale", 500);
             }
+    
             header('Location: ?controller=EditPrivileges&action=EditPrivileges');
             return new View("", 302);
         }
