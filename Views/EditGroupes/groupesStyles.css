@@ -6,54 +6,32 @@ body {
     background-size: 100%;
 }
 
-#button,
-#submit,
-.fichierSelect label{
-    position: relative;
+.fichierSelect {
+    padding-top: 18px;
     display: inline-block;
-    padding: 18px 39px;
-    font-size: 18px;
-    width: 200px;
-    margin-top: 15px;
-    margin-right: 15px;
-}
-
-.fichierSelect{
-    padding-bottom: 3vh;
-}
-
-.fichierSelect input{
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
-}
-
-
-.fichierSelect label {
     font-family: var(--font);
-    display: block;
-    border-color: var(--text);
+    border: 2px solid var(--text);
     text-align: center;
     background-color: var(--input);
     color: var(--text);
+    min-width: 50%;
+    width: auto;
+    margin: 5vh 0 1vh 0;
 }
 
-.fichierSelect label:focus {
+.fichierSelect:focus {
     font-family: var(--font);
     background-color: var(--input_focused);
     color: white;
 }
 
-.fichierSelect label:active {
+.fichierSelect:active {
     font-family: var(--font);
     background-color: var(--input_active);
     color: white;
 }
 
-.fichierSelect label:hover {
+.fichierSelect:hover {
     font-family: var(--font);
     background-color: var(--input_hover);
     color: var(--text);
@@ -69,4 +47,25 @@ body {
     display: inline-block;
     height: 5vh;
     width: 25vw;
+}
+
+.container {
+    width: auto;
+    min-width: 75vw;
+    height: auto;
+    background-color: var(--tertiary);
+}
+
+input[type="file"] {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+form {
+    text-align: center;
+}
+
+.boutonsConfirm {
+    margin: 5vh 0;
 }
