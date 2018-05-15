@@ -57,7 +57,6 @@
             }
     
             $objBD = mysql::getBD();
-            $strConditions = $strType == "document" ? "supprimer=0" : "";
             $objBD->selectionneRow($strType);
             if ($objBD->OK)
                 $tDonneesPHP = ModelBinding::bindToClass($objBD->OK, $strType);
@@ -74,15 +73,12 @@
         function Reset() {
             set_time_limit(60);
             
-            //TODO: enable for prod
-//            if (!post("binConfirmation"))
-//                return new View("403: Forbidden", 403);
             if (file_exists(UPLOAD_DIR)) {
                 $tDocuments = scandir(UPLOAD_DIR);
                 $rexp = "/^..?$/";
                 foreach ($tDocuments as $doc) {
                     if (!preg_match($rexp, $doc)) {
-                        unlink(UPLOAD_DIR . $doc);
+                        unlink(UPLOAD_DIR . "/" . $doc);
                     }
                 }
                 rmdir(UPLOAD_DIR);
@@ -150,7 +146,7 @@
             $rexp = "/^..?$/";
             foreach ($tDocuments as $doc) {
                 if (!preg_match($rexp, $doc)) {
-                    copy("./reset/televersements/$doc", UPLOAD_DIR . "$doc");
+                    copy("./reset/televersements/$doc", UPLOAD_DIR . "/$doc");
                 }
             }
     
@@ -161,7 +157,6 @@
             }
     
             session_destroy();
-            header("Location: ?controller=Login&action=Login");
-            return new View("", 302);
+            return new View("");
         }
     }

@@ -7,9 +7,17 @@
      */
     require_once("Controllers/ModuleAdminBase.php");
     require_once("Models/EditArborescence/EditArborescenceModel.php");
-
+    
+    /**
+     * @param FichierDoc $a
+     * @param FichierDoc $b
+     * @return int
+     */
     function fichiersSort($a, $b) {
-        return intval($a->binDeleted) > intval($b->binDeleted);
+        if ($a->binDeleted == $b->binDeleted)
+            return strcmp($a->nomFichier, $b->nomFichier);
+        else
+            return intval($b->binDeleted) - intval($a->binDeleted);
     }
 
     class EditArborescenceController extends ModuleAdminBase {
@@ -29,7 +37,7 @@
         }
 
         function ConfirmerSuppressionBD() {
-            $GLOBALS["titrePage"] = "Confirmer suppression des documents";
+            $GLOBALS["titrePage"] = "Suppression des documents";
             $strPOST = file_get_contents('php://input');
             $arSplit = explode("\n", $strPOST);
             $strType = $arSplit[0];
@@ -62,7 +70,7 @@
         }
 
         function ConfirmerSuppressionFichiers() {
-            $GLOBALS["titrePage"] = "Confirmer suppression des fichiers orphelins";
+            $GLOBALS["titrePage"] = "Suppression des fichiers orphelins";
         
             $tFichiersTraites = array();
             $tFichiers = scandir(UPLOAD_DIR);
@@ -74,7 +82,7 @@
                         $objBd = Mysql::getBD();
                         $objBd->selectionneRow("Documents", "*", "hyperLien='$nomFichier'");
                         if ($objBd->OK && $objBd->OK->num_rows == 0) {
-                            unlink($nomFichier);
+                            unlink(UPLOAD_DIR . "/" . $nomFichier);
                             $fd->binDeleted = true;
                         }
                     }
