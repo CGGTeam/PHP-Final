@@ -60,7 +60,7 @@
                     || !dateValide($this->dateVersion)
                     || !validerInt(intval($this->ajoutePar), 1)
                     || !(is_null($this->supprimer) || is_bool($this->supprimer))) {
-                    $this->setIntModelState(ModelState::Invalid);
+                    $this->setModelState(ModelState::Invalid);
                     var_dump("DONNEES INVALIDES");
                     return false;
                 }
@@ -68,20 +68,20 @@
                 if (!dateValide($this->dateAccesDebut) || !dateValide($this->dateAccesFin) || !dateValide($this->dateCours) ||
                     !dateValide($this->dateCours)) {
                     var_dump("DATE INVALIDE");
-                    $this->setIntModelState(ModelState::Invalid);
+                    $this->setModelState(ModelState::Invalid);
                     return false;
                 }
     
                 if (!validerDateSession($this->dateAccesFin, $this->dateAccesDebut) ||
                     !validerDateSession($this->dateAccesDebut, "2018-01-01", $this->dateAccesFin)) {
                     var_dump("BORNES INVALIDES");
-                    $this->setIntModelState(ModelState::Invalid);
+                    $this->setModelState(ModelState::Invalid);
                     return false;
                 }
     
                 return true;
             } catch (Exception $e) {
-                $this->setIntModelState(ModelState::Invalid);
+                $this->setModelState(ModelState::Invalid);
                 return false;
             }
         }

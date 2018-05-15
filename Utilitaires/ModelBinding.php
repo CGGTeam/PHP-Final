@@ -9,7 +9,7 @@
     abstract class ModelBinding
 {
     /** @var mysql $bd */
-        private $intModelState;
+        private $modelState;
     private $tbValeurs;
     
     /**
@@ -18,7 +18,7 @@
      * @param bool $binAjout
      */
         public function __construct(Array $properties = array(), $binAjout = false) {
-            $this->intModelState = $binAjout ? ModelState::Added : ModelState::Same;
+            $this->modelState = $binAjout ? ModelState::Added : ModelState::Same;
         foreach ($properties as $key => $value) {
             $this->{$key} = $value;
             $this->tbValeurs[$key] = $value;
@@ -28,10 +28,10 @@
 
     public function saveChangesOnObj(){
     
-        if ($this->intModelState != ModelState::Same && $this->intModelState != ModelState::Invalid) {
-            switch ($this->intModelState) {
+        if ($this->modelState != ModelState::Same && $this->modelState != ModelState::Invalid) {
+            switch ($this->modelState) {
                 case ModelState::Added :
-                    $this->intModelState = mysql::getBD()->insereEnregistrementTb(get_class($this), $this->tbValeurs) ?
+                    $this->modelState = mysql::getBD()->insereEnregistrementTb(get_class($this), $this->tbValeurs) ?
                         ModelState::Same : ModelState::Invalid;
                     log_fichier( var_export(mysql::getBD()->OK) . '     ' . mysql::getBD()->requete);
                     break;
@@ -91,12 +91,12 @@
         return $objBound;
     }
     
-        public function getIntModelState() {
-            return $this->intModelState;
+        public function getModelState() {
+            return $this->modelState;
     }
     
-        public function setIntModelState($intModelState) {
-            $this->intModelState = $intModelState;
+        public function setModelState($modelState) {
+            $this->modelState = $modelState;
     }
     
         /**
