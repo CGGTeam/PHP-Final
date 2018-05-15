@@ -19,7 +19,7 @@ body {
     right: 0;
     width: 65vw;
     height: 85vh;
-    overflow: hidden;
+    overflow: auto;
     background-color: var(--primary);
 }
 
@@ -28,7 +28,7 @@ body {
     display: inline-block;
     padding: 3%;
     width: 90%;
-    height: 100%;
+    height: auto;
     text-align: center;
 }
 
