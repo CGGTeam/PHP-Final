@@ -211,22 +211,24 @@
                     $objUtil = new Utilisateur([
                         "nomUtilisateur" => $tChamps[0],
                         "motDePasse" => $tChamps[1],
-                        "statutAdmin" => $tChamps[2] == "U" ? 0 : 1,
-                        "nomComplet" => $tChamps[3],
-                        "courriel" => $tChamps[4]
+                        "statutAdmin" => '0',
+                        "nomComplet" => $tChamps[2],
+                        "courriel" => $tChamps[3]
                     ]);
                     $objUtil->setModelState(ModelState::Added);
                     $objUtil->saveChangesOnObj();
     
-                    $objBD->selectionneRow("Utilisateur", "*", "nomUtilisateur=$objUtil->nomUtilisateur");
+                    $objBD->selectionneRow("Utilisateur", "*", "nomUtilisateur = '$tChamps[0]'");
                     $objUtil = ModelBinding::bindToClass($objBD->OK, "Utilisateur");
-                    
+                    log_fichier($objBD->requete);
+                    log_fichier($objUtil);
+
                     for ($j = 4; $j < sizeof($tChamps); $j++) {
                         if ($tChamps[$j]) {
                             $objCoursSession = new CoursSession([
                                 "session" => $strSession,
                                 "sigle" => $tChamps[$j],
-                                "utilisateur" => $objUtil->id
+                                "utilisateur" => $objUtil[0]->id
                             ]);
     
                             $objCoursSession->setModelState(ModelState::Added);

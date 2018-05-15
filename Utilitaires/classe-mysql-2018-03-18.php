@@ -184,7 +184,7 @@
                $this->requete .= $value . "', '";
            }
            $this->requete = substr($this->requete,0, -3) . ")";
-           //echo "<br/>$this->requete";
+           $this->requete = preg_replace("/'(\d+)'/", "$1", $this->requete);
            $this->OK = mysqli_query($this->cBD, $this->requete);
            return $this->OK;
 

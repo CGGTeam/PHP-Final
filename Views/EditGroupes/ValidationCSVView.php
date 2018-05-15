@@ -46,24 +46,28 @@
             if(xhttp.readyState === XMLHttpRequest.DONE){
                 console.log(JSON.parse(xhttp.responseText));
                 let tReponse = JSON.parse(xhttp.responseText).tDonnees;
-
+                let pret = true;
                 let tTr = Array.from(document.getElementById("tableParent").querySelectorAll("TR"));
                 tTr.filter(x => !x.classList.contains("ag-disp-none") && x.children[0].tagName !== "TH").forEach(tr => {
                     let tTd = Array.from(tr.querySelectorAll("TD")).filter(y => !y.classList.contains("ag-disp-none"));
                     if(tTd.length >= 8) {
                         for (let i = 4; i < 8; i++) {
-                            let element = tReponse[i - 3].find(x => x.valeur === tTd[i].children[0].innerHTML);
-                            if (element && !element.valide) {
-                                tTd[i].style.backgroundColor = 'red';
-                            }else{
-                                tTd[i].style.backgroundColor = null;
+                            if(tReponse[i - 3]) {
+                                let element = tReponse[i - 3].find(x => x.valeur === tTd[i].children[0].innerHTML);
+                                if (element && !element.valide) {
+                                    tTd[i].style.backgroundColor = 'red';
+                                    pret = false;
+                                } else {
+                                    tTd[i].style.backgroundColor = null;
+                                }
                             }
                         }
                     }
                 });
 
-            }
+                document.getElementById("submit").disabled = !pret;
 
+            }
         };
         xhttp.send(formData);
     }
@@ -74,7 +78,7 @@
 <link href="Views/EditGroupes/groupesStyles.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="Utilitaires/anguleux/AnguleuxStyle.css"/>
 <div class="container">
-    <form>
+    <form method="post" action="?controller=EditGroupes&action=Confirmer">
         <div class="table-container">
             <table border="1" cellspacing="5" cellpadding="5" id="tableParent">
                 <tbody>
