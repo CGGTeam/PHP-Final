@@ -31,7 +31,7 @@
             exit("Téléversement impossible...");
         
         if (!move_uploaded_file($strNomFichierTemp, $strNomDossier . "/" .
-            ($strNouveauNom ? $strNomFichier : $strNomFichier)))
+            ($strNouveauNom ? $strNouveauNom : $strNomFichier)))
             exit("Impossible de copier le fichier '$strNomFichier' dans le dossier '$strNomDossier'");
     }
     

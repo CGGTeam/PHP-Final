@@ -164,14 +164,17 @@ function postChanges(type,lien = "?controller=BD&action=Confirmer", toDoBefore=n
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if(xhttp.readyState === XMLHttpRequest.DONE){
+            $_postObj.confirmer = false;
+            delete $_postObj.changed;
             if(!reload) {
-                eval($_postObj.cheminTab + " = JSON.parse(xhttp.responseText)");
-                eval($_postObj.cheminTab + '.unshift(new ' + type + '())');
+                try {
+                    eval($_postObj.cheminTab + " = JSON.parse(xhttp.responseText)");
+                    eval($_postObj.cheminTab + '.unshift(new ' + type + '())');
+                }catch (e){}
 
                 if($_postObj.toDoAfter){
                     $_postObj.toDoAfter();
                 }
-
                 configCouleurs();
                 $_anguleuxInterne.updateAgFor(document.getElementById("tr_parent"));
                 configPost(eval(type), $_postObj.protoToPost);

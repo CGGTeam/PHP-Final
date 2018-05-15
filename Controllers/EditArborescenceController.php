@@ -43,7 +43,6 @@
 
             try {
                 for ($i = 0; $i < sizeof($tDocuments); $i++) {
-                    $lastIndex = $i;
                     $sj = $tDocuments[$i];
                     $so = new Document($sj);
                     $so->saveChangesOnObj();
@@ -64,11 +63,9 @@
 
         function ConfirmerSuppressionFichiers() {
             $GLOBALS["titrePage"] = "Confirmer suppression des fichiers orphelins";
-            //TODO: make const for upload dir
-
-            $strDirTelev = "./televersements";
+        
             $tFichiersTraites = array();
-            $tFichiers = scandir($strDirTelev);
+            $tFichiers = scandir(UPLOAD_DIR);
             if ($tFichiers) {
                 foreach ($tFichiers as $nomFichier) {
                     if (!is_dir($nomFichier)) {

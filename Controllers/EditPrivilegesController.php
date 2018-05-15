@@ -45,7 +45,7 @@
 
             $donnees = $this->modelPrivileges();
             if($donnees){
-                return new JSONView($donnees);
+                return new JSONView(json_encode($donnees["CoursSession"]));
             }
             return new View("500: Erreur Fatale", 500);
         }
