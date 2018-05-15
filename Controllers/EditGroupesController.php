@@ -198,10 +198,9 @@
         }
         
         function Confirmer() {
-            session_start();
             $strSession = $_SESSION["sessionSelec"];
             unset($_SESSION["sessionSelec"]);
-    
+            $objBD = mysql::getBD();
             if (file_exists(TEMP_DIR . "/" . TEMP_FILE)) {
                 $fp = fopen(TEMP_DIR . "/" . TEMP_FILE, "r");
                 while (!feof($fp)) {
@@ -216,6 +215,9 @@
                     $objUtil->setModelState(ModelState::Added);
                     $objUtil->saveChangesOnObj();
     
+                    $objBD->selectionneRow("Utilisateur", "*", "nomUtilisateur=$objUtil->nomUtilisateur");
+                    $objUtil = ModelBinding::bindToClass($objBD->OK, "Utilisateur");
+                    
                     for ($j = 4; $j < sizeof($tChamps); $j++) {
                         if ($tChamps[$j]) {
                             $objCoursSession = new CoursSession([
