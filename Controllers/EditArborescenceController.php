@@ -52,7 +52,7 @@
                 for ($i = 0; $i < sizeof($tDocuments); $i++) {
                     $sj = $tDocuments[$i];
                     $so = new Document($sj);
-                    if($so -> getModelState() === 1){
+                    if ($so->getIntModelState() === 1) {
                         $so->saveChangesOnObj();
                         if (mysql::getBD()->OK) {
                             $so -> verdict = "Supprimé";

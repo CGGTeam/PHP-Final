@@ -25,10 +25,10 @@
             $binValide = validerSession($this->session) && validerSigle($this->sigle) && is_int($this->utilisateur);
                 $this->utilisateur = intval($this->utilisateur);
             if (!$binValide)
-                $this->setModelState(ModelState::Invalid);
+                $this->setIntModelState(ModelState::Invalid);
             return $binValide;
             } catch (Exception $e) {
-                $this->setModelState(ModelState::Invalid);
+                $this->setIntModelState(ModelState::Invalid);
                 return false;
             }
 

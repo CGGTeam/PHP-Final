@@ -9,7 +9,7 @@
     abstract class ModelBinding
 {
     /** @var mysql $bd */
-    private $modelState;
+        private $intModelState;
     private $tbValeurs;
     
     /**
@@ -18,7 +18,7 @@
      * @param bool $binAjout
      */
         public function __construct(Array $properties = array(), $binAjout = false) {
-        $this->modelState = $binAjout ? ModelState::Added : ModelState::Same;
+            $this->intModelState = $binAjout ? ModelState::Added : ModelState::Same;
         foreach ($properties as $key => $value) {
             $this->{$key} = $value;
             $this->tbValeurs[$key] = $value;
@@ -27,11 +27,11 @@
     }
 
     public function saveChangesOnObj(){
-
-        if($this->modelState != ModelState::Same && $this->modelState != ModelState::Invalid) {
-            switch ($this->modelState) {
+    
+        if ($this->intModelState != ModelState::Same && $this->intModelState != ModelState::Invalid) {
+            switch ($this->intModelState) {
                 case ModelState::Added :
-                    $this->modelState = mysql::getBD()->insereEnregistrementTb(get_class($this), $this->tbValeurs) ?
+                    $this->intModelState = mysql::getBD()->insereEnregistrementTb(get_class($this), $this->tbValeurs) ?
                         ModelState::Same : ModelState::Invalid;
                     log_fichier( var_export(mysql::getBD()->OK) . '     ' . mysql::getBD()->requete);
                     break;
@@ -40,11 +40,11 @@
                 case ModelState::Deleted :
                     $tCles = mysql::getBD()->retourneClesPrimaires(get_class($this))->fetch_all();
                     $strConditions = "";
-
-                    foreach ($this->tbValeurs as $nomChamp => $valeur) {
+    
+                    foreach ($this->tbValeurs as $strNomChamp => $valeur) {
                         foreach ($tCles as $cle){
-                            if ($nomChamp == $cle[4]) {
-                                $strConditions .= "$nomChamp = '$valeur' AND ";
+                            if ($strNomChamp == $cle[4]) {
+                                $strConditions .= "$strNomChamp = '$valeur' AND ";
                             }
                         }
                     }
@@ -57,19 +57,19 @@
 
                     $tCles = mysql::getBD()->retourneClesPrimaires(get_class($this))->fetch_row();
                     $strConditions = "";
-
-                    foreach ($this->tbValeurs as $nomChamp => $valeur) {
+    
+                    foreach ($this->tbValeurs as $strNomChamp => $valeur) {
                         foreach ($tCles as $cle){
-                            if ($nomChamp == $cle[4]) {
-                                $strConditions .= "$nomChamp = '$valeur' AND ";
+                            if ($strNomChamp == $cle[4]) {
+                                $strConditions .= "$strNomChamp = '$valeur' AND ";
                             }
                         }
                     }
                     $strConditions = substr($strConditions, 0, strlen($strConditions) - 5);
         
                     $strSets = "";
-                    foreach ($this->tbValeurs as $nomChamp => $valeur) {
-                        $strSets .= "$nomChamp='$valeur', ";
+                    foreach ($this->tbValeurs as $strNomChamp => $valeur) {
+                        $strSets .= "$strNomChamp='$valeur', ";
                     }
                     $strSets = substr($strSets, 0, strlen($strSets) - 2);
                     mysql::getBD()->modifieEnregistrements(get_class($this), $strSets, $strConditions);
@@ -91,12 +91,12 @@
         return $objBound;
     }
     
-    public function getModelState() {
-        return $this->modelState;
+        public function getIntModelState() {
+            return $this->intModelState;
     }
     
-    public function setModelState($modelState) {
-        $this->modelState = $modelState;
+        public function setIntModelState($intModelState) {
+            $this->intModelState = $intModelState;
     }
     
         /**

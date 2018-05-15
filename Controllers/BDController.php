@@ -47,7 +47,7 @@
                 if (strtolower($strType) == "document") {
                     /**@var Document $so */
                     if ($intEtat == ModelState::Deleted) {
-                        $so->setModelState(ModelState::Same);
+                        $so->setIntModelState(ModelState::Same);
                         $objBD = MySql::getBD();
                         $objBD->modifieEnregistrements("Document", "supprimer=1", "id='$so->id'");
                     }
@@ -57,11 +57,11 @@
                         $objBD = mysql::getBD();
                         $objBD->selectionneRow("utilisateur", "*", "statutAdmin=1");
                         if ($objBD->OK && $objBD->OK->num_rows == 1) {
-                            $so->setModelState(ModelState::Same);
+                            $so->setIntModelState(ModelState::Same);
                         }
                     }
                 } else
-                    $so->setModelState($intEtat);
+                    $so->setIntModelState($intEtat);
                 $so->saveChangesOnObj();
             }
     

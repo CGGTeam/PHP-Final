@@ -126,10 +126,10 @@
                 );
                 /** @var Utilisateur $utilCourant */
                 $utilCourant = $_SESSION["utilisateurCourant"];
-                $utilCourant->setModelState(ModelState::Deleted);
+                $utilCourant->setIntModelState(ModelState::Deleted);
                 $utilCourant->saveChangesOnObj();
-
-                $objUtil->setModelState(ModelState::Added);
+    
+                $objUtil->setIntModelState(ModelState::Added);
                 $objUtil->saveChangesOnObj();
 
                 $_SESSION["creerAdmin"] = false;
