@@ -17,7 +17,7 @@ body {
     bottom: 0;
     right: 0;
     width: 65vw;
-    height: 65vh;
+    height: 80vh;
 }
 
 .tableauBoutons tbody {
@@ -39,7 +39,7 @@ body {
 .tableauBoutons tr td {
     display: block;
     width: 100%;
-    padding: 5px 0px;
+    padding: 5px 0;
     text-align: center;
 }
 
@@ -49,6 +49,18 @@ body {
     width: 100%;
     min-height: 5vh;
     height: auto;
-    font-size: 2vmax;
+    max-height: 100%;
+    font-size: 3vh;
     font-weight: bolder;
+}
+
+.tableauBoutons tr td button * {
+    height: auto;
+    line-height: 1px;
+}
+
+.desc {
+    font-style: italic;
+    font-size: 2vh;
+    font-weight: lighter;
 }
