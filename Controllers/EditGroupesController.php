@@ -203,6 +203,7 @@
             $objBD = mysql::getBD();
             if (file_exists(TEMP_DIR . "/" . TEMP_FILE)) {
                 $fp = fopen(TEMP_DIR . "/" . TEMP_FILE, "r");
+                fgetcsv($fp, 0, ";");
                 while (!feof($fp)) {
                     $tChamps = fgetcsv($fp, 0, ";");
                     $objUtil = new Utilisateur([
