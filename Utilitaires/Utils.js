@@ -143,8 +143,9 @@ function configPost(objClass, tabProto,cheminTab, fctOnParam){
  * @param toDoBefore
  * @param reload
  * @param toDoAfter
+ * @param createNew
  */
-function postChanges(type,lien = "?controller=BD&action=Confirmer", toDoBefore=null, reload=false, toDoAfter=null){
+function postChanges(type,lien = "?controller=BD&action=Confirmer", toDoBefore=null, reload=false, toDoAfter=null, createNew = true){
     if($_postObj.confirmer){
         let rep = confirm("Êtes-vous sûrs de vouloir supprimer les éléments en rouge?");
         if(rep != true){
@@ -169,7 +170,8 @@ function postChanges(type,lien = "?controller=BD&action=Confirmer", toDoBefore=n
             if(!reload) {
                 try {
                     eval($_postObj.cheminTab + " = JSON.parse(xhttp.responseText)");
-                    eval($_postObj.cheminTab + '.unshift(new ' + type + '())');
+                    if(createNew)
+                        eval($_postObj.cheminTab + '.unshift(new ' + type + '())');
                 }catch (e){}
 
                 if($_postObj.toDoAfter){

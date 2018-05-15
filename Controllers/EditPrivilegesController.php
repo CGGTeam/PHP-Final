@@ -35,9 +35,7 @@
                 log_fichier($objBD->requete);
                 foreach ($obj["tbCours"] as $cs) {
                     $cs["utilisateur"] = $obj["id"];
-                    log_fichier($cs);
                     $tempo = new CoursSession($cs, true);
-                    log_fichier($tempo);
                     $tempo->saveChangesOnObj();
                     log_fichier($objBD->requete);
                 }
