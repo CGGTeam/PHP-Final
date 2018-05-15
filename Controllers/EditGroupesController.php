@@ -40,18 +40,19 @@
             $tRetour = array();
             $tSessions = array();
             $binOK = true;
-            if (isset($_FILES["fichierCSV"]))
-                if (!file_exists(TEMP_DIR)) {
+            var_dump(isset($_FILES["fichierCSV"]));
+            if (isset($_FILES["fichierCSV"])) {
+                if (!file_exists(TEMP_DIR))
                     mkdir(TEMP_DIR);
-    
-                    if (file_exists(TEMP_DIR . "/permissions.csv"))
-                        unlink(TEMP_DIR . "/permissions.csv");
-                 
-                if (isset($_FILES["fichierCSV"])) {
-                    enregistrerDocument("fichierCSV", TEMP_DIR, "permissions.csv",
+        
+                if (file_exists(TEMP_DIR . "/permissions.csv"))
+                    unlink(TEMP_DIR . "/permissions.csv");
+                var_dump($_FILES["fichierCSV"]);
+                enregistrerDocument("fichierCSV", TEMP_DIR, "permissions.csv",
                         PHP_INT_MAX, ["csv"]);
-                }
+                var_dump("wat");
                 $fp = fopen(TEMP_DIR . "/permissions.csv", "r");
+                var_dump($fp);
                 fgetcsv($fp, 0, ";");
                 $binErreur = false;
                 for ($i = 0; !feof($fp) && !$binErreur; $i++) {
@@ -61,7 +62,7 @@
                     if (!$tChamps)
                         continue;
                     if (sizeof($tChamps) < 4) {
-                        $binErreur;
+                        $binErreur = true;
                     }
                     if ($tChamps[0]) { //NomUtilisateur
                         if (validerNomUtilisateur($tChamps[0], true, $raison))
@@ -107,8 +108,7 @@
                             $tRetour[$i][] = new Champ($tChamps[3], false, $raison);
                         }
                     } else {
-                        $binVerdict = false;
-                        $tRetour[$i][] = new Champ("", false, EnumRaisons::ABSENT);
+                        $tRetour[$i][] = new Champ("", true);
                     }
         
                     $tdecompte = array_count_values($tChamps);
