@@ -162,11 +162,11 @@
                 $fp = fopen(TEMP_DIR . "/" . TEMP_FILE, "r");
                 fgetcsv($fp, 0, ";");
                 for ($i = 1; !feof($fp); $i++) {
-                    $tRetour[] = array();
-                    $binVerdict = true;
                     $tChamps = fgetcsv($fp, 0, ";");
                     if (!$tChamps)
                         continue;
+                    $tRetour[] = array();
+                    $binVerdict = true;
                     
                     for ($j = 4; $j < sizeof($tChamps); $j++) {
                         if ($tChamps[$j]) {
