@@ -235,7 +235,7 @@ function POST(obj){
             construireRangees();
         }
     };
-    xhttp.open("POST", "index.php?controller=BD&action=Confirmer&strType=" + type, true);
+    xhttp.open("POST", "module-admin.php?controller=BD&action=Confirmer&strType=" + type, true);
     xhttp.setRequestHeader("Content-type", "application/json");
     console.log(strJSON);
     xhttp.send(strJSON);

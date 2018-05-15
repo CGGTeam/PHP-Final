@@ -76,12 +76,12 @@
             xhr.open('POST', '?controller=EditDocuments&action=SauvegardeFichier', true);
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
-                    postChanges('Document', "index.php?controller=BD&action=Confirmer", removeFirst)
+                    postChanges('Document', "module-admin.php?controller=BD&action=Confirmer", removeFirst)
                 }
             };
             xhr.send(formData);
         }else {
-            postChanges('Document', "index.php?controller=BD&action=Confirmer", removeFirst);
+            postChanges('Document', "module-admin.php?controller=BD&action=Confirmer", removeFirst);
         }
     }
 </script>

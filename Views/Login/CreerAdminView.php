@@ -1,6 +1,6 @@
 <link href="Views/Login/LoginStyle.css" rel="stylesheet" type="text/css">
 <div class="sCreerAdmin">
-    <form id="frmCreerAdmin" method="post" action="index.php?controller=Login&action=CreerAdmin" class="sForm">
+    <form id="frmCreerAdmin" method="post" action="module-admin.php?controller=Login&action=CreerAdmin" class="sForm">
         <table class="sTableFormulaire">
             <tr>
                 <td>

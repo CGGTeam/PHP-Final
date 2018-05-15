@@ -57,7 +57,7 @@
     </tr>
     <tr>
         <td>
-            <form method="post" action="index.php?controller=Login&action=Deconnexion">
+            <form method="post" action="module-admin.php?controller=Login&action=Deconnexion">
                 <button type="submit">
                     <p>6. Terminer l'application</p>
                     <p class="desc">Que dire de plus ?</p>

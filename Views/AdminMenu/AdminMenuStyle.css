@@ -18,13 +18,16 @@ body {
     right: 0;
     width: 65vw;
     height: 80vh;
+    overflow: auto;
+    background-color: var(--tertiary);
 }
 
 .tableauBoutons tbody {
     background-color: var(--primary);
     display: block;
     padding: 5%;
-    width: 95%;
+    width: 90%;
+    height: 100%;
     text-align: center;
 }
 
@@ -49,14 +52,13 @@ body {
     width: 100%;
     min-height: 5vh;
     height: auto;
-    max-height: 100%;
     font-size: 3vh;
     font-weight: bolder;
 }
 
-.tableauBoutons tr td button * {
+.tableauBoutons tr td button p {
     height: auto;
-    line-height: 1px;
+    margin: 5px;
 }
 
 .desc {

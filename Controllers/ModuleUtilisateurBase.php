@@ -12,8 +12,6 @@
                 session_start();
             }
             global $authorized;
-            $authorized = isset($_SESSION["utilisateurCourant"]);
+            $authorized = isset($_SESSION["utilisateurCourant"]) && !$_SESSION["utilisateurCourant"]->statuAdmin;
         }
-
-
     }
