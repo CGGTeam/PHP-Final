@@ -8,7 +8,7 @@ configPost(Document);
 
 function ConfirmerSuppressionBD() {
 
-    postChanges('Document', "index.php?controller=EditArborescence&action=ConfirmerSuppressionBD");
+    postChanges('DocumentBD', "index.php?controller=EditArborescence&action=ConfirmerSuppressionBD");
 
 }
 
