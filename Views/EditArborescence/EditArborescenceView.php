@@ -1,3 +1,7 @@
+<script>
+    $scope.croissant = true;
+</script>
+
 <link href="Views/EditArborescence/EditArborescenceStyle.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="Utilitaires/anguleux/AnguleuxStyle.css"/>
 <script type="text/javascript" src="Views/EditArborescence/EditArborescence.js"></script>
@@ -7,11 +11,32 @@
     <tbody>
     <tr id="trTH">
         <th scope="col">#</th>
-        <th scope="col">Session</th>
+        <th scope="col">Session
+            <a onclick="trier($scope.model,(a,b) => {
+                if($scope.croissant)
+                    return a.session.localeCompare(b.session);
+                else
+                    return b.session.localeCompare(a.session);
+            });$scope.croissant = !$scope.croissant;">↑↓</a>
+        </th>
         <th scope="col">Sigle</th>
-        <th scope="col">Professeur</th>
+        <th scope="col">Professeur
+            <a onclick="trier($scope.model,(a,b) => {
+                if($scope.croissant)
+                    return a.ajoutePar - b.ajoutePar ;
+                else
+                    return b.ajoutePar - a.ajoutePar;
+            });$scope.croissant = !$scope.croissant;">↑↓</a>
+        </th>
         <th scope="col">Date du cours</th>
-        <th scope="col">Titre</th>
+        <th scope="col">Titre
+            <a onclick="trier($scope.model,(a,b) => {
+                if($scope.croissant)
+                    return a.titre.localeCompare(b.titre);
+                else
+                    return b.titre.localeCompare(a.titre);
+            });$scope.croissant = !$scope.croissant;">↑↓</a>
+        </th>
         <th scope="col" id="thEtat">Supprimer?</th>
     </tr>
     <tr id="tr_parent" ag-for="doc in model">
@@ -23,8 +48,10 @@
         <td><a attrib-bind-obj="docTitreLien">{{doc.titre}}</a></td>
         <td class="colSupprCB">
             <div class="checkbox">
-                <input name="checkbox" type="checkbox" for-bind="true" for-bind-path="toDelete" onchange="ck(e);">
-                <em class="helper"></em>
+                <label>
+                    <input name="checkbox" type="checkbox" col1 for-bind="true" for-bind-path="toDelete">
+                    <em class="helper"></em>
+                </label>
             </div>
         </td>
     </tr>

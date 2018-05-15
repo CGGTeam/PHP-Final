@@ -4,7 +4,8 @@ $scope.docTitreLien = {
 
 };
 
-configPost(Document);
+configPost(Object);
+configCouleurs();
 
 $scope.state = 0;
 
@@ -22,6 +23,7 @@ function ConfirmerSuppressionBD() {
     postChanges('DocumentBD', "index.php?controller=EditArborescence&action=ConfirmerSuppressionBD", null, false, afficherVerdictState, false);
 
 }
+
 
 function afficherVerdictState() {
 
