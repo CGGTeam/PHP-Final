@@ -40,17 +40,14 @@
             $tRetour = array();
             $tSessions = array();
             $binOK = true;
-            if (isset($_FILES["fichierCSV"]))
-                if (!file_exists(TEMP_DIR)) {
+            if (isset($_FILES["fichierCSV"])) {
+                if (!file_exists(TEMP_DIR))
                     mkdir(TEMP_DIR);
-    
-                    if (file_exists(TEMP_DIR . "/permissions.csv"))
-                        unlink(TEMP_DIR . "/permissions.csv");
-                 
-                if (isset($_FILES["fichierCSV"])) {
-                    enregistrerDocument("fichierCSV", TEMP_DIR, "permissions.csv",
+        
+                if (file_exists(TEMP_DIR . "/permissions.csv"))
+                    unlink(TEMP_DIR . "/permissions.csv");
+                enregistrerDocument("fichierCSV", TEMP_DIR, "permissions.csv",
                         PHP_INT_MAX, ["csv"]);
-                }
                 $fp = fopen(TEMP_DIR . "/permissions.csv", "r");
                 fgetcsv($fp, 0, ";");
                 $binErreur = false;
@@ -61,7 +58,7 @@
                     if (!$tChamps)
                         continue;
                     if (sizeof($tChamps) < 4) {
-                        $binErreur;
+                        $binErreur = true;
                     }
                     if ($tChamps[0]) { //NomUtilisateur
                         if (validerNomUtilisateur($tChamps[0], true, $raison))
@@ -107,8 +104,7 @@
                             $tRetour[$i][] = new Champ($tChamps[3], false, $raison);
                         }
                     } else {
-                        $binVerdict = false;
-                        $tRetour[$i][] = new Champ("", false, EnumRaisons::ABSENT);
+                        $tRetour[$i][] = new Champ("", true);
                     }
         
                     $tdecompte = array_count_values($tChamps);
@@ -120,7 +116,12 @@
                                 $binVerdict = false;
                                 $tRetour[$i][] = new Champ($tChamps[$j], false, $raison);
                             }
+                            var_dump($tChamps[$j]);
+                            var_dump($tdecompte[$tChamps[$j]]);
+                            var_dump($tRetour[$i][$j]->valeur);
                             $tRetour[$i][$j]->raison = $tdecompte[$tChamps[$j]] > 1 ? EnumRaisons::DOUBLON : $tRetour[$i][$j]->raison;
+                            $tRetour[$i][$j]->valide = $tdecompte[$tChamps[$j]] > 1 ? false : $tRetour[$i][$j]->valide;
+                            var_dump($tRetour[$i][$j]);
                         } else {
                             $tRetour[$i][] = new Champ("", true);
                         }
@@ -136,7 +137,6 @@
                 else
                     $binOK = false;
             }
-    
             return new View([
                 "tDonnees" => $tRetour,
                 "tSessions" => $tSessions,

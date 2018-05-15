@@ -16,8 +16,9 @@
             if (strlen($nomUtil) >= 3 && strlen($nomUtil) <= 25 && preg_match($rexp, $nomUtil) && strtolower($nomUtil) == $nomUtil) {
                 if ($binCheckBD) {
                     $objBd = Mysql::getBD();
-                    $objBd->selectionneRow("Utilisateurs", "*", "nomUtilisateur='$nomUtil");
+                    $objBd->selectionneRow("Utilisateur", "*", "nomUtilisateur='$nomUtil'");
                     $raison = $objBd->OK && $objBd->OK->num_rows == 0 ? EnumRaisons::VALIDE : EnumRaisons::BD_COLLISION;
+                    var_dump($objBd->OK->num_rows);
                     return $objBd->OK && $objBd->OK->num_rows == 0;
                 } else {
                     return true;
@@ -68,7 +69,7 @@
      * @return bool
      */
     function validerAdresseCourriel($courriel, &$raison = null) {
-        if ($courriel) {
+        if ($courriel && $courriel !== "") {
             $rexp = "/^[a-z0-9.\-_]+\@\w+\.\w+$/i";
             $raison = preg_match($rexp, $courriel) != false ? EnumRaisons::VALIDE : EnumRaisons::INVALIDE;
             return (preg_match($rexp, $courriel) && strlen($courriel) >= 10 && strlen($courriel) <= 50);
