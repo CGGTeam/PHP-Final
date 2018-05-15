@@ -12,7 +12,6 @@
         function __construct()
         {
             //init
-            session_start();
             parent::__construct();
             require_once "Models/Donnees/Utilisateur.php";
             require_once "Utilitaires/ModelBinding.php";

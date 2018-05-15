@@ -8,9 +8,6 @@
     
     abstract class ModuleUtilisateurBase {
         function __construct() {
-            if (!isset($_SESSION)) {
-                session_start();
-            }
             global $authorized;
             $authorized = isset($_SESSION["utilisateurCourant"]) && !$_SESSION["utilisateurCourant"]->statuAdmin;
         }
