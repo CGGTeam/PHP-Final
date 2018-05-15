@@ -69,9 +69,6 @@
      * @return bool
      */
     function validerAdresseCourriel($courriel, &$raison = null) {
-        var_dump("==========");
-        var_dump($courriel);
-        var_dump($courriel && $courriel !== "");
         if ($courriel && $courriel !== "") {
             $rexp = "/^[a-z0-9.\-_]+\@\w+\.\w+$/i";
             $raison = preg_match($rexp, $courriel) != false ? EnumRaisons::VALIDE : EnumRaisons::INVALIDE;

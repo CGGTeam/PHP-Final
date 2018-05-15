@@ -40,19 +40,15 @@
             $tRetour = array();
             $tSessions = array();
             $binOK = true;
-            var_dump(isset($_FILES["fichierCSV"]));
             if (isset($_FILES["fichierCSV"])) {
                 if (!file_exists(TEMP_DIR))
                     mkdir(TEMP_DIR);
         
                 if (file_exists(TEMP_DIR . "/permissions.csv"))
                     unlink(TEMP_DIR . "/permissions.csv");
-                var_dump($_FILES["fichierCSV"]);
                 enregistrerDocument("fichierCSV", TEMP_DIR, "permissions.csv",
                         PHP_INT_MAX, ["csv"]);
-                var_dump("wat");
                 $fp = fopen(TEMP_DIR . "/permissions.csv", "r");
-                var_dump($fp);
                 fgetcsv($fp, 0, ";");
                 $binErreur = false;
                 for ($i = 0; !feof($fp) && !$binErreur; $i++) {
@@ -120,7 +116,12 @@
                                 $binVerdict = false;
                                 $tRetour[$i][] = new Champ($tChamps[$j], false, $raison);
                             }
+                            var_dump($tChamps[$j]);
+                            var_dump($tdecompte[$tChamps[$j]]);
+                            var_dump($tRetour[$i][$j]->valeur);
                             $tRetour[$i][$j]->raison = $tdecompte[$tChamps[$j]] > 1 ? EnumRaisons::DOUBLON : $tRetour[$i][$j]->raison;
+                            $tRetour[$i][$j]->valide = $tdecompte[$tChamps[$j]] > 1 ? false : $tRetour[$i][$j]->valide;
+                            var_dump($tRetour[$i][$j]);
                         } else {
                             $tRetour[$i][] = new Champ("", true);
                         }
@@ -136,7 +137,6 @@
                 else
                     $binOK = false;
             }
-    
             return new View([
                 "tDonnees" => $tRetour,
                 "tSessions" => $tSessions,
