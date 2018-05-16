@@ -52,6 +52,8 @@
                         $so->setModelState(ModelState::Same);
                         $objBD = MySql::getBD();
                         $objBD->modifieEnregistrements("Document", "supprimer=1", "id='$so->id'");
+                    }else{
+                        $so->setModelState($intEtat);
                     }
                 } else if (strtolower($strType) == "utilisateur" && $intEtat == ModelState::Deleted) {
                     /**@var Utilisateur $so */
@@ -66,6 +68,7 @@
                     $so->setModelState($intEtat);
 
                 log_fichier($so);
+                log_fichier($intEtat);
                 $so->saveChangesOnObj();
             }
     

@@ -10,7 +10,7 @@
 {
     /** @var mysql $bd */
         private $modelState;
-    private $tbValeurs;
+        protected $tbValeurs;
     
     /**
      * ModelBinding constructor.
