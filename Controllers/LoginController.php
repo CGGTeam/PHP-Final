@@ -86,8 +86,7 @@
         
         function CreerAdmin() {
             $GLOBALS["titrePage"] = "Première connexion";
-    
-            session_start();
+
             global $authorized;
             $authorized = isset($_SESSION["creerAdmin"]) && $_SESSION["creerAdmin"];
     
@@ -129,10 +128,10 @@
                 );
                 /** @var Utilisateur $utilCourant */
                 $utilCourant = $_SESSION["utilisateurCourant"];
-                $utilCourant->setIntModelState(ModelState::Deleted);
+                $utilCourant->setModelState(ModelState::Deleted);
                 $utilCourant->saveChangesOnObj();
     
-                $objUtil->setIntModelState(ModelState::Added);
+                $objUtil->setModelState(ModelState::Added);
                 $objUtil->saveChangesOnObj();
 
                 $_SESSION["creerAdmin"] = false;
@@ -148,7 +147,6 @@
         function Deconnexion() {
             global $authorized;
             $authorized = true;
-            session_start();
             session_destroy();
             header('Location: ?controller=Login&action=Login');
             return new View("", 302);

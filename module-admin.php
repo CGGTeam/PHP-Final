@@ -40,6 +40,11 @@
     require_once "Utilitaires/ValidationPr3.php";
     require_once "Utilitaires/Utilitaires-ProjetFinal.php";
     require_once "Models/EditReferences/CoursSessionIJModel.php";
+    require_once "Models/Donnees/Document.php";
+    
+    $objBD = mysql::getBD();
+    $objBD->selectionneRow("Document");
+    $tDocs = ModelBinding::bindToClass($objBD->OK, "Document");
     
     const UPLOAD_DIR = "./televersements";
     $objBD = mysql::getBD();

@@ -50,6 +50,9 @@
         public function valider() {
             try {
                 $this->supprimer = is_null($this->supprimer) ? false : boolval($this->supprimer);
+                if (isset($_SESSION["utilisateurCourant"])) {
+                    $this->ajoutePar = !$this->ajoutePar ? $_SESSION["utilisateurCourant"]->id : $this->ajoutePar;
+                }
                 if (!validerSession($this->session) || !validerSigle($this->sigle)
                     || !validerInt(intval($this->noSequence), 1, 20)
                     || !validerString($this->titre, 5, 100)
@@ -60,7 +63,7 @@
                     || !dateValide($this->dateVersion)
                     || !validerInt(intval($this->ajoutePar), 1)
                     || !(is_null($this->supprimer) || is_bool($this->supprimer))) {
-                    $this->setIntModelState(ModelState::Invalid);
+                    $this->setModelState(ModelState::Invalid);
                     log_fichier("DONNEES INVALIDES");
                     return false;
                 }
@@ -68,20 +71,20 @@
                 if (!dateValide($this->dateAccesDebut) || !dateValide($this->dateAccesFin) || !dateValide($this->dateCours) ||
                     !dateValide($this->dateCours)) {
                     log_fichier("DATE INVALIDE");
-                    $this->setIntModelState(ModelState::Invalid);
+                    $this->setModelState(ModelState::Invalid);
                     return false;
                 }
     
                 if (!validerDateSession($this->dateAccesFin, $this->dateAccesDebut) ||
                     !validerDateSession($this->dateAccesDebut, "2018-01-01", $this->dateAccesFin)) {
                     log_fichier("BORNES INVALIDES");
-                    $this->setIntModelState(ModelState::Invalid);
+                    $this->setModelState(ModelState::Invalid);
                     return false;
                 }
     
                 return true;
             } catch (Exception $e) {
-                $this->setIntModelState(ModelState::Invalid);
+                $this->setModelState(ModelState::Invalid);
                 return false;
             }
         }

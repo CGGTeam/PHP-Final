@@ -99,4 +99,6 @@ function finalState(xhttp) {
     trParent.innerHTML = fluxTR_PARENT;
 
     $_anguleuxInterne.updateAgFor(document.getElementById("tr_parent"));
+
+    document.getElementById("btnNettoyage").remove();
 }

@@ -21,7 +21,7 @@
             $rexpCategorie = "/^[\\pL\\d]{3,15}$/ui";
             $binValide = preg_match($rexpCategorie, $this->description);
             if (!$binValide)
-                $this->setIntModelState(ModelState::Invalid);
+                $this->setModelState(ModelState::Invalid);
             return $binValide != false;
         }
     }

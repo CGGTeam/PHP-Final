@@ -16,34 +16,6 @@
     height: auto;
 }
 
-.tableauBoutons {
-    width: 70vw;
-    height: auto;
-    background-color: transparent !important;
-    padding: 4vmin;
-}
-
-.tableauBoutons tbody tr td {
-    text-align: center;
-}
-
-.tableauBoutons tbody tr td form {
-    text-align: center;
-}
-
-.tableauBoutons tbody tr td form button {
-    display: inline-block;
-    font-size: 1.5vmax;
-    width: 85%;
-    min-height: 6vh;
-    height: auto;
-    padding: 20px;
-}
-
-.tableauBoutons tbody tr td form button * {
-    margin: 0;
-}
-
 #tableAffichage table tr {
     width: 75%;
 }
@@ -55,4 +27,64 @@
 
 #tableAffichage {
     height: auto;
+}
+
+.tableauBoutons {
+    position: absolute;
+    display: inline-block;
+    margin: auto;
+    text-align: center;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 65vw;
+    height: 80vh;
+    overflow: auto;
+    background-color: var(--primary);
+}
+
+.tableauBoutons tbody {
+    background-color: var(--primary);
+    display: inline-block;
+    padding: 3%;
+    width: 90%;
+    height: auto;
+    text-align: center;
+}
+
+.tableauBoutons tr {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding-top: 0.25vh;
+    padding-bottom: 0.25vh;
+}
+
+.tableauBoutons tr td {
+    display: block;
+    width: 100%;
+    padding: 5px 0;
+    text-align: center;
+}
+
+.tableauBoutons tr td button {
+    display: block;
+    text-align: center;
+    width: 100%;
+    min-height: 5vh;
+    height: auto;
+    font-size: 2.75vh;
+    font-weight: bolder;
+}
+
+.tableauBoutons tr td button p {
+    height: auto;
+    margin: 5px;
+}
+
+.desc {
+    font-style: italic;
+    font-size: 1.75vh;
+    font-weight: lighter;
 }

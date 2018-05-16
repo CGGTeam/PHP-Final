@@ -22,7 +22,7 @@
         public function valider() {
             $binValide = validerSigle($this->sigle) && validerTitreCours($this->titre);
             if (!$binValide) {
-                $this->setIntModelState(ModelState::Invalid);
+                $this->setModelState(ModelState::Invalid);
             }
             return $binValide;
         }

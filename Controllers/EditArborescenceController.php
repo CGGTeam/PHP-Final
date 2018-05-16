@@ -52,7 +52,7 @@
                 for ($i = 0; $i < sizeof($tDocuments); $i++) {
                     $sj = $tDocuments[$i];
                     $so = new Document($sj);
-                    if ($so->getIntModelState() === 1) {
+                    if ($so->getModelState() === 1) {
                         $so->saveChangesOnObj();
                         if (mysql::getBD()->OK) {
                             $so -> verdict = "Supprimé";
@@ -65,15 +65,13 @@
                     $tRetour[] = $so;
                 }
             } catch (Exception $e) {
-                $verdict = $e;
-                return $verdict;
+                $tRetour = $e;
             }
 
             return new JSONView($tRetour);
         }
 
         function ConfirmerSuppressionFichiers() {
-            var_dump("LOL");
             $GLOBALS["titrePage"] = "Suppression des fichiers orphelins";
         
             $tFichiersTraites = array();

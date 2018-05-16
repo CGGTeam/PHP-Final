@@ -30,7 +30,6 @@
             $strType = $arSplit[0];
             $strDonnees = $arSplit[1];
             $tDonneesJson = json_decode($strDonnees, true);
-
     
     
             for ($i = 0; $i < sizeof($tDonneesJson); $i++) {
@@ -50,7 +49,7 @@
                 if (strtolower($strType) == "document") {
                     /**@var Document $so */
                     if ($intEtat == ModelState::Deleted) {
-                        $so->setIntModelState(ModelState::Same);
+                        $so->setModelState(ModelState::Same);
                         $objBD = MySql::getBD();
                         $objBD->modifieEnregistrements("Document", "supprimer=1", "id='$so->id'");
                     }
@@ -60,15 +59,14 @@
                         $objBD = mysql::getBD();
                         $objBD->selectionneRow("utilisateur", "*", "statutAdmin=1");
                         if ($objBD->OK && $objBD->OK->num_rows == 1) {
-                            $so->setIntModelState(ModelState::Same);
+                            $so->setModelState(ModelState::Same);
                         }
                     }
                 } else
-                    $so->setIntModelState($intEtat);
+                    $so->setModelState($intEtat);
 
                 log_fichier($so);
                 $so->saveChangesOnObj();
-
             }
     
             $objBD = mysql::getBD();
