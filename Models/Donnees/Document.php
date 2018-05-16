@@ -50,6 +50,9 @@
         public function valider() {
             try {
                 $this->supprimer = is_null($this->supprimer) ? false : boolval($this->supprimer);
+                if (isset($_SESSION["utilisateurCourant"])) {
+                    $this->ajoutePar = !$this->ajoutePar ? $_SESSION["utilisateurCourant"]->id : $this->ajoutePar;
+                }
                 if (!validerSession($this->session) || !validerSigle($this->sigle)
                     || !validerInt(intval($this->noSequence), 1, 20)
                     || !validerString($this->titre, 5, 100)
