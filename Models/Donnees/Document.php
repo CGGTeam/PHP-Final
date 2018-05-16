@@ -52,6 +52,7 @@
                 $this->supprimer = (is_null($this->supprimer) || $this->supprimer == "") &&
                 $this->getModelState() == ModelState::Deleted ? true : null;
                 $this->supprimer = is_null($this->supprimer) ? false : boolval($this->supprimer);
+                $this->tbValeurs["supprimer"] = $this->supprimer;
                 if (isset($_SESSION["utilisateurCourant"])) {
                     $this->ajoutePar = !$this->ajoutePar ? $_SESSION["utilisateurCourant"]->id : $this->ajoutePar;
                     $this->tbValeurs["ajoutePar"] = $this->ajoutePar;

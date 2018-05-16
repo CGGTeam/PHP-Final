@@ -88,12 +88,10 @@
             xhr.open('POST', '?controller=EditDocuments&action=SauvegardeFichier', true);
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
-                    postChanges('Document', "module-admin.php?controller=BD&action=Confirmer", removeFirst)
+                    removeFirst();
                 }
             };
             xhr.send(formData);
-        }else {
-            postChanges('Document', "module-admin.php?controller=BD&action=Confirmer", removeFirst);
         }
     }
 </script>
@@ -202,7 +200,7 @@
         </table>
     </div>
 
-    <button type="button" name="submit" id="submit" class="boutonsConfirm" onclick="postDocuments()">
+    <button type="button" name="submit" id="submit" class="boutonsConfirm" onclick="postChanges('Document', 'module-admin.php?controller=BD&action=Confirmer', postDocuments)">
         Enregistrement
     </button>
     <button type="button" name="submit" id="submit" class="boutonsConfirm" onclick="nouvObj()">
