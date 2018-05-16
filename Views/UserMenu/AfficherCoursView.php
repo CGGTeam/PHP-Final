@@ -1,9 +1,22 @@
 <script>
+    function getURLTeleversements(){
+        let location = window.location.href;
+        location = location.replace("http://","");
+        //http://424w.cgodin.qc.ca/papersensation/michael/module-admin?controller=EditArborescence&action=EditArborescence
+        let tabSplit = location.split("/");
+        tabSplit.pop();
+        tabSplit[tabSplit.length-1] = tabSplit[tabSplit.length-1].replace("//","/");
+        tabSplit.push("televersements");
+        location = tabSplit.join("/")+"/";
+        console.log(location);
+        return "http://"+location;
+    }
+
     $scope.model.forEach(doc => {
         doc.joursRestants = Math.ceil((new Date(doc.dateAccesFin) - (new Date())) / (1000*60*60*24));
     });
     $scope.titreAttrib = {
-        href: "{{doc.hyperLien}}",
+        href: (getURLTeleversements()+"{{doc.hyperLien}}"),
     };
     $scope.descriptionAttrib = {
         onclick: "afficherDescription('{{doc.id}}')"

@@ -1,6 +1,19 @@
+function getURLTeleversements(){
+    let location = window.location.href;
+    location = location.replace("http://","");
+    //http://424w.cgodin.qc.ca/papersensation/michael/module-admin?controller=EditArborescence&action=EditArborescence
+    let tabSplit = location.split("/");
+    tabSplit.pop();
+    tabSplit[tabSplit.length-1] = tabSplit[tabSplit.length-1].replace("//","/");
+    tabSplit.push("televersements");
+    location = tabSplit.join("/")+"/";
+    console.log(location);
+    return "http://"+location;
+}
+
 $scope.docTitreLien = {
 
-    href: "{{doc.hyperLien}}",
+    href: (getURLTeleversements()+"{{doc.hyperLien}}"),
 
 };
 
