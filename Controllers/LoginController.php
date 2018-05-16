@@ -65,7 +65,7 @@
                         $_SESSION["utilisateurCourant"] = ModelBinding::bindToClass($objRetour, "Utilisateur")[0];
                         if ($_SESSION["utilisateurCourant"]->nomUtilisateur == "admin" && $_SESSION["utilisateurCourant"]->motDePasse == "admin") {
                             $_SESSION["creerAdmin"] = true;
-                            header('Location: module=admin.php?controller=Login&action=CreerAdmin');
+                            header('Location: module-admin.php?controller=Login&action=CreerAdmin');
                             $objView = new View("", 301);
                         } else if ($_SESSION["utilisateurCourant"]->statutAdmin) {
                             header('Location: module-admin?controller=AdminMenu&action=AdminMenu');
