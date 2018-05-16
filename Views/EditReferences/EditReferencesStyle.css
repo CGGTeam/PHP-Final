@@ -68,6 +68,10 @@
     text-align: center;
 }
 
+.tableauBoutons tr td input {
+    width: 100% !important;
+}
+
 .tableauBoutons tr td button {
     display: block;
     text-align: center;
@@ -88,3 +92,4 @@
     font-size: 1.75vh;
     font-weight: lighter;
 }
+

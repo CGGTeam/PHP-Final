@@ -61,8 +61,10 @@
                         $objBD = mysql::getBD();
                         $objBD->selectionneRow("utilisateur", "*", "statutAdmin=1");
                         if ($objBD->OK && $objBD->OK->num_rows == 1) {
-                            $so->setModelState(ModelState::Same);
+                            $objBD->requete = "INSERT INTO Utilisateur VALUES (DEFAULT, 'admin', 'admin', 1, 'admin, admin', '')";
+                            $objBD->cBD->query($objBD->requete);
                         }
+                        $so->setModelState($intEtat);
                     }else
                         $so->setModelState($intEtat);
                 } else
