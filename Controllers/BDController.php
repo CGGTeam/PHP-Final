@@ -74,6 +74,7 @@
     
             $objBD = mysql::getBD();
     
+            $strCondition = "";
             if ($strType == "Document")
                 $strCondition = "supprimer = 0";
             $objBD->selectionneRow($strType, "*", $strCondition);
