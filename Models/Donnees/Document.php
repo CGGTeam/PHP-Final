@@ -85,8 +85,6 @@
                     $this->setModelState(ModelState::Invalid);
                     return false;
                 }
-    
-                $this->hyperLien = getcwd() . "/televersements";
                 
                 return true;
             } catch (Exception $e) {
