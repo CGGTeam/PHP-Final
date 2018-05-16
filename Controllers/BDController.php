@@ -63,7 +63,8 @@
                         if ($objBD->OK && $objBD->OK->num_rows == 1) {
                             $so->setModelState(ModelState::Same);
                         }
-                    }
+                    }else
+                        $so->setModelState($intEtat);
                 } else
                     $so->setModelState($intEtat);
 

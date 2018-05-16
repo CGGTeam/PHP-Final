@@ -53,8 +53,8 @@
 </script>
 
 <link rel="stylesheet" href="Utilitaires/anguleux/AnguleuxStyle.css"/>
-<link href="Style/editDocumentsStyle.css" rel="stylesheet" type="text/css">
 <div class="container">
+    <div class="table-container">
     <table border="1" cellspacing="5" cellpadding="5">
         <tbody>
         <tr>
@@ -98,4 +98,5 @@
             onclick="window.location='?controller=EditReferences&action=EditReferences';">
         Retour
     </button>
+    </div>
 </div>

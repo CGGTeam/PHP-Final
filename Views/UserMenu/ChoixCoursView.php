@@ -7,7 +7,7 @@
         </label>
         <select name="coursChoisi" id="coursChoisi" class="ddlCours" required>
             <option value="" disabled selected>
-                Sélectionner une session
+                Sélectionner un cours-session
             </option>
             <option ag-for="x in model">
                 {{x.session}}_{{x.sigle}}
