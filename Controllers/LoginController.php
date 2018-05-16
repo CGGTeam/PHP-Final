@@ -28,7 +28,10 @@
          * @return null|View
          */
         function Login() {
-            session_start();
+            if(!isset($_SESSION))
+            {
+                session_start();
+            }
             global $authorized;
             $authorized = true;
             $GLOBALS["titrePage"] = "Connexion";

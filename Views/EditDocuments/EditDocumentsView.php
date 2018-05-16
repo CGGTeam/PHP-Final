@@ -1,7 +1,13 @@
 <script>
+    $scope.session = (new URL(window.location.href)).searchParams.get("session");
+    $scope.sigle = (new URL(window.location.href)).searchParams.get("cours");
     $scope.model.tDocuments.forEach((x,i) => $scope.model.tDocuments[i] = new DocumentBD(x));
     $scope.backup = JSON.parse(JSON.stringify($scope.model.tDocuments));
-    $scope.model.tDocuments.unshift(new DocumentBD());
+    $scope.model.tDocuments.unshift(new DocumentBD({
+        id: $scope.model.lastIndex,
+        session: $scope.session,
+        sigle: $scope.sigle
+    }));
     $scope.model.tDocuments[0].modelState = 0;
     $scope.fichierAttrib = {
         noFichier: "{{doc.id}}"
@@ -52,12 +58,18 @@
     }
 
     function nouvObj() {
-        $scope.model.tDocuments.unshift(new DocumentBD());
-        //TODO reconstruire tableau + configPost
+        let fileList = document.getElementById("tr_" + $scope.model.tDocuments[0].id).querySelector("[fileInput]").files;
+        $scope.model.lastIndex++;
+        $scope.model.tDocuments.unshift(new DocumentBD({
+            id: $scope.model.lastIndex,
+            session: $scope.session,
+            sigle: $scope.sigle
+        }));
         $scope.model.tDocuments[1].modelState = 0;
         $_anguleuxInterne.updateAgFor(document.getElementById("tr_parent"));
         configPost(DocumentBD,null,"$scope.model.tDocuments");
         document.getElementById("tr_" + $scope.model.tDocuments[1].id).style.backgroundColor = 'green';
+        document.getElementById("tr_" + $scope.model.tDocuments[1].id).querySelector("[fileInput]").files = fileList;
         reconstruirePost($scope.model.tDocuments);
         reconstruireStyle($scope.model.tDocuments);
     }
@@ -125,7 +137,7 @@
                     </div>
                 </td>
                 <td><input type="date" name="date5" id="date13" for-bind="true" for-bind-path="dateCours"></td>
-                <td><select name="select4" id="select10">
+                <td><select name="select4" id="select10" for-bind="true" for-bind-path="noSequence">
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
@@ -167,7 +179,7 @@
                             <?php } ?>
                     </select>
                 </td>
-                <td><select name="select4" id="select12">
+                <td><select name="select4" id="select12" for-bind="true" for-bind-path="noVersion">
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
@@ -179,7 +191,7 @@
                     <form method="post" action="?controller=EditDocuments&action=UploadDocuments"
                           onsubmit="return false" enctype="multipart/form-data">
                         <label for="fichierInput">Changer le document</label>
-                        <input type="file" name="fichierInput" attrib-bind-obj="fichierAttrib">
+                        <input type="file" name="fichierInput" attrib-bind-obj="fichierAttrib" fileInput>
                     </form>
                 </td>
                 <td>

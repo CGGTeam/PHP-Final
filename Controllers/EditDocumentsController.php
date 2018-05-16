@@ -26,6 +26,9 @@
                 $objBD->selectionneRow("Document", "*", "session='" . $session . "' AND sigle='" . $cours . "' AND supprimer = 0");
                 if ($objBD->OK) {
                     $tListeDocuments = ModelBinding::bindToClass($objBD->OK, "Document");
+                    $objBD->requete = "SELECT max(id) FROM document";
+                    $objBD->OK = mysqli_query($objBD->cBD, $objBD->requete);
+                    $lastIndex = $objBD->OK->fetch_array()[0];
                     $objBD->selectionneRow("Categorie");
                     $tListeCategories = ModelBinding::bindToClass($objBD->OK, "Categorie");
                     $objBD->selectionneRow("Session");
@@ -33,6 +36,8 @@
                     $objBD->selectionneRow("Cours");
                     $tListeCours = ModelBinding::bindToClass($objBD->OK, "Cours");
                     $model = new DocumentsCoursSession($tListeDocuments, $tListeCategories, $tListeSessions, $tListeCours, EnumEtatsDocuments::SUCCES, sizeof($tListeDocuments));
+                    $model->lastIndex = $lastIndex+1;
+
                 } else
                    return new View ("500: Erreur Fatale", 500);
             }

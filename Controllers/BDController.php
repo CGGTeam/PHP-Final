@@ -30,16 +30,19 @@
             $strType = $arSplit[0];
             $strDonnees = $arSplit[1];
             $tDonneesJson = json_decode($strDonnees, true);
+
     
     
             for ($i = 0; $i < sizeof($tDonneesJson); $i++) {
                 $sj = $tDonneesJson[$i];
                 $intEtat = $sj["modelState"];
+                /*
                 if ($intEtat == ModelState::Added) {
                     unset($sj["id"]); //This can probably stay
                 } else if(isset($sj["id"])){
                     $sj["id"] = intval($sj["id"]);
                 }
+                */
                 unset($sj["modelState"]);//this too
     
                 /** @var ModelBinding $so */
@@ -62,7 +65,10 @@
                     }
                 } else
                     $so->setIntModelState($intEtat);
+
+                log_fichier($so);
                 $so->saveChangesOnObj();
+
             }
     
             $objBD = mysql::getBD();
