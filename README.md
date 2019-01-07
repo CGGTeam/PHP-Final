@@ -1,5 +1,5 @@
-# PHP-Final
-## Cours 420-4W5-GG
+# PaperSensation
+## Cours 420-4W5-GG (Programmation Web - Serveur I)
 ## Auteurs
 - Antoine Brassard Lahey
 - Simon Boyer
